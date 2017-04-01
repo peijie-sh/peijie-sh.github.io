@@ -111,9 +111,9 @@
       <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
     
     
-      <category term="Redis" scheme="http://peijie-sh.github.io/tags/Redis/"/>
-    
       <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
+    
+      <category term="Redis" scheme="http://peijie-sh.github.io/tags/Redis/"/>
     
       <category term="Cache" scheme="http://peijie-sh.github.io/tags/Cache/"/>
     
@@ -421,9 +421,9 @@
       <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
     
     
-      <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
-    
       <category term="Spring" scheme="http://peijie-sh.github.io/tags/Spring/"/>
+    
+      <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
     
   </entry>
   
@@ -1025,6 +1025,51 @@
   </entry>
   
   <entry>
+    <title>OkHttp的基本使用——替代Apache HttpClient</title>
+    <link href="http://peijie-sh.github.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/"/>
+    <id>http://peijie-sh.github.io/2016/10/26/OkHttp的基本使用——替代Apache HttpClient/</id>
+    <published>2016-10-26T04:27:34.000Z</published>
+    <updated>2017-03-04T12:49:08.004Z</updated>
+    
+    <content type="html"><![CDATA[<p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
+<p>OkHttp 是一个很棒HTTP客户端:</p>
+<ul>
+<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
+<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
+<li>使用GZIP压缩减少传输的数据量</li>
+<li>缓存响应避免重复的网络请求</li>
+</ul>
+<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
+<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。&lt;/p&gt;
+&lt;p&gt;OkHttp 是一个很棒HTTP客户端:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持SPDY, 可以合并多个到同一个主机的请求&lt;/li&gt;
+&lt;li&gt;使用连接池技术减少请求的延迟(如果SPDY是可用的话)&lt;/li&gt;
+&lt;li&gt;使用GZIP压缩减少传输的数据量&lt;/li&gt;
+&lt;li&gt;缓存响应避免重复的网络请求&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OkHttp可以替换Apache的HttpClient&lt;br&gt;OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包&lt;/p&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="Http" scheme="http://peijie-sh.github.io/tags/Http/"/>
+    
+      <category term="OkHttp" scheme="http://peijie-sh.github.io/tags/OkHttp/"/>
+    
+  </entry>
+  
+  <entry>
     <title>VIM编辑器的基本使用</title>
     <link href="http://peijie-sh.github.io/2016/10/26/VIM%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
     <id>http://peijie-sh.github.io/2016/10/26/VIM编辑器的基本使用/</id>
@@ -1175,51 +1220,6 @@
   </entry>
   
   <entry>
-    <title>OkHttp的基本使用——替代Apache HttpClient</title>
-    <link href="http://peijie-sh.github.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/"/>
-    <id>http://peijie-sh.github.io/2016/10/26/OkHttp的基本使用——替代Apache HttpClient/</id>
-    <published>2016-10-26T04:27:34.000Z</published>
-    <updated>2017-03-04T12:49:08.004Z</updated>
-    
-    <content type="html"><![CDATA[<p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
-<p>OkHttp 是一个很棒HTTP客户端:</p>
-<ul>
-<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
-<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
-<li>使用GZIP压缩减少传输的数据量</li>
-<li>缓存响应避免重复的网络请求</li>
-</ul>
-<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
-<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。&lt;/p&gt;
-&lt;p&gt;OkHttp 是一个很棒HTTP客户端:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;支持SPDY, 可以合并多个到同一个主机的请求&lt;/li&gt;
-&lt;li&gt;使用连接池技术减少请求的延迟(如果SPDY是可用的话)&lt;/li&gt;
-&lt;li&gt;使用GZIP压缩减少传输的数据量&lt;/li&gt;
-&lt;li&gt;缓存响应避免重复的网络请求&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;OkHttp可以替换Apache的HttpClient&lt;br&gt;OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包&lt;/p&gt;
-&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
-    
-    </summary>
-    
-      <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="Http" scheme="http://peijie-sh.github.io/tags/Http/"/>
-    
-      <category term="OkHttp" scheme="http://peijie-sh.github.io/tags/OkHttp/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Oracle入门</title>
     <link href="http://peijie-sh.github.io/2016/10/25/Oracle%E5%85%A5%E9%97%A8/"/>
     <id>http://peijie-sh.github.io/2016/10/25/Oracle入门/</id>
@@ -1360,6 +1360,63 @@
   </entry>
   
   <entry>
+    <title>Docker安装与基础命令</title>
+    <link href="http://peijie-sh.github.io/2016/10/25/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
+    <id>http://peijie-sh.github.io/2016/10/25/Docker安装与基础命令/</id>
+    <published>2016-10-25T07:28:37.000Z</published>
+    <updated>2017-04-01T13:00:52.623Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker"></p>
+<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：</p>
+<blockquote>
+<p>sudo apt-get install docker.io</p>
+</blockquote>
+<a id="more"></a>
+<p>运行完后，可以在终端输入docker看到以下信息证明我们安装成功了<br>注：提示权限问题就添加sudo</p>
+<blockquote>
+<p>docker<br>Usage: docker [OPTIONS] COMMAND [arg…]<br>       docker daemon [ –help | … ]<br>       docker [ –help | -v | –version ]</p>
+<p>A self-sufficient runtime for containers.</p>
+<p>Options:</p>
+<p>  –config=~/.docker              Location of client config files<br>  -D, –debug                     Enable debug mode<br>  -H, –host=[]                   Daemon socket(s) to connect to<br>  -h, –help                      Print usage<br>  -l, –log-level=info            Set the logging level<br>  –tls                           Use TLS; implied by –tlsverify<br>  –tlscacert=~/.docker/ca.pem    Trust certs signed only by this CA<br>  –tlscert=~/.docker/cert.pem    Path to TLS certificate file<br>  –tlskey=~/.docker/key.pem      Path to TLS key file<br>  –tlsverify                     Use TLS and verify the remote<br>  -v, –version                   Print version information and quit</p>
+<p>Commands:<br>    attach    Attach to a running container<br>    build     Build an image from a Dockerfile<br>    commit    Create a new image from a container’s changes<br>    cp        Copy files/folders between a container and the local filesystem<br>    create    Create a new container<br>    diff      Inspect changes on a container’s filesystem<br>    events    Get real time events from the server<br>    exec      Run a command in a running container<br>    export    Export a container’s filesystem as a tar archive<br>    history   Show the history of an image<br>    images    List images<br>    import    Import the contents from a tarball to create a filesystem image<br>    info      Display system-wide information<br>    inspect   Return low-level information on a container or image<br>    kill      Kill a running container<br>    load      Load an image from a tar archive or STDIN<br>    login     Register or log in to a Docker registry<br>    logout    Log out from a Docker registry<br>    logs      Fetch the logs of a container<br>    network   Manage Docker networks<br>    pause     Pause all processes within a container<br>    port      List port mappings or a specific mapping for the CONTAINER<br>    ps        List containers<br>    pull      Pull an image or a repository from a registry<br>    push      Push an image or a repository to a registry<br>    rename    Rename a container<br>    restart   Restart a container<br>    rm        Remove one or more containers<br>    rmi       Remove one or more images<br>    run       Run a command in a new container<br>    save      Save an image(s) to a tar archive<br>    search    Search the Docker Hub for images<br>    start     Start one or more stopped containers<br>    stats     Display a live stream of container(s) resource usage statistics<br>    stop      Stop a running container<br>    tag       Tag an image into a repository<br>    top       Display the running processes of a container<br>    unpause   Unpause all processes within a container<br>    update    Update resources of one or more containers<br>    version   Show the Docker version information<br>    volume    Manage Docker volumes<br>    wait      Block until a container stops, then print its exit code</p>
+<p>Run ‘docker COMMAND –help’ for more information on a command.</p>
+</blockquote>
+<p>安装完以后，也可运行以下命令查看版本信息：</p>
+<blockquote>
+<p>docker -v<br>docker version<br>docker info</p>
+</blockquote>
+<p>当利用 docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
+<ul>
+<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
+<li>利用镜像创建并启动一个容器</li>
+<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+<li>从地址池配置一个 ip 地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被终止</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;docker&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Docker安装&quot;&gt;&lt;a href=&quot;#Docker安装&quot; class=&quot;headerlink&quot; title=&quot;Docker安装&quot;&gt;&lt;/a&gt;Docker安装&lt;/h1&gt;&lt;p&gt;我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo apt-get install docker.io&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://peijie-sh.github.io/categories/Linux/"/>
+    
+    
+      <category term="Docker" scheme="http://peijie-sh.github.io/tags/Docker/"/>
+    
+      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Maven学习笔记（3） --- 生命周期</title>
     <link href="http://peijie-sh.github.io/2016/10/25/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%20---%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
     <id>http://peijie-sh.github.io/2016/10/25/Maven学习笔记（3） --- 生命周期/</id>
@@ -1441,63 +1498,6 @@
     
     
       <category term="Maven" scheme="http://peijie-sh.github.io/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker安装与基础命令</title>
-    <link href="http://peijie-sh.github.io/2016/10/25/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
-    <id>http://peijie-sh.github.io/2016/10/25/Docker安装与基础命令/</id>
-    <published>2016-10-25T07:28:37.000Z</published>
-    <updated>2017-04-01T13:00:52.623Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker"></p>
-<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：</p>
-<blockquote>
-<p>sudo apt-get install docker.io</p>
-</blockquote>
-<a id="more"></a>
-<p>运行完后，可以在终端输入docker看到以下信息证明我们安装成功了<br>注：提示权限问题就添加sudo</p>
-<blockquote>
-<p>docker<br>Usage: docker [OPTIONS] COMMAND [arg…]<br>       docker daemon [ –help | … ]<br>       docker [ –help | -v | –version ]</p>
-<p>A self-sufficient runtime for containers.</p>
-<p>Options:</p>
-<p>  –config=~/.docker              Location of client config files<br>  -D, –debug                     Enable debug mode<br>  -H, –host=[]                   Daemon socket(s) to connect to<br>  -h, –help                      Print usage<br>  -l, –log-level=info            Set the logging level<br>  –tls                           Use TLS; implied by –tlsverify<br>  –tlscacert=~/.docker/ca.pem    Trust certs signed only by this CA<br>  –tlscert=~/.docker/cert.pem    Path to TLS certificate file<br>  –tlskey=~/.docker/key.pem      Path to TLS key file<br>  –tlsverify                     Use TLS and verify the remote<br>  -v, –version                   Print version information and quit</p>
-<p>Commands:<br>    attach    Attach to a running container<br>    build     Build an image from a Dockerfile<br>    commit    Create a new image from a container’s changes<br>    cp        Copy files/folders between a container and the local filesystem<br>    create    Create a new container<br>    diff      Inspect changes on a container’s filesystem<br>    events    Get real time events from the server<br>    exec      Run a command in a running container<br>    export    Export a container’s filesystem as a tar archive<br>    history   Show the history of an image<br>    images    List images<br>    import    Import the contents from a tarball to create a filesystem image<br>    info      Display system-wide information<br>    inspect   Return low-level information on a container or image<br>    kill      Kill a running container<br>    load      Load an image from a tar archive or STDIN<br>    login     Register or log in to a Docker registry<br>    logout    Log out from a Docker registry<br>    logs      Fetch the logs of a container<br>    network   Manage Docker networks<br>    pause     Pause all processes within a container<br>    port      List port mappings or a specific mapping for the CONTAINER<br>    ps        List containers<br>    pull      Pull an image or a repository from a registry<br>    push      Push an image or a repository to a registry<br>    rename    Rename a container<br>    restart   Restart a container<br>    rm        Remove one or more containers<br>    rmi       Remove one or more images<br>    run       Run a command in a new container<br>    save      Save an image(s) to a tar archive<br>    search    Search the Docker Hub for images<br>    start     Start one or more stopped containers<br>    stats     Display a live stream of container(s) resource usage statistics<br>    stop      Stop a running container<br>    tag       Tag an image into a repository<br>    top       Display the running processes of a container<br>    unpause   Unpause all processes within a container<br>    update    Update resources of one or more containers<br>    version   Show the Docker version information<br>    volume    Manage Docker volumes<br>    wait      Block until a container stops, then print its exit code</p>
-<p>Run ‘docker COMMAND –help’ for more information on a command.</p>
-</blockquote>
-<p>安装完以后，也可运行以下命令查看版本信息：</p>
-<blockquote>
-<p>docker -v<br>docker version<br>docker info</p>
-</blockquote>
-<p>当利用 docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
-<ul>
-<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
-<li>利用镜像创建并启动一个容器</li>
-<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
-<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
-<li>从地址池配置一个 ip 地址给容器</li>
-<li>执行用户指定的应用程序</li>
-<li>执行完毕后容器被终止</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;docker&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;Docker安装&quot;&gt;&lt;a href=&quot;#Docker安装&quot; class=&quot;headerlink&quot; title=&quot;Docker安装&quot;&gt;&lt;/a&gt;Docker安装&lt;/h1&gt;&lt;p&gt;我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;sudo apt-get install docker.io&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://peijie-sh.github.io/categories/Linux/"/>
-    
-    
-      <category term="Docker" scheme="http://peijie-sh.github.io/tags/Docker/"/>
-    
-      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
     
   </entry>
   
