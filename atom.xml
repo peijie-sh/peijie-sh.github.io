@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://peijie-sh.github.io/"/>
-  <updated>2017-03-04T12:49:08.010Z</updated>
+  <updated>2017-04-01T12:02:37.910Z</updated>
   <id>http://peijie-sh.github.io/</id>
   
   <author>
@@ -14,6 +14,174 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HTML转图片利器：wkhtmltox</title>
+    <link href="http://peijie-sh.github.io/2017/04/01/HTML%E8%BD%AC%E5%9B%BE%E7%89%87%E5%88%A9%E5%99%A8%EF%BC%9Awkhtmltox/"/>
+    <id>http://peijie-sh.github.io/2017/04/01/HTML转图片利器：wkhtmltox/</id>
+    <published>2017-04-01T06:07:22.000Z</published>
+    <updated>2017-04-01T12:02:37.910Z</updated>
+    
+    <content type="html"><![CDATA[<p>关于<code>wkhtmltox</code>，是一个可以把HTML转换为图片和pdf的工具。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4059338-27a3b4979a3084c2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="wkhtmltox.jpg"></p>
+<p>不多介绍了，详见官网 <a href="https://wkhtmltopdf.org/" target="_blank" rel="external">https://wkhtmltopdf.org/</a></p>
+<a id="more"></a>
+<h1 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h1><ol>
+<li><p>下载下来是tar.xz文件，首先解压：<br><code>tar -vxf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz</code></p>
+</li>
+<li><p>解压得到一个目录wkhtmltox，把wkhtmltoimage和wkhtmltopdf复制到<code>/usr/bin</code>目录，更改所有者，并增加可执行属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sudo cp wkhtmltox/bin/wkhtmltopdf /usr/bin/</div><div class="line">sudo cp wkhtmltox/bin/wkhtmltoimage /usr/bin/</div><div class="line">sudo chown root:root /usr/bin/wkhtmltopdf</div><div class="line">sudo chown root:root /usr/bin/wkhtmltoimage</div><div class="line">sudo chmod +x /usr/bin/wkhtmltopdf</div><div class="line">sudo chmod +x /usr/bin/wkhtmltoimage</div></pre></td></tr></table></figure>
+</li>
+<li><p>注意事项</p>
+</li>
+</ol>
+<p>有时候为了让程序可以执行这个命令，可能需要配置环境变量</p>
+<ul>
+<li>编辑配置文件 <code>vi .bashrc</code></li>
+<li>添加环境变量 <code>export PATH=$PATH:/opt/wkhtmltox/bin</code></li>
+<li>让修改生效 <code>source .bashrc</code>让修改生效</li>
+</ul>
+<p>如果网页上的中文，转成图片后变成乱码方块，请安装相关字体 :)</p>
+<h1 id="关于使用"><a href="#关于使用" class="headerlink" title="关于使用"></a>关于使用</h1><p>执行<code>wkhtmltoimage www.bing.com bing.png</code>，就会在当前目录下生成了一张png图片。<br><img src="http://upload-images.jianshu.io/upload_images/4059338-b81b7a7129404297.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bing.png"></p>
+<p>这个命令还可以增加一些参数，比如常用的设置宽高，图片质量等参数<br>执行<code>wkhtmltoimage --crop-w 410 --width 410 --quality 50 www.bing.com bing2.png</code>看看</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4059338-3c6b126b35acc5f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bing2.png"></p>
+<p>说明:</p>
+<ul>
+<li><code>--crop-w 410</code>：截图宽度410px</li>
+<li><code>--width 410</code>：浏览器模拟宽度410px</li>
+<li><code>--quality 50</code>：图片质量(这个值越大，图片质量越高，当然文件也会比较大)</li>
+</ul>
+<p>还有更多参数用法，请 <code>wkhtmltoimage -h</code>查看。<br>HTML转pdf同理，<code>wkhtmltopdf -h</code>。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;关于&lt;code&gt;wkhtmltox&lt;/code&gt;，是一个可以把HTML转换为图片和pdf的工具。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-27a3b4979a3084c2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;wkhtmltox.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;不多介绍了，详见官网 &lt;a href=&quot;https://wkhtmltopdf.org/&quot;&gt;https://wkhtmltopdf.org/&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+    
+      <category term="wkhtmltox" scheme="http://peijie-sh.github.io/tags/wkhtmltox/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot中使用Redis实现缓存</title>
+    <link href="http://peijie-sh.github.io/2017/03/30/SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98/"/>
+    <id>http://peijie-sh.github.io/2017/03/30/SpringBoot中使用Redis实现缓存/</id>
+    <published>2017-03-30T09:11:13.000Z</published>
+    <updated>2017-04-01T12:02:37.912Z</updated>
+    
+    <content type="html"><![CDATA[<p>Spring Data Redis为我们封装了Redis客户端的各种操作，简化使用。</p>
+<ul>
+<li>当Redis当做数据库或者消息队列来操作时，我们一般使用RedisTemplate来操作</li>
+<li>当Redis作为缓存使用时，我们可以将它作为Spring Cache的实现，直接通过注解使用</li>
+</ul>
+<p>关于RedisTemplate的使用可参考：<a href="http://blog.didispace.com/springbootredis/" target="_blank" rel="external">http://blog.didispace.com/springbootredis/</a></p>
+<h1 id="下面总结使用Redis作为缓存"><a href="#下面总结使用Redis作为缓存" class="headerlink" title="下面总结使用Redis作为缓存"></a>下面总结使用Redis作为缓存</h1><h2 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h2><p>SpringBoot从1.4版本开始，<code>spring-boot-starter-redis</code>依赖改名了。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">  redis:</span></div><div class="line"><span class="attr">    host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></div><div class="line"><span class="attr">    port:</span> <span class="number">6379</span></div><div class="line"><span class="attr">    timeout:</span> <span class="number">0</span></div><div class="line"><span class="attr">    database:</span> <span class="number">0</span></div><div class="line"><span class="attr">    pool:</span></div><div class="line"><span class="attr">      max-active:</span> <span class="number">8</span></div><div class="line"><span class="attr">      max-wait:</span> <span class="bullet">-1</span></div><div class="line"><span class="attr">      max-idle:</span> <span class="number">8</span></div><div class="line"><span class="attr">      min-idle:</span> <span class="number">0</span></div></pre></td></tr></table></figure>
+<p>这样，SpringBoot将会自动配置redis，注入相关bean，我们就可以使用<code>@CacheConfig</code>，<code>@Cacheable</code>，<code>@CachePut</code>，<code>@CacheEvict</code>了。</p>
+<h1 id="使用Cache注解时的问题"><a href="#使用Cache注解时的问题" class="headerlink" title="使用Cache注解时的问题"></a>使用Cache注解时的问题</h1><p>缓存对象集合中，缓存是以key-value形式保存的。当不指定缓存的key时，SpringBoot会使用<code>SimpleKeyGenerator</code>生成key。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleKeyGenerator</span> <span class="keyword">implements</span> <span class="title">KeyGenerator</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">generate</span><span class="params">(Object target, Method method, Object... params)</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> generateKey(params);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * Generate a key based on the specified parameters.</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">generateKey</span><span class="params">(Object... params)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (params.length == <span class="number">0</span>) &#123;</div><div class="line">			<span class="keyword">return</span> SimpleKey.EMPTY;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span> (params.length == <span class="number">1</span>) &#123;</div><div class="line">			Object param = params[<span class="number">0</span>];</div><div class="line">			<span class="keyword">if</span> (param != <span class="keyword">null</span> &amp;&amp; !param.getClass().isArray()) &#123;</div><div class="line">				<span class="keyword">return</span> param;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> SimpleKey(params);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">SimpleKey</span><span class="params">(Object... elements)</span> </span>&#123;</div><div class="line">	Assert.notNull(elements, <span class="string">"Elements must not be null"</span>);</div><div class="line">	<span class="keyword">this</span>.params = <span class="keyword">new</span> Object[elements.length];</div><div class="line">	System.arraycopy(elements, <span class="number">0</span>, <span class="keyword">this</span>.params, <span class="number">0</span>, elements.length);</div><div class="line">	<span class="keyword">this</span>.hashCode = Arrays.deepHashCode(<span class="keyword">this</span>.params);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>查看源码可以发现，它是使用方法参数组合生成的一个key。<br><strong>此时有一个问题：</strong><br>如果2个方法，参数是一样的，但执行逻辑不同，那么将会导致执行第二个方法时命中第一个方法的缓存。<br>解决办法是在<code>@Cacheable</code>注解参数中指定key，或者自己实现一个<code>KeyGenerator</code>，在注解中指定KeyGenerator。<br>但是如果这样的情况很多，每一个都要指定key、KeyGenerator很麻烦。</p>
+<p>Spring同样提供了方案：继承<code>CachingConfigurerSupport</code>并重写<code>keyGenerator()</code></p>
+<p>下面贴出代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@EnableCaching</span></div><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisCacheConfig</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> JedisConnectionFactory jedisConnectionFactory;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate <span class="title">redisTemplate</span><span class="params">()</span> </span>&#123;</div><div class="line">        StringRedisTemplate redisTemplate = <span class="keyword">new</span> StringRedisTemplate(jedisConnectionFactory);</div><div class="line"></div><div class="line">        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = <span class="keyword">new</span> Jackson2JsonRedisSerializer&lt;&gt;(Object.class);</div><div class="line">        ObjectMapper om = <span class="keyword">new</span> ObjectMapper();</div><div class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</div><div class="line">        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</div><div class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</div><div class="line"></div><div class="line">        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);</div><div class="line">        redisTemplate.afterPropertiesSet();</div><div class="line">        <span class="keyword">return</span> redisTemplate;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> CacheManager <span class="title">cacheManager</span><span class="params">()</span> </span>&#123;</div><div class="line">        String[] cacheNames = &#123;<span class="string">"app_default"</span>, <span class="string">"users"</span>, <span class="string">"blogs"</span>, <span class="string">"goods"</span>, <span class="string">"configs"</span>, <span class="string">"info"</span>&#125;;</div><div class="line">        RedisCacheManager redisCacheManager = <span class="keyword">new</span> RedisCacheManager(redisTemplate(), Arrays.asList(cacheNames));</div><div class="line">        redisCacheManager.setDefaultExpiration(<span class="number">86400</span>);</div><div class="line">        <span class="keyword">return</span> redisCacheManager;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Cache <span class="title">cache</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> cacheManager().getCache(<span class="string">"app_default"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> KeyGenerator <span class="title">keyGenerator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (target, method, objects) -&gt; &#123;</div><div class="line">            StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">            sb.append(target.getClass().getName());</div><div class="line">            sb.append(<span class="string">"::"</span> + method.getName() + <span class="string">":"</span>);</div><div class="line">            <span class="keyword">for</span> (Object obj : objects) &#123;</div><div class="line">                sb.append(obj.toString());</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> sb.toString();</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>此时，缓存的key是包名+方法名+参数列表，这样就很难会冲突了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Spring Data Redis为我们封装了Redis客户端的各种操作，简化使用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当Redis当做数据库或者消息队列来操作时，我们一般使用RedisTemplate来操作&lt;/li&gt;
+&lt;li&gt;当Redis作为缓存使用时，我们可以将它作为Spring Cache的实现，直接通过注解使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;关于RedisTemplate的使用可参考：&lt;a href=&quot;http://blog.didispace.com/springbootredis/&quot;&gt;http://blog.didispace.com/springbootredis/&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;下面总结使用Redis作为缓存&quot;&gt;&lt;a href=&quot;#下面总结使用Redis作为缓存&quot; class=&quot;headerlink&quot; title=&quot;下面总结使用Redis作为缓存&quot;&gt;&lt;/a&gt;下面总结使用Redis作为缓存&lt;/h1&gt;&lt;h2 id=&quot;引入依赖&quot;&gt;&lt;a href=&quot;#引入依赖&quot; class=&quot;headerlink&quot; title=&quot;引入依赖&quot;&gt;&lt;/a&gt;引入依赖&lt;/h2&gt;&lt;p&gt;SpringBoot从1.4版本开始，&lt;code&gt;spring-boot-starter-redis&lt;/code&gt;依赖改名了。&lt;br&gt;&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;spring-boot-starter-data-redis&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;1.5.2.RELEASE&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
+    
+    
+      <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
+    
+      <category term="Cache" scheme="http://peijie-sh.github.io/tags/Cache/"/>
+    
+      <category term="Redis" scheme="http://peijie-sh.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>手动安装redis-3.2.8的详细步骤</title>
+    <link href="http://peijie-sh.github.io/2017/03/30/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85redis-3.2.8%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4/"/>
+    <id>http://peijie-sh.github.io/2017/03/30/手动安装redis-3.2.8的详细步骤/</id>
+    <published>2017-03-30T02:40:27.000Z</published>
+    <updated>2017-04-01T12:47:24.809Z</updated>
+    
+    <content type="html"><![CDATA[<p>CentOS6.7使用yum安装有时候没有比较新的版本，所以手动安装，下面记录一下步骤。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4059338-13f399d148cd1ad3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis"></p>
+<h1 id="下载最新版本"><a href="#下载最新版本" class="headerlink" title="下载最新版本"></a>下载最新版本</h1><p>以3.2.8为例，附上地址：<a href="https://redis.io/" target="_blank" rel="external">redis-3.2.8.tar.gz</a></p>
+<a id="more"></a>
+<h1 id="解压，编译，安装redis"><a href="#解压，编译，安装redis" class="headerlink" title="解压，编译，安装redis"></a>解压，编译，安装redis</h1><ul>
+<li>解压：<code>tar -zxvf redis-3.2.8.tar.gz</code></li>
+<li>进入目录：<code>cd redis-3.2.8</code></li>
+<li>编译：<code>make &amp;&amp; make install</code></li>
+<li><p>创建相关目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mkdir -p /opt/redis-3.2.8/bin</div><div class="line">mkdir -p /opt/redis-3.2.8/log</div><div class="line">mkdir -p /opt/redis-3.2.8/pid</div><div class="line">mkdir -p /opt/redis-3.2.8/db</div></pre></td></tr></table></figure>
+</li>
+<li><p>将编译后的可执行文件复制到自己的安装目录：<code>ln -s /usr/local/bin/redis-* /opt/redis-3.2.8/bin</code></p>
+</li>
+<li>复制配置文件到安装目录：<code>cp redis.conf /opt/redis-3.2.8/</code></li>
+</ul>
+<h1 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h1><ul>
+<li>编辑redis.conf：<code>cd /opt/redis-3.2.8</code>，<code>vi redis.conf</code><ul>
+<li>redis默认只允许本机连接，所以注释掉这行配置就可以远程访问：<code>\# bind 127.0.0.1</code></li>
+<li>redis3.0版本增加了保护模式，需要我们设置密码，如果不想设置密码，就关闭保护模式：<code>protected-mode no</code></li>
+<li>设置redis以守护线程方式启动：<code>daemonize yes</code></li>
+<li>配置pid，log，db文件的保存地址：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pidfile /opt/redis-3.2.8/pid/redis.pid</div><div class="line">logfile /opt/redis-3.2.8/log/redis.log</div><div class="line">dir /opt/redis-3.2.8/db</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>其他配置就默认即可，有需要再自行修改</p>
+<ul>
+<li><p>编写redis启动脚本：<code>vi /etc/init.d/redis</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/sh</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Simple Redis init.d script conceived to work on Linux systems</span></div><div class="line"><span class="comment"># as it does use of the /proc filesystem.</span></div><div class="line">PATH=/opt/redis-3.2.8/bin:/sbin:/usr/bin:/bin</div><div class="line">REDISPORT=6379</div><div class="line">EXEC=/opt/redis-3.2.8/bin/redis-server</div><div class="line">CLIEXEC=/opt/redis-3.2.8/bin/redis-cli</div><div class="line">PIDFILE=/opt/redis-3.2.8/pid/redis.pid</div><div class="line">CONF=<span class="string">"/opt/redis-3.2.8/redis.conf"</span></div><div class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></div><div class="line">    start)</div><div class="line">        <span class="keyword">if</span> [ <span class="_">-f</span> <span class="variable">$PIDFILE</span> ]</div><div class="line">        <span class="keyword">then</span></div><div class="line">                <span class="built_in">echo</span> <span class="string">"<span class="variable">$PIDFILE</span> exists, process is already running or crashed"</span></div><div class="line">        <span class="keyword">else</span></div><div class="line">                <span class="built_in">echo</span> <span class="string">"Starting Redis server..."</span></div><div class="line">                <span class="variable">$EXEC</span> <span class="variable">$CONF</span></div><div class="line">        <span class="keyword">fi</span></div><div class="line">        ;;</div><div class="line">    stop)</div><div class="line">        <span class="keyword">if</span> [ ! <span class="_">-f</span> <span class="variable">$PIDFILE</span> ]</div><div class="line">        <span class="keyword">then</span></div><div class="line">                <span class="built_in">echo</span> <span class="string">"<span class="variable">$PIDFILE</span> does not exist, process is not running"</span></div><div class="line">        <span class="keyword">else</span></div><div class="line">                PID=$(cat <span class="variable">$PIDFILE</span>)</div><div class="line">                <span class="built_in">echo</span> <span class="string">"Stopping ..."</span></div><div class="line">                <span class="variable">$CLIEXEC</span> -p <span class="variable">$REDISPORT</span> shutdown</div><div class="line">                <span class="keyword">while</span> [ -x /proc/<span class="variable">$&#123;PID&#125;</span> ]</div><div class="line">                <span class="keyword">do</span></div><div class="line">                    <span class="built_in">echo</span> <span class="string">"Waiting for Redis to shutdown ..."</span></div><div class="line">                    sleep 1</div><div class="line">                <span class="keyword">done</span></div><div class="line">                <span class="built_in">echo</span> <span class="string">"Redis stopped"</span></div><div class="line">        <span class="keyword">fi</span></div><div class="line">        ;;</div><div class="line">    *)</div><div class="line">        <span class="built_in">echo</span> <span class="string">"Please use start or stop as first argument"</span></div><div class="line">        ;;</div><div class="line"><span class="keyword">esac</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>设置服务权限：<code>chmod a+x /etc/init.d/redis</code></p>
+</li>
+</ul>
+<h1 id="相关使用"><a href="#相关使用" class="headerlink" title="相关使用"></a>相关使用</h1><ul>
+<li>启动：<code>service redis start</code></li>
+<li>关闭：<code>service redis stop</code></li>
+<li>查看：<code>ps -ef | grep redis</code>，<code>netstat -anptu | grep 6379</code></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CentOS6.7使用yum安装有时候没有比较新的版本，所以手动安装，下面记录一下步骤。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-13f399d148cd1ad3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;redis&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;下载最新版本&quot;&gt;&lt;a href=&quot;#下载最新版本&quot; class=&quot;headerlink&quot; title=&quot;下载最新版本&quot;&gt;&lt;/a&gt;下载最新版本&lt;/h1&gt;&lt;p&gt;以3.2.8为例，附上地址：&lt;a href=&quot;https://redis.io/&quot;&gt;redis-3.2.8.tar.gz&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="NoSQL" scheme="http://peijie-sh.github.io/categories/NoSQL/"/>
+    
+    
+      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+    
+      <category term="Redis" scheme="http://peijie-sh.github.io/tags/Redis/"/>
+    
+  </entry>
   
   <entry>
     <title>谈谈Java中的代理</title>
@@ -149,17 +317,17 @@
   </entry>
   
   <entry>
-    <title>Spring MVC 统一异常处理总结</title>
-    <link href="http://peijie-sh.github.io/2017/02/15/Spring%20MVC%20%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%80%BB%E7%BB%93/"/>
-    <id>http://peijie-sh.github.io/2017/02/15/Spring MVC 统一异常处理总结/</id>
+    <title>SpringMVC统一异常处理总结</title>
+    <link href="http://peijie-sh.github.io/2017/02/15/SpringMVC%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%80%BB%E7%BB%93/"/>
+    <id>http://peijie-sh.github.io/2017/02/15/SpringMVC统一异常处理总结/</id>
     <published>2017-02-15T08:11:13.000Z</published>
-    <updated>2017-03-04T12:49:08.005Z</updated>
+    <updated>2017-04-01T13:00:32.485Z</updated>
     
-    <content type="html"><![CDATA[<p>在一个Spring MVC项目中，使用统一异常处理，可以使维护代码变得容易。下面总结一下常用的3种方法。</p>
+    <content type="html"><![CDATA[<p>在一个Spring MVC项目中，使用统一异常处理，可以使维护代码变得容易。下面总结一下常用的3种方法。<br><img src="http://upload-images.jianshu.io/upload_images/4059338-24a47cdd2121897b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="try-catch"></p>
 <h1 id="实现HandlerExceptionResolver接口"><a href="#实现HandlerExceptionResolver接口" class="headerlink" title="实现HandlerExceptionResolver接口"></a>实现<code>HandlerExceptionResolver</code>接口</h1><p>实现<code>HandlerExceptionResolver</code>接口，实现<code>resolveException()</code>方法，根据传入的异常类型做出处理。</p>
+<a id="more"></a>
 <h1 id="继承AbstractHandlerExceptionResolver类"><a href="#继承AbstractHandlerExceptionResolver类" class="headerlink" title="继承AbstractHandlerExceptionResolver类"></a>继承<code>AbstractHandlerExceptionResolver</code>类</h1><p>继承<code>AbstractHandlerExceptionResolver</code>类，和第一种方式类似，因为<code>AbstractHandlerExceptionResolver</code>实现了<code>HandlerExceptionResolver</code>接口。<br>所以，我们继承之后也是重写<code>resolveException()</code>方法，再处理各种异常。</p>
 <h1 id="使用注解-ControllerAdvice处理"><a href="#使用注解-ControllerAdvice处理" class="headerlink" title="使用注解@ControllerAdvice处理"></a>使用注解<code>@ControllerAdvice</code>处理</h1><p>推荐使用这种方法，比较直观。下面上代码：</p>
-<a id="more"></a>
 <p>首先是自定义异常类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResourceDoesNotExistException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">7833283455112352655L</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ResourceDoesNotExistException</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ResourceDoesNotExistException</span><span class="params">(String message)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(message);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ResourceDoesNotExistException</span><span class="params">(String message, Throwable cause)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(message, cause);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ResourceDoesNotExistException</span><span class="params">(Throwable cause)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(cause);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">ResourceDoesNotExistException</span><span class="params">(String message, Throwable cause, <span class="keyword">boolean</span> enableSuppression, <span class="keyword">boolean</span> writableStackTrace)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(message, cause, enableSuppression, writableStackTrace);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>然后是全局异常统一处理类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = OtherException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">defaultErrorHandler</span><span class="params">(HttpServletRequest req, Exception ex)</span> </span>&#123;</div><div class="line">        <span class="comment">// 其他异常处理逻辑...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = ResourceDoesNotExistException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">notFoundErrorHandler</span><span class="params">(HttpServletRequest req, ResourceDoesNotExistException ex)</span> </span>&#123;</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.setViewName(<span class="string">"404"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>添加<code>@ControllerAdvice</code>注解的类是集中处理异常的地方，可以同时存在多个这样的类，用来做更细粒度的划分。<br>在这个类中，我们可以对每一种异常编写一种处理逻辑，在方法上使用<code>@ExceptionHandler</code>注解修饰，传入指定的异常类型即可。<br>如果是RESTful风格，不返回视图，也可使用<code>@RestControllerAdvice</code>。</p>
@@ -167,14 +335,12 @@
     
     <summary type="html">
     
-      &lt;p&gt;在一个Spring MVC项目中，使用统一异常处理，可以使维护代码变得容易。下面总结一下常用的3种方法。&lt;/p&gt;
+      &lt;p&gt;在一个Spring MVC项目中，使用统一异常处理，可以使维护代码变得容易。下面总结一下常用的3种方法。&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-24a47cdd2121897b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;try-catch&quot;&gt;&lt;/p&gt;
 &lt;h1 id=&quot;实现HandlerExceptionResolver接口&quot;&gt;&lt;a href=&quot;#实现HandlerExceptionResolver接口&quot; class=&quot;headerlink&quot; title=&quot;实现HandlerExceptionResolver接口&quot;&gt;&lt;/a&gt;实现&lt;code&gt;HandlerExceptionResolver&lt;/code&gt;接口&lt;/h1&gt;&lt;p&gt;实现&lt;code&gt;HandlerExceptionResolver&lt;/code&gt;接口，实现&lt;code&gt;resolveException()&lt;/code&gt;方法，根据传入的异常类型做出处理。&lt;/p&gt;
-&lt;h1 id=&quot;继承AbstractHandlerExceptionResolver类&quot;&gt;&lt;a href=&quot;#继承AbstractHandlerExceptionResolver类&quot; class=&quot;headerlink&quot; title=&quot;继承AbstractHandlerExceptionResolver类&quot;&gt;&lt;/a&gt;继承&lt;code&gt;AbstractHandlerExceptionResolver&lt;/code&gt;类&lt;/h1&gt;&lt;p&gt;继承&lt;code&gt;AbstractHandlerExceptionResolver&lt;/code&gt;类，和第一种方式类似，因为&lt;code&gt;AbstractHandlerExceptionResolver&lt;/code&gt;实现了&lt;code&gt;HandlerExceptionResolver&lt;/code&gt;接口。&lt;br&gt;所以，我们继承之后也是重写&lt;code&gt;resolveException()&lt;/code&gt;方法，再处理各种异常。&lt;/p&gt;
-&lt;h1 id=&quot;使用注解-ControllerAdvice处理&quot;&gt;&lt;a href=&quot;#使用注解-ControllerAdvice处理&quot; class=&quot;headerlink&quot; title=&quot;使用注解@ControllerAdvice处理&quot;&gt;&lt;/a&gt;使用注解&lt;code&gt;@ControllerAdvice&lt;/code&gt;处理&lt;/h1&gt;&lt;p&gt;推荐使用这种方法，比较直观。下面上代码：&lt;/p&gt;
     
     </summary>
     
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
     
     
       <category term="Spring" scheme="http://peijie-sh.github.io/tags/Spring/"/>
@@ -186,7 +352,7 @@
     <link href="http://peijie-sh.github.io/2017/02/15/Spring%20Task%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
     <id>http://peijie-sh.github.io/2017/02/15/Spring Task定时任务的配置和使用/</id>
     <published>2017-02-15T03:33:12.000Z</published>
-    <updated>2017-03-04T12:49:08.005Z</updated>
+    <updated>2017-04-01T12:02:37.911Z</updated>
     
     <content type="html"><![CDATA[<p>记录下<code>Spring</code>自带的定时任务用法。</p>
 <h1 id="spring中使用定时任务"><a href="#spring中使用定时任务" class="headerlink" title="spring中使用定时任务"></a>spring中使用定时任务</h1><h2 id="基于xml配置文件使用定时任务"><a href="#基于xml配置文件使用定时任务" class="headerlink" title="基于xml配置文件使用定时任务"></a>基于xml配置文件使用定时任务</h2><p>首先配置spring开启定时任务<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span>  </span></div><div class="line">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>   </div><div class="line">    <span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span>  </div><div class="line">    <span class="attr">xmlns:task</span>=<span class="string">"http://www.springframework.org/schema/task"</span>  </div><div class="line">    <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span>  </div><div class="line">    <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span>   </div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans   </span></div><div class="line">    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  </div><div class="line">    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd    </div><div class="line">    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd    </div><div class="line">    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd    </div><div class="line">    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd    </div><div class="line">    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd"&gt;  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">task:annotation-driven</span> /&gt;</span> <span class="comment">&lt;!-- 定时器开关--&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myTask"</span> <span class="attr">class</span>=<span class="string">"com.spring.task.MyTask"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">task:scheduled-tasks</span>&gt;</span>  </div><div class="line">        <span class="comment">&lt;!-- 这里表示的是每隔五秒执行一次 --&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">task:scheduled</span> <span class="attr">ref</span>=<span class="string">"myTask"</span> <span class="attr">method</span>=<span class="string">"show"</span> <span class="attr">cron</span>=<span class="string">"*/5 * * * * ?"</span> /&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">task:scheduled</span> <span class="attr">ref</span>=<span class="string">"myTask"</span> <span class="attr">method</span>=<span class="string">"print"</span> <span class="attr">cron</span>=<span class="string">"*/10 * * * * ?"</span>/&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">task:scheduled-tasks</span>&gt;</span>  </div><div class="line">      </div><div class="line">    <span class="comment">&lt;!-- 自动扫描的包名 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.spring.task"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
@@ -250,7 +416,7 @@
     
     </summary>
     
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
     
     
       <category term="Spring" scheme="http://peijie-sh.github.io/tags/Spring/"/>
@@ -260,11 +426,11 @@
   </entry>
   
   <entry>
-    <title>使用Spring Boot Actuator监控应用</title>
-    <link href="http://peijie-sh.github.io/2017/02/13/%E4%BD%BF%E7%94%A8Spring%20Boot%20Actuator%E7%9B%91%E6%8E%A7%E5%BA%94%E7%94%A8/"/>
-    <id>http://peijie-sh.github.io/2017/02/13/使用Spring Boot Actuator监控应用/</id>
+    <title>使用SpringBoot Actuator监控应用</title>
+    <link href="http://peijie-sh.github.io/2017/02/13/%E4%BD%BF%E7%94%A8SpringBoot%20Actuator%E7%9B%91%E6%8E%A7%E5%BA%94%E7%94%A8/"/>
+    <id>http://peijie-sh.github.io/2017/02/13/使用SpringBoot Actuator监控应用/</id>
     <published>2017-02-13T04:25:34.000Z</published>
-    <updated>2017-03-04T12:49:08.008Z</updated>
+    <updated>2017-04-01T12:02:38.008Z</updated>
     
     <content type="html"><![CDATA[<p>Actuator是Spring Boot提供的对应用系统的自省和监控的集成功能，可以对应用系统进行配置查看、相关功能统计等。</p>
 <h1 id="使用Actuator"><a href="#使用Actuator" class="headerlink" title="使用Actuator"></a>使用Actuator</h1><p>引入依赖即可</p>
@@ -322,7 +488,7 @@
     
     </summary>
     
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
     
     
       <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
@@ -334,10 +500,10 @@
     <link href="http://peijie-sh.github.io/2017/02/11/%E5%9C%A8SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Logback%E7%AE%A1%E7%90%86%E6%97%A5%E5%BF%97/"/>
     <id>http://peijie-sh.github.io/2017/02/11/在SpringBoot中使用Logback管理日志/</id>
     <published>2017-02-11T07:31:35.000Z</published>
-    <updated>2017-03-04T12:49:08.009Z</updated>
+    <updated>2017-04-01T12:02:38.009Z</updated>
     
     <content type="html"><![CDATA[<h1 id="SpringBoot的默认日志配置"><a href="#SpringBoot的默认日志配置" class="headerlink" title="SpringBoot的默认日志配置"></a>SpringBoot的默认日志配置</h1><p><code>SpringBoot</code>开箱即用，默认帮你配置了日志框架，使用 <code>Commons Logging</code> ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。</p>
-<h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>FATAL</code>、<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了 <code>ERROR</code> 、 <code>WARN</code> 和 <code>INFO</code> 级别的日志输出到控制台。</p>
+<h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>FATAL</code>、<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了<code>ERROR</code>、<code>WARN</code>和<code>INFO</code>级别的日志输出到控制台。</p>
 <a id="more"></a>
 <h2 id="我们可以通过两种方式切换至-DEBUG-级别："><a href="#我们可以通过两种方式切换至-DEBUG-级别：" class="headerlink" title="我们可以通过两种方式切换至 DEBUG 级别："></a>我们可以通过两种方式切换至 DEBUG 级别：</h2><ul>
 <li>在运行命令后加入 –debug 标志，如： $ java -jar myapp.jar –debug</li>
@@ -364,8 +530,8 @@
 </ul>
 <p>举例：</p>
 <ul>
-<li>logging.level.com.didispace=DEBUG ： com.didispace 包下所有class以DEBUG级别输出</li>
-<li>logging.level.root=WARN ：root日志以WARN级别输出</li>
+<li>logging.level.com.controller=DEBUG ： com.controller包下所有class以<code>DEBUG</code>级别输出</li>
+<li>logging.level.root=WARN ：root日志以<code>WARN</code>级别输出</li>
 </ul>
 <h1 id="自定义日志配置"><a href="#自定义日志配置" class="headerlink" title="自定义日志配置"></a>自定义日志配置</h1><p>如果不想使用默认配置，只要加入自己的日志配置文件就行了。<br>由于日志服务一般都在<code>ApplicationContext</code>创建前就初始化了，它并不是必须通过<code>Spring</code>的配置文件控制。因此通过系统属性和传统的<code>Spring Boot</code>外部配置文件依然可以很好的支持日志控制和管理。</p>
 <p>根据不同的日志系统，你可以按如下规则组织配置文件名，就能被正确加载：</p>
@@ -388,11 +554,11 @@
     <summary type="html">
     
       &lt;h1 id=&quot;SpringBoot的默认日志配置&quot;&gt;&lt;a href=&quot;#SpringBoot的默认日志配置&quot; class=&quot;headerlink&quot; title=&quot;SpringBoot的默认日志配置&quot;&gt;&lt;/a&gt;SpringBoot的默认日志配置&lt;/h1&gt;&lt;p&gt;&lt;code&gt;SpringBoot&lt;/code&gt;开箱即用，默认帮你配置了日志框架，使用 &lt;code&gt;Commons Logging&lt;/code&gt; ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。&lt;/p&gt;
-&lt;h2 id=&quot;控制台输出&quot;&gt;&lt;a href=&quot;#控制台输出&quot; class=&quot;headerlink&quot; title=&quot;控制台输出&quot;&gt;&lt;/a&gt;控制台输出&lt;/h2&gt;&lt;p&gt;关于log日志，首先说说的5个日志级别 LEVEL：&lt;br&gt;从高到低分别是&lt;code&gt;FATAL&lt;/code&gt;、&lt;code&gt;ERROR&lt;/code&gt;、&lt;code&gt;WARN&lt;/code&gt;、&lt;code&gt;INFO&lt;/code&gt;、&lt;code&gt;DEBUG&lt;/code&gt;&lt;br&gt;低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为&lt;code&gt;ERROR&lt;/code&gt;的话，&lt;code&gt;WARN&lt;/code&gt;、&lt;code&gt;INFO&lt;/code&gt;、&lt;code&gt;DEBUG&lt;/code&gt;的信息是不会输出的。&lt;br&gt;在&lt;code&gt;SpringBoot&lt;/code&gt;中默认配置了 &lt;code&gt;ERROR&lt;/code&gt; 、 &lt;code&gt;WARN&lt;/code&gt; 和 &lt;code&gt;INFO&lt;/code&gt; 级别的日志输出到控制台。&lt;/p&gt;
+&lt;h2 id=&quot;控制台输出&quot;&gt;&lt;a href=&quot;#控制台输出&quot; class=&quot;headerlink&quot; title=&quot;控制台输出&quot;&gt;&lt;/a&gt;控制台输出&lt;/h2&gt;&lt;p&gt;关于log日志，首先说说的5个日志级别 LEVEL：&lt;br&gt;从高到低分别是&lt;code&gt;FATAL&lt;/code&gt;、&lt;code&gt;ERROR&lt;/code&gt;、&lt;code&gt;WARN&lt;/code&gt;、&lt;code&gt;INFO&lt;/code&gt;、&lt;code&gt;DEBUG&lt;/code&gt;&lt;br&gt;低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为&lt;code&gt;ERROR&lt;/code&gt;的话，&lt;code&gt;WARN&lt;/code&gt;、&lt;code&gt;INFO&lt;/code&gt;、&lt;code&gt;DEBUG&lt;/code&gt;的信息是不会输出的。&lt;br&gt;在&lt;code&gt;SpringBoot&lt;/code&gt;中默认配置了&lt;code&gt;ERROR&lt;/code&gt;、&lt;code&gt;WARN&lt;/code&gt;和&lt;code&gt;INFO&lt;/code&gt;级别的日志输出到控制台。&lt;/p&gt;
     
     </summary>
     
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
     
     
       <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
@@ -406,11 +572,12 @@
     <link href="http://peijie-sh.github.io/2016/12/13/%E7%94%A8SpringMVC%E6%90%AD%E5%BB%BAweb%E5%BA%94%E7%94%A8/"/>
     <id>http://peijie-sh.github.io/2016/12/13/用SpringMVC搭建web应用/</id>
     <published>2016-12-13T03:15:35.000Z</published>
-    <updated>2017-03-04T12:49:08.010Z</updated>
+    <updated>2017-04-01T12:59:34.293Z</updated>
     
-    <content type="html"><![CDATA[<p>在使用<code>SpringMVC</code>时，最重要的2个类就是<code>DispatcherServlet</code>和<code>ContextLoaderListener</code>。<code>DispatcherServlet</code>加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，<code>ContextLoaderListener</code>加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。</p>
-<h1 id="Servlet-3-0之后"><a href="#Servlet-3-0之后" class="headerlink" title="Servlet 3.0之后"></a>Servlet 3.0之后</h1><p>servlet3.0规范出来后，spring3.2有了一种简便的搭建方式。<br>直接继承<code>AbstractAnnotationConfigDispatcherServletInitializer</code>即可。<br>这个类会自动创建DispatcherServlet和ContextLoaderListener。这种方式不再需要web.xml，非常方便。</p>
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SpringMVC"></p>
+<p>在使用<code>SpringMVC</code>时，最重要的2个类就是<code>DispatcherServlet</code>和<code>ContextLoaderListener</code>。<code>DispatcherServlet</code>加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，<code>ContextLoaderListener</code>加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。</p>
 <a id="more"></a>
+<h1 id="Servlet-3-0之后"><a href="#Servlet-3-0之后" class="headerlink" title="Servlet 3.0之后"></a>Servlet 3.0之后</h1><p>servlet3.0规范出来后，spring3.2有了一种简便的搭建方式。<br>直接继承<code>AbstractAnnotationConfigDispatcherServletInitializer</code>即可。<br>这个类会自动创建DispatcherServlet和ContextLoaderListener。这种方式不再需要web.xml，非常方便。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>在Servlet 3.0环境中，容器会在类路径中查找实现javax.servlet.ServletContainerInitializer接口的类，如果能发现的话，就会用它来配置Servlet容器。<br>Spring提供了这个接口的实现，名为SpringServletContainerInitializer，这个类反过来又会查找实现WebApplicationInitializer的类并将配置的任务交给它们来完成。<br>Spring 3.2引入了一个便利的WebApplicationInitializer基础实现，也就是AbstractAnnotationConfigDispatcherServletInitializer。<br>所以我们只要继承AbstractAnnotationConfigDispatcherServletInitializer（同时也就实现了WebApplicationInitializer），在部署到Servlet 3.0容器中的时候，容器会自动发现它，并用它来配置Servlet上下文。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</div><div class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class&lt;?&gt;[]&#123;RootConfig.class&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 指定配置类</span></div><div class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getServletConfigClasses() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class&lt;?&gt;[]&#123;WebConfig.class&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 将DispatcherServlet映射到"/"</span></div><div class="line">    <span class="keyword">protected</span> String[] getServletMappings() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String[]&#123;<span class="string">"/"</span>&#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="Servlet-3-0之前"><a href="#Servlet-3-0之前" class="headerlink" title="Servlet 3.0之前"></a>Servlet 3.0之前</h1><p>如果你要部署在不支持servlet3.0的容器，比如tomcat6和以下版本，那就只能通过web.xml来配置了。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">version</span>=<span class="string">"2.5"</span> </span></div><div class="line">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line">  <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></div><div class="line">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee</span></div><div class="line">      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"&gt;</div><div class="line">  </div><div class="line">	<span class="comment">&lt;!-- 配置根上下文 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">context-param</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:applicationContext.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></div><div class="line">	</div><div class="line">	<span class="comment">&lt;!-- 注册Spring监听器 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">listener</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">listener</span>&gt;</span> </div><div class="line">    </div><div class="line">	<span class="comment">&lt;!-- SpringMVC前端控制器 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- contextConfigLocation配置springmvc加载的配置文件（配置处理器、映射器、适配器等等） </span></div><div class="line">		如果不配置contextConfigLocation，默认加载的是/WEB-INF/servlet名称- serlvet.xml（springmvc-servlet.xml） --&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring-mvc.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 指定servlet加载顺序，整数越小优先越高 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"></div><div class="line">	<span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">	</div><div class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></div></pre></td></tr></table></figure></p>
@@ -418,12 +585,12 @@
     
     <summary type="html">
     
-      &lt;p&gt;在使用&lt;code&gt;SpringMVC&lt;/code&gt;时，最重要的2个类就是&lt;code&gt;DispatcherServlet&lt;/code&gt;和&lt;code&gt;ContextLoaderListener&lt;/code&gt;。&lt;code&gt;DispatcherServlet&lt;/code&gt;加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，&lt;code&gt;ContextLoaderListener&lt;/code&gt;加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。&lt;/p&gt;
-&lt;h1 id=&quot;Servlet-3-0之后&quot;&gt;&lt;a href=&quot;#Servlet-3-0之后&quot; class=&quot;headerlink&quot; title=&quot;Servlet 3.0之后&quot;&gt;&lt;/a&gt;Servlet 3.0之后&lt;/h1&gt;&lt;p&gt;servlet3.0规范出来后，spring3.2有了一种简便的搭建方式。&lt;br&gt;直接继承&lt;code&gt;AbstractAnnotationConfigDispatcherServletInitializer&lt;/code&gt;即可。&lt;br&gt;这个类会自动创建DispatcherServlet和ContextLoaderListener。这种方式不再需要web.xml，非常方便。&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;SpringMVC&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在使用&lt;code&gt;SpringMVC&lt;/code&gt;时，最重要的2个类就是&lt;code&gt;DispatcherServlet&lt;/code&gt;和&lt;code&gt;ContextLoaderListener&lt;/code&gt;。&lt;code&gt;DispatcherServlet&lt;/code&gt;加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，&lt;code&gt;ContextLoaderListener&lt;/code&gt;加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。&lt;/p&gt;
     
     </summary>
     
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
     
     
       <category term="Spring" scheme="http://peijie-sh.github.io/tags/Spring/"/>
@@ -435,13 +602,15 @@
     <link href="http://peijie-sh.github.io/2016/12/02/%E8%A7%A3%E5%86%B3Linux%E4%B8%8BDNS%E9%85%8D%E7%BD%AE%E9%87%8D%E5%90%AF%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/"/>
     <id>http://peijie-sh.github.io/2016/12/02/解决Linux下DNS配置重启失效问题/</id>
     <published>2016-12-02T03:59:31.000Z</published>
-    <updated>2017-03-04T12:49:08.010Z</updated>
+    <updated>2017-04-01T12:58:48.221Z</updated>
     
-    <content type="html"><![CDATA[<p>有时候能<code>ping</code>通ip地址，却<code>ping</code>不通域名，这就是<code>dns</code>没有配置的缘故。<br>但是DNS配置文件 <code>/etc/resolv.conf</code> 每次重启就会失效。<br>打开这个配置文件，发现有注释提示：</p>
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-31dffaf4f06dcb24.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DNS"></p>
+<p>有时候能<code>ping</code>通ip地址，却<code>ping</code>不通域名，这就是<code>dns</code>没有配置的缘故。<br><a id="more"></a><br>但是DNS配置文件 <code>/etc/resolv.conf</code> 每次重启就会失效。<br>打开这个配置文件，发现有注释提示：</p>
 <blockquote>
 <h1 id="Dynamic-resolv-conf-5-file-for-glibc-resolver-3-generated-by-resolvconf-8-DO-NOT-EDIT-THIS-FILE-BY-HAND-—-YOUR-CHANGES-WILL-BE-OVERWRITTEN"><a href="#Dynamic-resolv-conf-5-file-for-glibc-resolver-3-generated-by-resolvconf-8-DO-NOT-EDIT-THIS-FILE-BY-HAND-—-YOUR-CHANGES-WILL-BE-OVERWRITTEN" class="headerlink" title="Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)# DO NOT EDIT THIS FILE BY HAND — YOUR CHANGES WILL BE OVERWRITTEN"></a>Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)# DO NOT EDIT THIS FILE BY HAND — YOUR CHANGES WILL BE OVERWRITTEN</h1></blockquote>
 <p>原来系统已经提示我们不要手动改此文件，因为这里每次重启会被覆盖。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="那么问题来了，怎么解决每次都要配置的问题呢？"><a href="#那么问题来了，怎么解决每次都要配置的问题呢？" class="headerlink" title="那么问题来了，怎么解决每次都要配置的问题呢？"></a>那么问题来了，怎么解决每次都要配置的问题呢？</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><ul>
+<hr>
+<h1 id="那么问题来了，怎么解决每次都要配置的问题呢？"><a href="#那么问题来了，怎么解决每次都要配置的问题呢？" class="headerlink" title="那么问题来了，怎么解决每次都要配置的问题呢？"></a>那么问题来了，怎么解决每次都要配置的问题呢？</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><ul>
 <li>执行<code>sudo vim /etc/network/interfaces</code></li>
 <li>添加一行DNS配置，比如<code>dns-nameservers 8.8.8.8</code></li>
 </ul>
@@ -455,11 +624,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;有时候能&lt;code&gt;ping&lt;/code&gt;通ip地址，却&lt;code&gt;ping&lt;/code&gt;不通域名，这就是&lt;code&gt;dns&lt;/code&gt;没有配置的缘故。&lt;br&gt;但是DNS配置文件 &lt;code&gt;/etc/resolv.conf&lt;/code&gt; 每次重启就会失效。&lt;br&gt;打开这个配置文件，发现有注释提示：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;h1 id=&quot;Dynamic-resolv-conf-5-file-for-glibc-resolver-3-generated-by-resolvconf-8-DO-NOT-EDIT-THIS-FILE-BY-HAND-—-YOUR-CHANGES-WILL-BE-OVERWRITTEN&quot;&gt;&lt;a href=&quot;#Dynamic-resolv-conf-5-file-for-glibc-resolver-3-generated-by-resolvconf-8-DO-NOT-EDIT-THIS-FILE-BY-HAND-—-YOUR-CHANGES-WILL-BE-OVERWRITTEN&quot; class=&quot;headerlink&quot; title=&quot;Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)# DO NOT EDIT THIS FILE BY HAND — YOUR CHANGES WILL BE OVERWRITTEN&quot;&gt;&lt;/a&gt;Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)# DO NOT EDIT THIS FILE BY HAND — YOUR CHANGES WILL BE OVERWRITTEN&lt;/h1&gt;&lt;/blockquote&gt;
-&lt;p&gt;原来系统已经提示我们不要手动改此文件，因为这里每次重启会被覆盖。&lt;/p&gt;
-&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-31dffaf4f06dcb24.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;DNS&quot;&gt;&lt;/p&gt;
+&lt;p&gt;有时候能&lt;code&gt;ping&lt;/code&gt;通ip地址，却&lt;code&gt;ping&lt;/code&gt;不通域名，这就是&lt;code&gt;dns&lt;/code&gt;没有配置的缘故。&lt;br&gt;
     
     </summary>
     
@@ -545,7 +711,7 @@
     <link href="http://peijie-sh.github.io/2016/11/11/Redis%E5%85%A5%E9%97%A8/"/>
     <id>http://peijie-sh.github.io/2016/11/11/Redis入门/</id>
     <published>2016-11-11T06:27:34.000Z</published>
-    <updated>2017-03-04T12:49:08.005Z</updated>
+    <updated>2017-03-29T13:08:27.542Z</updated>
     
     <content type="html"><![CDATA[<p>redis官方不支持windows系统，所以我将redis装在linux下。<br>我用的Ubuntu 16 64位系统。</p>
 <h1 id="安装Redis"><a href="#安装Redis" class="headerlink" title="安装Redis"></a>安装Redis</h1><blockquote>
@@ -554,7 +720,8 @@
 <p>非常方便，一句话搞定。</p>
 <h1 id="配置Redis"><a href="#配置Redis" class="headerlink" title="配置Redis"></a>配置Redis</h1><p>由于要远程连接Redis，所以要修改Redis的默认配置文件。<br>修改<code>/etc/redis/redis.conf</code>，把<code>bind 127.0.0.1</code>注释掉即可</p>
 <blockquote>
-<h1 id="bind-127-0-0-1"><a href="#bind-127-0-0-1" class="headerlink" title="bind 127.0.0.1"></a>bind 127.0.0.1</h1></blockquote>
+<p> # bind 127.0.0.1</p>
+</blockquote>
 <h1 id="启动和关闭Redis服务"><a href="#启动和关闭Redis服务" class="headerlink" title="启动和关闭Redis服务"></a>启动和关闭Redis服务</h1><p>如果是用<code>apt-get</code>或者<code>yum install</code>安装的redis，可以直接通过下面的命令停止/启动/重启：</p>
 <blockquote>
 <p>/etc/init.d/redis-server stop<br>/etc/init.d/redis-server start<br>/etc/init.d/redis-server restart</p>
@@ -571,7 +738,7 @@
 <li><code>hash</code>（哈希）</li>
 <li><code>list</code>（列表）</li>
 <li><code>set</code>（集合）</li>
-<li><code>zset</code>(sorted set：有序集合)</li>
+<li><code>zset</code>（sorted set：有序集合）</li>
 </ul>
 <h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。<br>string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象 。<br>string类型是Redis最基本的数据类型，一个键最大能存储512MB。</p>
 <h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>Redis hash 是一个键值对集合。<br>Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。</p>
@@ -595,7 +762,8 @@
 &lt;p&gt;非常方便，一句话搞定。&lt;/p&gt;
 &lt;h1 id=&quot;配置Redis&quot;&gt;&lt;a href=&quot;#配置Redis&quot; class=&quot;headerlink&quot; title=&quot;配置Redis&quot;&gt;&lt;/a&gt;配置Redis&lt;/h1&gt;&lt;p&gt;由于要远程连接Redis，所以要修改Redis的默认配置文件。&lt;br&gt;修改&lt;code&gt;/etc/redis/redis.conf&lt;/code&gt;，把&lt;code&gt;bind 127.0.0.1&lt;/code&gt;注释掉即可&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;h1 id=&quot;bind-127-0-0-1&quot;&gt;&lt;a href=&quot;#bind-127-0-0-1&quot; class=&quot;headerlink&quot; title=&quot;bind 127.0.0.1&quot;&gt;&lt;/a&gt;bind 127.0.0.1&lt;/h1&gt;&lt;/blockquote&gt;
+&lt;p&gt; # bind 127.0.0.1&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h1 id=&quot;启动和关闭Redis服务&quot;&gt;&lt;a href=&quot;#启动和关闭Redis服务&quot; class=&quot;headerlink&quot; title=&quot;启动和关闭Redis服务&quot;&gt;&lt;/a&gt;启动和关闭Redis服务&lt;/h1&gt;&lt;p&gt;如果是用&lt;code&gt;apt-get&lt;/code&gt;或者&lt;code&gt;yum install&lt;/code&gt;安装的redis，可以直接通过下面的命令停止/启动/重启：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;/etc/init.d/redis-server stop&lt;br&gt;/etc/init.d/redis-server start&lt;br&gt;/etc/init.d/redis-server restart&lt;/p&gt;
@@ -774,9 +942,10 @@
     <link href="http://peijie-sh.github.io/2016/10/27/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://peijie-sh.github.io/2016/10/27/使用Hexo搭建个人博客/</id>
     <published>2016-10-27T08:39:34.000Z</published>
-    <updated>2017-03-04T12:49:08.007Z</updated>
+    <updated>2017-04-01T12:02:37.961Z</updated>
     
-    <content type="html"><![CDATA[<p>最近闲着没事，用<code>hexo</code>搭建了一个个人博客，部署在 <a href="https://peijie-sh.github.io/">github</a> 和 <a href="https://peijie-sh.github.io/">oschina</a>上，欢迎大家来我博客踩踩~ ^_^<br>下面总结一下搭建过程：</p>
+    <content type="html"><![CDATA[<p>最近闲着没事，用<code>hexo</code>搭建了一个个人博客，部署在 <a href="https://peijie-sh.github.io/">github</a> 和 <a href="https://peijie-sh.github.io/">oschina</a>上，欢迎大家来我博客踩踩~ ^_^<br><img src="http://upload-images.jianshu.io/upload_images/4059338-127b161e567ad4d7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo.jpg"></p>
+<p>下面总结一下搭建过程：</p>
 <h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>hexo是一个简单地、轻量地、基于Node的一个静态博客框架，可以方便的生成静态网页托管在github和Heroku上<br>引用Hexo作者 @tommy351 的话：</p>
 <blockquote>
 <p>快速、简单且功能强大的 Node.js 博客框架。A fast, simple &amp; powerful blog framework, powered by Node.js.</p>
@@ -828,7 +997,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;最近闲着没事，用&lt;code&gt;hexo&lt;/code&gt;搭建了一个个人博客，部署在 &lt;a href=&quot;https://peijie-sh.github.io/&quot;&gt;github&lt;/a&gt; 和 &lt;a href=&quot;https://peijie-sh.github.io/&quot;&gt;oschina&lt;/a&gt;上，欢迎大家来我博客踩踩~ ^_^&lt;br&gt;下面总结一下搭建过程：&lt;/p&gt;
+      &lt;p&gt;最近闲着没事，用&lt;code&gt;hexo&lt;/code&gt;搭建了一个个人博客，部署在 &lt;a href=&quot;https://peijie-sh.github.io/&quot;&gt;github&lt;/a&gt; 和 &lt;a href=&quot;https://peijie-sh.github.io/&quot;&gt;oschina&lt;/a&gt;上，欢迎大家来我博客踩踩~ ^_^&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-127b161e567ad4d7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;hexo.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;下面总结一下搭建过程：&lt;/p&gt;
 &lt;h1 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h1&gt;&lt;p&gt;hexo是一个简单地、轻量地、基于Node的一个静态博客框架，可以方便的生成静态网页托管在github和Heroku上&lt;br&gt;引用Hexo作者 @tommy351 的话：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;快速、简单且功能强大的 Node.js 博客框架。A fast, simple &amp;amp; powerful blog framework, powered by Node.js.&lt;/p&gt;
@@ -891,9 +1061,9 @@
       <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
     
     
-      <category term="Http" scheme="http://peijie-sh.github.io/tags/Http/"/>
-    
       <category term="OkHttp" scheme="http://peijie-sh.github.io/tags/OkHttp/"/>
+    
+      <category term="Http" scheme="http://peijie-sh.github.io/tags/Http/"/>
     
   </entry>
   
@@ -1052,9 +1222,10 @@
     <link href="http://peijie-sh.github.io/2016/10/25/Oracle%E5%85%A5%E9%97%A8/"/>
     <id>http://peijie-sh.github.io/2016/10/25/Oracle入门/</id>
     <published>2016-10-25T08:39:31.000Z</published>
-    <updated>2017-03-04T12:49:08.004Z</updated>
+    <updated>2017-04-01T12:23:47.011Z</updated>
     
-    <content type="html"><![CDATA[<p>今天学习了Oracle的基本使用，做下总结：</p>
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-7bf55c1ff662d501.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="oracle.png"></p>
+<p>今天学习了Oracle的基本使用，做下总结：</p>
 <h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><p>以Oracle 11g为例，安装好以后，普通账户都是未解锁的，不能使用，只能使用超级管理员登录。</p>
 <blockquote>
 <p>sqlplus / as sysdba</p>
@@ -1169,7 +1340,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;今天学习了Oracle的基本使用，做下总结：&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-7bf55c1ff662d501.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;oracle.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;今天学习了Oracle的基本使用，做下总结：&lt;/p&gt;
 &lt;h1 id=&quot;基本操作&quot;&gt;&lt;a href=&quot;#基本操作&quot; class=&quot;headerlink&quot; title=&quot;基本操作&quot;&gt;&lt;/a&gt;基本操作&lt;/h1&gt;&lt;p&gt;以Oracle 11g为例，安装好以后，普通账户都是未解锁的，不能使用，只能使用超级管理员登录。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;sqlplus / as sysdba&lt;/p&gt;
@@ -1275,14 +1447,15 @@
     <link href="http://peijie-sh.github.io/2016/10/25/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
     <id>http://peijie-sh.github.io/2016/10/25/Docker安装与基础命令/</id>
     <published>2016-10-25T07:28:37.000Z</published>
-    <updated>2017-03-04T12:49:08.001Z</updated>
+    <updated>2017-04-01T13:00:52.623Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：</p>
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker"></p>
+<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：</p>
 <blockquote>
 <p>sudo apt-get install docker.io</p>
 </blockquote>
-<p>运行完后，可以在终端输入docker看到以下信息证明我们安装成功了<br>注：提示权限问题就添加sudo</p>
 <a id="more"></a>
+<p>运行完后，可以在终端输入docker看到以下信息证明我们安装成功了<br>注：提示权限问题就添加sudo</p>
 <blockquote>
 <p>docker<br>Usage: docker [OPTIONS] COMMAND [arg…]<br>       docker daemon [ –help | … ]<br>       docker [ –help | -v | –version ]</p>
 <p>A self-sufficient runtime for containers.</p>
@@ -1309,11 +1482,11 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Docker安装&quot;&gt;&lt;a href=&quot;#Docker安装&quot; class=&quot;headerlink&quot; title=&quot;Docker安装&quot;&gt;&lt;/a&gt;Docker安装&lt;/h1&gt;&lt;p&gt;我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;docker&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Docker安装&quot;&gt;&lt;a href=&quot;#Docker安装&quot; class=&quot;headerlink&quot; title=&quot;Docker安装&quot;&gt;&lt;/a&gt;Docker安装&lt;/h1&gt;&lt;p&gt;我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;sudo apt-get install docker.io&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;运行完后，可以在终端输入docker看到以下信息证明我们安装成功了&lt;br&gt;注：提示权限问题就添加sudo&lt;/p&gt;
     
     </summary>
     
@@ -1323,149 +1496,6 @@
       <category term="Docker" scheme="http://peijie-sh.github.io/tags/Docker/"/>
     
       <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Maven学习笔记（2） --- 依赖</title>
-    <link href="http://peijie-sh.github.io/2016/10/25/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89%20---%20%E4%BE%9D%E8%B5%96/"/>
-    <id>http://peijie-sh.github.io/2016/10/25/Maven学习笔记（2） --- 依赖/</id>
-    <published>2016-10-25T07:05:57.000Z</published>
-    <updated>2017-03-04T12:49:08.003Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h2><p>在maven项目中，我们会在pom.xml文件中引入我们需要用到的依赖，一般用<code>groupId</code>,<code>artifactId</code>,<code>version</code>就够了，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.1.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>有时，也会指定依赖范围，比如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>maven有3套classpath，编译classpath，运行classpath，测试classpath。</p>
-<h2 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h2><p>依赖范围有以下几种：</p>
-<ul>
-<li><code>compile</code> 编译依赖范围。默认是这种范围。对3中classpath都有效。典型例子是<code>spring-core</code>，在编译，运行，测试时都需要。 </li>
-<li><code>test</code> 测试依赖范围。只对测试classpath有效。典型例子是<code>junit</code>，它只在测试期间需要。</li>
-<li><code>provided</code> 已提供依赖范围。对编译classpath和测试classpath有效，运行classpath无效。典型例子是<code>servlet-api</code>，运行的时候容器会提供，所以运行时不需要。</li>
-<li><code>runtime</code> 运行时依赖范围。对运行classpath和测试classpath有效。典型例子是<code>jdbc</code>驱动实现，编译的时候只要有jdk的jdbc接口即可。</li>
-<li><code>system</code> 系统依赖范围。和<code>provided</code>一样，对3中classpath都有效。但是，使用时必须通过systemPath元素显式指定依赖文件的路径。限制比较多，一般不使用。</li>
-<li><code>import</code> 导入依赖范围。对3中classpath都没实际影响。</li>
-</ul>
-<h2 id="依赖机制"><a href="#依赖机制" class="headerlink" title="依赖机制"></a>依赖机制</h2><ol>
-<li>依赖会传播：A依赖B，B依赖C，那么maven解析的时候会找到B，发现B依赖C，又去把C引入，然后在引入B</li>
-<li>有相同依赖的时候，优先选路径最近的：比如A-&gt;B-&gt;C-&gt;X(1.0), A-&gt;D-&gt;X(2.0),这时候有2个X，会冲突，maven会选择最近的，也就是X(2.0)</li>
-<li>在依赖路径长度相同时，优先选先声明的：比如A-&gt;B-&gt;Y(1.0), A-&gt;C-&gt;Y(2.0),在maven2.0.9之后，maven会选在pom中先声明的那个。即如果C的依赖声明在B之前，就选Y(2.0) </li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;maven依赖&quot;&gt;&lt;a href=&quot;#maven依赖&quot; class=&quot;headerlink&quot; title=&quot;maven依赖&quot;&gt;&lt;/a&gt;maven依赖&lt;/h2&gt;&lt;p&gt;在maven项目中，我们会在pom.xml文件中引入我们需要用到的依赖，一般用&lt;code&gt;groupId&lt;/code&gt;,&lt;code&gt;artifactId&lt;/code&gt;,&lt;code&gt;version&lt;/code&gt;就够了，如下：&lt;br&gt;&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;org.springframework&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;spring-core&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;4.1.7.RELEASE&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;有时，也会指定依赖范围，比如：&lt;br&gt;&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;junit&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;junit&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;4.12&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;scope&lt;/span&gt;&amp;gt;&lt;/span&gt;test&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;scope&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
-    
-    
-      <category term="Maven" scheme="http://peijie-sh.github.io/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Maven学习笔记（1） --- 仓库</title>
-    <link href="http://peijie-sh.github.io/2016/10/25/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89%20---%20%E4%BB%93%E5%BA%93/"/>
-    <id>http://peijie-sh.github.io/2016/10/25/Maven学习笔记（1） --- 仓库/</id>
-    <published>2016-10-25T06:42:24.000Z</published>
-    <updated>2017-03-04T12:49:08.002Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="maven坐标"><a href="#maven坐标" class="headerlink" title="maven坐标"></a>maven坐标</h1><p>maven的构件（jar包）是根据坐标来确定其在仓库的保存位置的。<br>maven的坐标是通过以下元素来定义的：</p>
-<ul>
-<li>groupId : 一般是当前项目的公司名和项目组</li>
-<li>artifactId : 项目名称</li>
-<li>version : 项目版本</li>
-<li>packaging : 打包方式，默认是<code>jar</code>,也可以是<code>war</code></li>
-<li>classifier : 定义构建输出的一些附属构件，不常用</li>
-</ul>
-<p>形如<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.company.group<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<h1 id="maven仓库"><a href="#maven仓库" class="headerlink" title="maven仓库"></a>maven仓库</h1><p>顾名思义，仓库就是存放依赖（jar包）的地方。<br>maven仓库分为<code>本地仓库</code>，<code>中央仓库</code>，<code>远程仓库</code>，和<code>私服</code>4种。</p>
-<h2 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h2><p>通俗的说，本地仓库就是我们本地电脑中的一个文件夹，用来存放jar包的仓库。<br>本地仓库的默认位置：无论是Windows还是Linux，在用户的目录下都有一个.m2/repository/的仓库目录。<br>可通过修改maven安装目录下的settings.xml文件来修改本地仓库位置。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>D:\repo<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></div><div class="line">``` </div><div class="line"></div><div class="line">## 中央仓库</div><div class="line">中央仓库是默认的远程仓库，它包含了绝大多数流行的开源Java构件，以及源码、作者信息、SCM、信息、许可证信息等。id是central，url地址是http://repo1.maven.org/maven2</div><div class="line"></div><div class="line">## 远程仓库</div><div class="line">在很多情况下，默认的中央仓库无法满足项目的需求，可能项目需要的构件存在于另外一个远程仓库中，如:JBoss，Maven仓库。这时，可以在POM中配置该仓库，比如：</div><div class="line">``` xml</div><div class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span>  </div><div class="line">  ...  </div><div class="line">  <span class="tag">&lt;<span class="name">repositories</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>jboss<span class="tag">&lt;/<span class="name">id</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>JBoss Repository<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://repository.jboss.com/maven2/<span class="tag">&lt;/<span class="name">url</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="name">releases</span>&gt;</span></div><div class="line">	    <span class="comment">&lt;!-- 更新频率never,always,interval,daily --&gt;</span>   </div><div class="line">        <span class="tag">&lt;<span class="name">updatePolicy</span>&gt;</span>daily<span class="tag">&lt;/<span class="name">updatePolicy</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></div><div class="line">          <span class="comment">&lt;!-- 检查和检验文件的策略,fail,warn,ignore --&gt;</span>   </div><div class="line">        <span class="tag">&lt;<span class="name">checksumPolicy</span>&gt;</span>warn<span class="tag">&lt;/<span class="name">checksumPolicy</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">releases</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">layout</span>&gt;</span>default<span class="tag">&lt;/<span class="name">layout</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span>  </div><div class="line">  ...  </div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>在repositories元素下，用repository子元素声明一个或者多个远程仓库。该例中声明了一个id为jboss，名称为JBoss Repository的仓库。任何一个仓库声明的id必须是唯一的，尤其需要注意的是，maven自带的中央仓库使用的id为<code>central</code>，如果其他的仓库声明也使用该id，就会覆盖中央仓库的配置。该配置中的url值指向了仓库的地址，一般来说，该地址都基于http协议，maven用户都可以在浏览器中打开仓库地址浏览构件。<br>该例配置中的releases和snapshots元素比较重要，它们用来控制Maven对于发布版构件和快照版构件的下载。该例中releases的enabled值为true，表示开启JBoss仓库的发布版本下载支持，而snapshots的enabled值为false，表示关闭JBoss仓库的快照版本的下载支持。该例中的layout元素值default表示仓库的布局是Maven2及Maven3的默认布局，而不是Maven1的布局。</p>
-<h3 id="远程仓库的认证"><a href="#远程仓库的认证" class="headerlink" title="远程仓库的认证"></a>远程仓库的认证</h3><p>远程仓库默认无须认证就可访问，有时出于安全需要，可配置认证访问。<br>配置认证信息和配置仓库信息不同，仓库信息可以直接配置在POM文件中，但是认证信息必须配置在settings.xml文件中。这是因为POM往往是被提交到代码仓库中供所有成员访问的，而settings.xml一般只放在本机。因此，settings.xml中配置认证信息更为安全。<br>假设为id为my-proj的仓库配置认证信息，编辑settings.xml文件如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span>  </div><div class="line">  ...  </div><div class="line">  <span class="tag">&lt;<span class="name">servers</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">server</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>my-proj<span class="tag">&lt;/<span class="name">id</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="name">username</span>&gt;</span>repo-user<span class="tag">&lt;/<span class="name">username</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="name">password</span>&gt;</span>repo-pwd<span class="tag">&lt;/<span class="name">password</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">server</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;/<span class="name">servers</span>&gt;</span>  </div><div class="line">  ...  </div><div class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p><strong>  注：settings.xml中server元素的id必须与POM中需要认证的repository元素的id完全一致。 </strong></p>
-<h3 id="私服"><a href="#私服" class="headerlink" title="私服"></a>私服</h3><p>私服是架设在局域网的特殊远程仓库。一般maven自己的中央仓库存放了主流的jar包，但是有时候自己的编写的jar包就没办法在中央仓库找到了，这时候就需要配置一个远程仓库，就是所谓的“私服”，就可以将我们自己的jar包存放到远程仓库中，这样当maven需要下载jar包的时候，就可以先请求私服，如果私服上找不到，就会从maven的中央仓库再下载，之后也会缓存在私服上供以后使用。</p>
-<h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>这里另外说一下镜像。国内访问国外的仓库，你懂的，所以有必要配置镜像。在maven安装目录下的settings.xml配置文件中，可以配置镜像，在<code>&lt;Mirrors&gt;</code>元素中，可配置一个或多个<code>&lt;mirror&gt;</code>镜像。比如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-osc<span class="tag">&lt;/<span class="name">id</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus osc<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </div><div class="line">	<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.oschina.net/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p><code>mirrorOf</code>中写的是哪个仓库的镜像，例子中表明是中央仓库的镜像，这样，一切往中央仓库的请求，都会转发到去请求这个镜像的地址。所以，<code>mirrorOf</code>中不能乱写。<br>镜像也可以配置基于id的仓库认证。<br><code>mirrorOf</code>中可以写<code>*</code>,表示对一切的请求都会转到这个镜像。</p>
-<p><strong> 为了满足复杂的规则，maven支持高级的镜像配置： </strong></p>
-<ol>
-<li><code>&lt;mirrorOf&gt;*&lt;mirrorOf&gt;</code>: 匹配所有仓库</li>
-<li><code>&lt;mirrorOf&gt;external:*&lt;mirrorOf&gt;</code>: 匹配所有不在本机上的远程仓库</li>
-<li><code>&lt;mirrorOf&gt;repo1,repo2&lt;mirrorOf&gt;</code>: 匹配repo1和repo2，多个仓库用逗号隔开</li>
-<li><code>&lt;mirrorOf&gt;*,!repo3&lt;mirrorOf&gt;</code>: 匹配所有仓库，除了repo3</li>
-</ol>
-<p><strong><code>*</code>匹配所有，这个镜像建议放在最后，否则maven循环匹配，匹配到第一个就是*，满足，直接就结束了，其他镜像就不生效了。</strong></p>
-<h2 id="仓库搜索"><a href="#仓库搜索" class="headerlink" title="仓库搜索"></a>仓库搜索</h2><p>在工作中，我们需要知道摸个依赖的坐标来使用，可以使用仓库搜索。<br>附上几个常用的搜索地址：</p>
-<ul>
-<li><a href="https://repository.sonatype.org/" target="_blank" rel="external">https://repository.sonatype.org/</a></li>
-<li><a href="http://mvnbrowser.com/" target="_blank" rel="external">http://mvnbrowser.com/</a></li>
-<li><a href="http://mvnrepository.com/" target="_blank" rel="external">http://mvnrepository.com/</a> </li>
-</ul>
-<h1 id="最后总结："><a href="#最后总结：" class="headerlink" title="最后总结："></a>最后总结：</h1><p>在pom中加入依赖声明后，maven会优先根据坐标去我们本地仓库查找，如果找到就用了。如果找不到，就会默认去中央仓库查找，然后下载到本地，然后使用。如果我们配置了私服或者其他远程仓库，就会从远程仓库查找，下载。如果我们有配置对应的镜像，就会从镜像下载使用了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;maven坐标&quot;&gt;&lt;a href=&quot;#maven坐标&quot; class=&quot;headerlink&quot; title=&quot;maven坐标&quot;&gt;&lt;/a&gt;maven坐标&lt;/h1&gt;&lt;p&gt;maven的构件（jar包）是根据坐标来确定其在仓库的保存位置的。&lt;br&gt;maven的坐标是通过以下元素来定义的：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;groupId : 一般是当前项目的公司名和项目组&lt;/li&gt;
-&lt;li&gt;artifactId : 项目名称&lt;/li&gt;
-&lt;li&gt;version : 项目版本&lt;/li&gt;
-&lt;li&gt;packaging : 打包方式，默认是&lt;code&gt;jar&lt;/code&gt;,也可以是&lt;code&gt;war&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;classifier : 定义构建输出的一些附属构件，不常用&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;形如&lt;br&gt;&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;com.company.group&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;MyApp&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;packaging&lt;/span&gt;&amp;gt;&lt;/span&gt;war&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;packaging&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;0.0.1-SNAPSHOT&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
-    
-    
-      <category term="Maven" scheme="http://peijie-sh.github.io/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringMVC重定向传参数的实现</title>
-    <link href="http://peijie-sh.github.io/2016/10/23/SpringMVC%E9%87%8D%E5%AE%9A%E5%90%91%E4%BC%A0%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>http://peijie-sh.github.io/2016/10/23/SpringMVC重定向传参数的实现/</id>
-    <published>2016-10-23T02:31:35.000Z</published>
-    <updated>2017-03-04T12:49:08.006Z</updated>
-    
-    <content type="html"><![CDATA[<p>在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。</p>
-<blockquote>
-<p>jsp文件：</p>
-</blockquote>
-<a id="more"></a>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span></span></div><div class="line">    <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"c"</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span></div><div class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>login<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	</div><div class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"form1"</span> <span class="attr">action</span>=<span class="string">"/demo/user/login"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></div><div class="line">		账号:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span> /&gt;</span><span class="tag">&lt;/<span class="name">br</span>&gt;</span></div><div class="line">		密码:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> /&gt;</span><span class="tag">&lt;/<span class="name">br</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"submit"</span>/&gt;</span></div><div class="line">		</div><div class="line">	<span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>controller：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.demo.controller;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</div><div class="line"><span class="keyword">import</span> org.springframework.ui.Model;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> lpj</div><div class="line"> * <span class="doctag">@date</span> 2016年7月10日</div><div class="line"> */</div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/user"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoController</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestParam Map&lt;String, String&gt; user, Model model)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"用户提交了一次表单"</span>);</div><div class="line">		String username;</div><div class="line">		<span class="keyword">if</span> (user.get(<span class="string">"name"</span>).isEmpty()) &#123;</div><div class="line">			username = <span class="string">"Tom"</span>;</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			username = user.get(<span class="string">"name"</span>);</div><div class="line">		&#125;</div><div class="line">		model.addAttribute(<span class="string">"msg"</span>, username);</div><div class="line"><span class="comment">//		  return "home";//此方式跳转，页面刷新会重复提交表单</span></div><div class="line">		<span class="keyword">return</span> <span class="string">"redirect:/home.jsp"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<hr>
-<p>由于重定向相当于2次请求，所以无法把参数加在model中传过去。在上面例子中，页面获取不到msg参数。要想获取参数，可以手动拼url，把参数带在后面。<br>Spring 3.1 提供了一个很好用的类：RedirectAttributes。 使用这个类，我们可以把参数随着重定向传到页面，不需自己拼url了。<br>把上面方法参数中的Model换成RedirectAttributes，参数就自动跟在url后了。<br><img src="http://img.blog.csdn.net/20160710205655347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img-1"></p>
-<hr>
-<p>但是，这样页面不能用el获取到，还要另外处理，所以，我们还有一种方式，不拼url，用el获取参数，就像普通转发一样。<br>还是使用RedirectAttributes，但是这次不用addAttribute方法，spring为我们准备了新方法，addFlashAttribute（）。<br>这个方法原理是放到session中，session在跳到页面后马上移除对象。所以你刷新一下后这个值就会丢失。<br>controller代码改为如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.demo.controller;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</div><div class="line"><span class="keyword">import</span> org.springframework.ui.Model;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ModelAttribute;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</div><div class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.support.RedirectAttributes;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> lpj</div><div class="line"> * <span class="doctag">@date</span> 2016年7月10日</div><div class="line"> */</div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/user"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoController</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</div><div class="line"><span class="comment">//	public String login(@RequestParam Map&lt;String, String&gt; user, Model model) &#123;</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestParam Map&lt;String, String&gt; user, RedirectAttributes model)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"用户提交了一次表单"</span>);</div><div class="line">		String username;</div><div class="line">		<span class="keyword">if</span> (user.get(<span class="string">"name"</span>).isEmpty()) &#123;</div><div class="line">			username = <span class="string">"Tom"</span>;</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			username = user.get(<span class="string">"name"</span>);</div><div class="line">		&#125;</div><div class="line">		model.addFlashAttribute(<span class="string">"msg"</span>, username);</div><div class="line"><span class="comment">//		return "home";//此方式跳转，页面刷新会重复提交表单</span></div><div class="line">		<span class="keyword">return</span> <span class="string">"redirect:/user/toHome"</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/toHome"</span>)</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">home</span><span class="params">(@ModelAttribute(<span class="string">"msg"</span>)</span> String msg, Model model) </span>&#123;</div><div class="line">		System.out.println(<span class="string">"拿到重定向得到的参数msg:"</span> + msg);</div><div class="line">		model.addAttribute(<span class="string">"msg"</span>, msg);</div><div class="line">		<span class="keyword">return</span> <span class="string">"home"</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这边我们使用@ModelAttribute注解，获取之前addFlashAttribute添加的数据，之后就可以正常使用啦。<br>需要例子代码的可以点此下载：<a href="http://download.csdn.net/detail/u011851478/9572366" target="_blank" rel="external">demo</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;jsp文件：&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
-    
-    
-      <category term="Spring" scheme="http://peijie-sh.github.io/tags/Spring/"/>
     
   </entry>
   

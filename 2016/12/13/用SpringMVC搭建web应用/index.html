@@ -86,19 +86,18 @@
 
 
 
-<meta name="description" content="在使用SpringMVC时，最重要的2个类就是DispatcherServlet和ContextLoaderListener。DispatcherServlet加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，ContextLoaderListener加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。
-Servlet 3.0之后servlet3.0规范出来后，sp">
+<meta name="description" content="在使用SpringMVC时，最重要的2个类就是DispatcherServlet和ContextLoaderListener。DispatcherServlet加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，ContextLoaderListener加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用SpringMVC搭建web应用">
 <meta property="og:url" content="http://peijie-sh.github.io/2016/12/13/用SpringMVC搭建web应用/index.html">
 <meta property="og:site_name" content="Lingpj's blog">
-<meta property="og:description" content="在使用SpringMVC时，最重要的2个类就是DispatcherServlet和ContextLoaderListener。DispatcherServlet加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，ContextLoaderListener加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。
-Servlet 3.0之后servlet3.0规范出来后，sp">
-<meta property="og:updated_time" content="2017-03-04T12:49:08.010Z">
+<meta property="og:description" content="在使用SpringMVC时，最重要的2个类就是DispatcherServlet和ContextLoaderListener。DispatcherServlet加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，ContextLoaderListener加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-04-01T12:59:34.293Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用SpringMVC搭建web应用">
-<meta name="twitter:description" content="在使用SpringMVC时，最重要的2个类就是DispatcherServlet和ContextLoaderListener。DispatcherServlet加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，ContextLoaderListener加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。
-Servlet 3.0之后servlet3.0规范出来后，sp">
+<meta name="twitter:description" content="在使用SpringMVC时，最重要的2个类就是DispatcherServlet和ContextLoaderListener。DispatcherServlet加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，ContextLoaderListener加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -314,8 +313,8 @@ Servlet 3.0之后servlet3.0规范出来后，sp">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring-SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring/SpringBoot</span>
                   </a>
                 </span>
 
@@ -363,9 +362,10 @@ Servlet 3.0之后servlet3.0规范出来后，sp">
       
 
       
-        <p>在使用<code>SpringMVC</code>时，最重要的2个类就是<code>DispatcherServlet</code>和<code>ContextLoaderListener</code>。<code>DispatcherServlet</code>加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，<code>ContextLoaderListener</code>加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。</p>
-<h1 id="Servlet-3-0之后"><a href="#Servlet-3-0之后" class="headerlink" title="Servlet 3.0之后"></a>Servlet 3.0之后</h1><p>servlet3.0规范出来后，spring3.2有了一种简便的搭建方式。<br>直接继承<code>AbstractAnnotationConfigDispatcherServletInitializer</code>即可。<br>这个类会自动创建DispatcherServlet和ContextLoaderListener。这种方式不再需要web.xml，非常方便。</p>
+        <p><img src="http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SpringMVC"></p>
+<p>在使用<code>SpringMVC</code>时，最重要的2个类就是<code>DispatcherServlet</code>和<code>ContextLoaderListener</code>。<code>DispatcherServlet</code>加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，<code>ContextLoaderListener</code>加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。</p>
 <a id="more"></a>
+<h1 id="Servlet-3-0之后"><a href="#Servlet-3-0之后" class="headerlink" title="Servlet 3.0之后"></a>Servlet 3.0之后</h1><p>servlet3.0规范出来后，spring3.2有了一种简便的搭建方式。<br>直接继承<code>AbstractAnnotationConfigDispatcherServletInitializer</code>即可。<br>这个类会自动创建DispatcherServlet和ContextLoaderListener。这种方式不再需要web.xml，非常方便。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>在Servlet 3.0环境中，容器会在类路径中查找实现javax.servlet.ServletContainerInitializer接口的类，如果能发现的话，就会用它来配置Servlet容器。<br>Spring提供了这个接口的实现，名为SpringServletContainerInitializer，这个类反过来又会查找实现WebApplicationInitializer的类并将配置的任务交给它们来完成。<br>Spring 3.2引入了一个便利的WebApplicationInitializer基础实现，也就是AbstractAnnotationConfigDispatcherServletInitializer。<br>所以我们只要继承AbstractAnnotationConfigDispatcherServletInitializer（同时也就实现了WebApplicationInitializer），在部署到Servlet 3.0容器中的时候，容器会自动发现它，并用它来配置Servlet上下文。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</div><div class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class&lt;?&gt;[]&#123;RootConfig.class&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 指定配置类</span></div><div class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getServletConfigClasses() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class&lt;?&gt;[]&#123;WebConfig.class&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 将DispatcherServlet映射到"/"</span></div><div class="line">    <span class="keyword">protected</span> String[] getServletMappings() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String[]&#123;<span class="string">"/"</span>&#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="Servlet-3-0之前"><a href="#Servlet-3-0之前" class="headerlink" title="Servlet 3.0之前"></a>Servlet 3.0之前</h1><p>如果你要部署在不支持servlet3.0的容器，比如tomcat6和以下版本，那就只能通过web.xml来配置了。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">version</span>=<span class="string">"2.5"</span> </span></div><div class="line">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line">  <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></div><div class="line">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee</span></div><div class="line">      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"&gt;</div><div class="line">  </div><div class="line">	<span class="comment">&lt;!-- 配置根上下文 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">context-param</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:applicationContext.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></div><div class="line">	</div><div class="line">	<span class="comment">&lt;!-- 注册Spring监听器 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">listener</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">listener</span>&gt;</span> </div><div class="line">    </div><div class="line">	<span class="comment">&lt;!-- SpringMVC前端控制器 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- contextConfigLocation配置springmvc加载的配置文件（配置处理器、映射器、适配器等等） </span></div><div class="line">		如果不配置contextConfigLocation，默认加载的是/WEB-INF/servlet名称- serlvet.xml（springmvc-servlet.xml） --&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring-mvc.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 指定servlet加载顺序，整数越小优先越高 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"></div><div class="line">	<span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">	</div><div class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></div></pre></td></tr></table></figure></p>
@@ -524,7 +524,7 @@ Servlet 3.0之后servlet3.0规范出来后，sp">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -532,7 +532,7 @@ Servlet 3.0之后servlet3.0规范出来后，sp">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -541,7 +541,7 @@ Servlet 3.0之后servlet3.0规范出来后，sp">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -594,15 +594,6 @@ Servlet 3.0之后servlet3.0规范出来后，sp">
                     <i class="fa fa-fw fa-globe"></i>
                   
                   简书
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://blog.csdn.net/u011851478" target="_blank" title="CSDN">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  CSDN
                 </a>
               </span>
             

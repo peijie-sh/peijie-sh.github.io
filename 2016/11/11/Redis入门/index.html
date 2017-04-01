@@ -93,7 +93,7 @@ sudo apt-get install redis-server
 非常方便，一句话搞定。
 配置Redis由于要远程连接Redis，所以要修改Redis的默认配置文件。修改/etc/redis/redis.conf，把bind 127.0.0.1注释掉即可
 
-bin">
+ #">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis入门">
 <meta property="og:url" content="http://peijie-sh.github.io/2016/11/11/Redis入门/index.html">
@@ -105,8 +105,8 @@ sudo apt-get install redis-server
 非常方便，一句话搞定。
 配置Redis由于要远程连接Redis，所以要修改Redis的默认配置文件。修改/etc/redis/redis.conf，把bind 127.0.0.1注释掉即可
 
-bin">
-<meta property="og:updated_time" content="2017-03-04T12:49:08.005Z">
+ #">
+<meta property="og:updated_time" content="2017-03-29T13:08:27.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis入门">
 <meta name="twitter:description" content="redis官方不支持windows系统，所以我将redis装在linux下。我用的Ubuntu 16 64位系统。
@@ -116,7 +116,7 @@ sudo apt-get install redis-server
 非常方便，一句话搞定。
 配置Redis由于要远程连接Redis，所以要修改Redis的默认配置文件。修改/etc/redis/redis.conf，把bind 127.0.0.1注释掉即可
 
-bin">
+ #">
 
 
 
@@ -388,7 +388,8 @@ bin">
 <p>非常方便，一句话搞定。</p>
 <h1 id="配置Redis"><a href="#配置Redis" class="headerlink" title="配置Redis"></a>配置Redis</h1><p>由于要远程连接Redis，所以要修改Redis的默认配置文件。<br>修改<code>/etc/redis/redis.conf</code>，把<code>bind 127.0.0.1</code>注释掉即可</p>
 <blockquote>
-<h1 id="bind-127-0-0-1"><a href="#bind-127-0-0-1" class="headerlink" title="bind 127.0.0.1"></a>bind 127.0.0.1</h1></blockquote>
+<p> # bind 127.0.0.1</p>
+</blockquote>
 <h1 id="启动和关闭Redis服务"><a href="#启动和关闭Redis服务" class="headerlink" title="启动和关闭Redis服务"></a>启动和关闭Redis服务</h1><p>如果是用<code>apt-get</code>或者<code>yum install</code>安装的redis，可以直接通过下面的命令停止/启动/重启：</p>
 <blockquote>
 <p>/etc/init.d/redis-server stop<br>/etc/init.d/redis-server start<br>/etc/init.d/redis-server restart</p>
@@ -405,7 +406,7 @@ bin">
 <li><code>hash</code>（哈希）</li>
 <li><code>list</code>（列表）</li>
 <li><code>set</code>（集合）</li>
-<li><code>zset</code>(sorted set：有序集合)</li>
+<li><code>zset</code>（sorted set：有序集合）</li>
 </ul>
 <h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。<br>string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象 。<br>string类型是Redis最基本的数据类型，一个键最大能存储512MB。</p>
 <h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>Redis hash 是一个键值对集合。<br>Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。</p>
@@ -575,7 +576,7 @@ bin">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -583,7 +584,7 @@ bin">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -592,7 +593,7 @@ bin">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -648,15 +649,6 @@ bin">
                 </a>
               </span>
             
-              <span class="links-of-author-item">
-                <a href="http://blog.csdn.net/u011851478" target="_blank" title="CSDN">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  CSDN
-                </a>
-              </span>
-            
           
         </div>
 
@@ -693,7 +685,7 @@ bin">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Redis"><span class="nav-number">1.</span> <span class="nav-text">安装Redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置Redis"><span class="nav-number">2.</span> <span class="nav-text">配置Redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bind-127-0-0-1"><span class="nav-number">3.</span> <span class="nav-text">bind 127.0.0.1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动和关闭Redis服务"><span class="nav-number">4.</span> <span class="nav-text">启动和关闭Redis服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据类型"><span class="nav-number">5.</span> <span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">5.1.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash"><span class="nav-number">5.2.</span> <span class="nav-text">hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-number">5.3.</span> <span class="nav-text">list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set"><span class="nav-number">5.4.</span> <span class="nav-text">set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zset"><span class="nav-number">5.5.</span> <span class="nav-text">zset</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java操作Redis"><span class="nav-number">6.</span> <span class="nav-text">Java操作Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引入redis驱动包"><span class="nav-number">6.1.</span> <span class="nav-text">引入redis驱动包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建连接"><span class="nav-number">6.2.</span> <span class="nav-text">创建连接</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Redis"><span class="nav-number">1.</span> <span class="nav-text">安装Redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置Redis"><span class="nav-number">2.</span> <span class="nav-text">配置Redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动和关闭Redis服务"><span class="nav-number">3.</span> <span class="nav-text">启动和关闭Redis服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据类型"><span class="nav-number">4.</span> <span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">4.1.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash"><span class="nav-number">4.2.</span> <span class="nav-text">hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-number">4.3.</span> <span class="nav-text">list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set"><span class="nav-number">4.4.</span> <span class="nav-text">set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zset"><span class="nav-number">4.5.</span> <span class="nav-text">zset</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java操作Redis"><span class="nav-number">5.</span> <span class="nav-text">Java操作Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引入redis驱动包"><span class="nav-number">5.1.</span> <span class="nav-text">引入redis驱动包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建连接"><span class="nav-number">5.2.</span> <span class="nav-text">创建连接</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

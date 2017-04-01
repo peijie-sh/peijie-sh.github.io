@@ -86,24 +86,19 @@
 
 
 
-<meta name="description" content="在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。
-
-jsp文件：">
+<meta name="description" content="在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC重定向传参数的实现">
 <meta property="og:url" content="http://peijie-sh.github.io/2016/10/23/SpringMVC重定向传参数的实现/index.html">
 <meta property="og:site_name" content="Lingpj's blog">
-<meta property="og:description" content="在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。
-
-jsp文件：">
+<meta property="og:description" content="在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://img.blog.csdn.net/20160710205655347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:updated_time" content="2017-03-04T12:49:08.006Z">
+<meta property="og:updated_time" content="2017-04-01T13:00:08.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC重定向传参数的实现">
-<meta name="twitter:description" content="在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。
-
-jsp文件：">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20160710205655347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta name="twitter:description" content="在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -319,8 +314,8 @@ jsp文件：">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring-SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring/SpringBoot</span>
                   </a>
                 </span>
 
@@ -368,11 +363,12 @@ jsp文件：">
       
 
       
-        <p>在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。</p>
+        <p><img src="http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SpringMVC"></p>
+<p>在spring的一个controller中要把参数传到页面，只要配置视图解析器，把参数添加到Model中，在页面用el表达式就可以取到。但是，这样使用的是forward方式，浏览器的地址栏是不变的，如果这时候浏览器F5刷新，就会造成表单重复提交的情况。所以，我们可以使用重定向的方式，改变浏览器的地址栏，防止表单因为刷新重复提交。</p>
+<a id="more"></a>
 <blockquote>
 <p>jsp文件：</p>
 </blockquote>
-<a id="more"></a>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span></span></div><div class="line">    <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"c"</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span></div><div class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>login<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	</div><div class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"form1"</span> <span class="attr">action</span>=<span class="string">"/demo/user/login"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></div><div class="line">		账号:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span> /&gt;</span><span class="tag">&lt;/<span class="name">br</span>&gt;</span></div><div class="line">		密码:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> /&gt;</span><span class="tag">&lt;/<span class="name">br</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"submit"</span>/&gt;</span></div><div class="line">		</div><div class="line">	<span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
 <blockquote>
 <p>controller：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.demo.controller;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</div><div class="line"><span class="keyword">import</span> org.springframework.ui.Model;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> lpj</div><div class="line"> * <span class="doctag">@date</span> 2016年7月10日</div><div class="line"> */</div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/user"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoController</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestParam Map&lt;String, String&gt; user, Model model)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"用户提交了一次表单"</span>);</div><div class="line">		String username;</div><div class="line">		<span class="keyword">if</span> (user.get(<span class="string">"name"</span>).isEmpty()) &#123;</div><div class="line">			username = <span class="string">"Tom"</span>;</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			username = user.get(<span class="string">"name"</span>);</div><div class="line">		&#125;</div><div class="line">		model.addAttribute(<span class="string">"msg"</span>, username);</div><div class="line"><span class="comment">//		  return "home";//此方式跳转，页面刷新会重复提交表单</span></div><div class="line">		<span class="keyword">return</span> <span class="string">"redirect:/home.jsp"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -537,7 +533,7 @@ jsp文件：">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -545,7 +541,7 @@ jsp文件：">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -554,7 +550,7 @@ jsp文件：">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -607,15 +603,6 @@ jsp文件：">
                     <i class="fa fa-fw fa-globe"></i>
                   
                   简书
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://blog.csdn.net/u011851478" target="_blank" title="CSDN">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  CSDN
                 </a>
               </span>
             

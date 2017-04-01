@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="Lingpj's blog">
 <meta property="og:description" content="SpringBoot的默认日志配置SpringBoot开箱即用，默认帮你配置了日志框架，使用 Commons Logging ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。
 控制台输出关于log日志，首先说说的5个日志级别 LEVEL：从高到低分别">
-<meta property="og:updated_time" content="2017-03-04T12:49:08.009Z">
+<meta property="og:updated_time" content="2017-04-01T12:02:38.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在SpringBoot中使用Logback管理日志">
 <meta name="twitter:description" content="SpringBoot的默认日志配置SpringBoot开箱即用，默认帮你配置了日志框架，使用 Commons Logging ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。
@@ -314,8 +314,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring-SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring/SpringBoot</span>
                   </a>
                 </span>
 
@@ -364,7 +364,7 @@
 
       
         <h1 id="SpringBoot的默认日志配置"><a href="#SpringBoot的默认日志配置" class="headerlink" title="SpringBoot的默认日志配置"></a>SpringBoot的默认日志配置</h1><p><code>SpringBoot</code>开箱即用，默认帮你配置了日志框架，使用 <code>Commons Logging</code> ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。</p>
-<h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>FATAL</code>、<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了 <code>ERROR</code> 、 <code>WARN</code> 和 <code>INFO</code> 级别的日志输出到控制台。</p>
+<h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>FATAL</code>、<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了<code>ERROR</code>、<code>WARN</code>和<code>INFO</code>级别的日志输出到控制台。</p>
 <a id="more"></a>
 <h2 id="我们可以通过两种方式切换至-DEBUG-级别："><a href="#我们可以通过两种方式切换至-DEBUG-级别：" class="headerlink" title="我们可以通过两种方式切换至 DEBUG 级别："></a>我们可以通过两种方式切换至 DEBUG 级别：</h2><ul>
 <li>在运行命令后加入 –debug 标志，如： $ java -jar myapp.jar –debug</li>
@@ -391,8 +391,8 @@
 </ul>
 <p>举例：</p>
 <ul>
-<li>logging.level.com.didispace=DEBUG ： com.didispace 包下所有class以DEBUG级别输出</li>
-<li>logging.level.root=WARN ：root日志以WARN级别输出</li>
+<li>logging.level.com.controller=DEBUG ： com.controller包下所有class以<code>DEBUG</code>级别输出</li>
+<li>logging.level.root=WARN ：root日志以<code>WARN</code>级别输出</li>
 </ul>
 <h1 id="自定义日志配置"><a href="#自定义日志配置" class="headerlink" title="自定义日志配置"></a>自定义日志配置</h1><p>如果不想使用默认配置，只要加入自己的日志配置文件就行了。<br>由于日志服务一般都在<code>ApplicationContext</code>创建前就初始化了，它并不是必须通过<code>Spring</code>的配置文件控制。因此通过系统属性和传统的<code>Spring Boot</code>外部配置文件依然可以很好的支持日志控制和管理。</p>
 <p>根据不同的日志系统，你可以按如下规则组织配置文件名，就能被正确加载：</p>
@@ -471,8 +471,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/02/13/使用Spring Boot Actuator监控应用/" rel="prev" title="使用Spring Boot Actuator监控应用">
-                使用Spring Boot Actuator监控应用 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/13/使用SpringBoot Actuator监控应用/" rel="prev" title="使用SpringBoot Actuator监控应用">
+                使用SpringBoot Actuator监控应用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -567,7 +567,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -575,7 +575,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -584,7 +584,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -637,15 +637,6 @@
                     <i class="fa fa-fw fa-globe"></i>
                   
                   简书
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://blog.csdn.net/u011851478" target="_blank" title="CSDN">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  CSDN
                 </a>
               </span>
             

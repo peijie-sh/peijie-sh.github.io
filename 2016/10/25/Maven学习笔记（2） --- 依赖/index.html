@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://peijie-sh.github.io/2016/10/25/Maven学习笔记（2） --- 依赖/index.html">
 <meta property="og:site_name" content="Lingpj's blog">
 <meta property="og:description" content="maven依赖在maven项目中，我们会在pom.xml文件中引入我们需要用到的依赖，一般用groupId,artifactId,version就够了，如下：12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-core&amp;lt;/artifactId&amp;g">
-<meta property="og:updated_time" content="2017-03-04T12:49:08.003Z">
+<meta property="og:updated_time" content="2017-04-01T13:01:14.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven学习笔记（2） --- 依赖">
 <meta name="twitter:description" content="maven依赖在maven项目中，我们会在pom.xml文件中引入我们需要用到的依赖，一般用groupId,artifactId,version就够了，如下：12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-core&amp;lt;/artifactId&amp;g">
@@ -360,11 +360,11 @@
       
 
       
-        <h2 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h2><p>在maven项目中，我们会在pom.xml文件中引入我们需要用到的依赖，一般用<code>groupId</code>,<code>artifactId</code>,<code>version</code>就够了，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.1.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>有时，也会指定依赖范围，比如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+        <h1 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h1><p>在maven项目中，我们会在pom.xml文件中引入我们需要用到的依赖，一般用<code>groupId</code>,<code>artifactId</code>,<code>version</code>就够了，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.1.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <a id="more"></a>
+<p>有时，也会指定依赖范围，比如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>maven有3套classpath，编译classpath，运行classpath，测试classpath。</p>
-<h2 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h2><p>依赖范围有以下几种：</p>
+<h1 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h1><p>依赖范围有以下几种：</p>
 <ul>
 <li><code>compile</code> 编译依赖范围。默认是这种范围。对3中classpath都有效。典型例子是<code>spring-core</code>，在编译，运行，测试时都需要。 </li>
 <li><code>test</code> 测试依赖范围。只对测试classpath有效。典型例子是<code>junit</code>，它只在测试期间需要。</li>
@@ -373,7 +373,7 @@
 <li><code>system</code> 系统依赖范围。和<code>provided</code>一样，对3中classpath都有效。但是，使用时必须通过systemPath元素显式指定依赖文件的路径。限制比较多，一般不使用。</li>
 <li><code>import</code> 导入依赖范围。对3中classpath都没实际影响。</li>
 </ul>
-<h2 id="依赖机制"><a href="#依赖机制" class="headerlink" title="依赖机制"></a>依赖机制</h2><ol>
+<h1 id="依赖机制"><a href="#依赖机制" class="headerlink" title="依赖机制"></a>依赖机制</h1><ol>
 <li>依赖会传播：A依赖B，B依赖C，那么maven解析的时候会找到B，发现B依赖C，又去把C引入，然后在引入B</li>
 <li>有相同依赖的时候，优先选路径最近的：比如A-&gt;B-&gt;C-&gt;X(1.0), A-&gt;D-&gt;X(2.0),这时候有2个X，会冲突，maven会选择最近的，也就是X(2.0)</li>
 <li>在依赖路径长度相同时，优先选先声明的：比如A-&gt;B-&gt;Y(1.0), A-&gt;C-&gt;Y(2.0),在maven2.0.9之后，maven会选在pom中先声明的那个。即如果C的依赖声明在B之前，就选Y(2.0) </li>
@@ -533,7 +533,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -541,7 +541,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -550,7 +550,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -606,15 +606,6 @@
                 </a>
               </span>
             
-              <span class="links-of-author-item">
-                <a href="http://blog.csdn.net/u011851478" target="_blank" title="CSDN">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  CSDN
-                </a>
-              </span>
-            
           
         </div>
 
@@ -651,7 +642,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖范围"><span class="nav-number">2.</span> <span class="nav-text">依赖范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖机制"><span class="nav-number">3.</span> <span class="nav-text">依赖机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖范围"><span class="nav-number">2.</span> <span class="nav-text">依赖范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖机制"><span class="nav-number">3.</span> <span class="nav-text">依赖机制</span></a></li></ol></div>
             
           </div>
         </section>
