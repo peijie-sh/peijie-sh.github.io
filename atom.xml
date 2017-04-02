@@ -498,10 +498,10 @@
     <link href="http://peijie-sh.github.io/2017/02/11/%E5%9C%A8SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Logback%E7%AE%A1%E7%90%86%E6%97%A5%E5%BF%97/"/>
     <id>http://peijie-sh.github.io/2017/02/11/在SpringBoot中使用Logback管理日志/</id>
     <published>2017-02-11T07:31:35.000Z</published>
-    <updated>2017-04-01T12:02:38.009Z</updated>
+    <updated>2017-04-02T09:18:17.469Z</updated>
     
     <content type="html"><![CDATA[<h1 id="SpringBoot的默认日志配置"><a href="#SpringBoot的默认日志配置" class="headerlink" title="SpringBoot的默认日志配置"></a>SpringBoot的默认日志配置</h1><p><code>SpringBoot</code>开箱即用，默认帮你配置了日志框架，使用 <code>Commons Logging</code> ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。</p>
-<h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>FATAL</code>、<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了<code>ERROR</code>、<code>WARN</code>和<code>INFO</code>级别的日志输出到控制台。</p>
+<h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>、<code>TRACE</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了<code>ERROR</code> 、<code>WARN</code>和<code>INFO</code>级别的日志输出到控制台。<br>Logback中没有<code>FATAL</code>级别，它会被当作<code>ERROR</code>级别来处理。</p>
 <a id="more"></a>
 <h2 id="我们可以通过两种方式切换至-DEBUG-级别："><a href="#我们可以通过两种方式切换至-DEBUG-级别：" class="headerlink" title="我们可以通过两种方式切换至 DEBUG 级别："></a>我们可以通过两种方式切换至 DEBUG 级别：</h2><ul>
 <li>在运行命令后加入 –debug 标志，如： $ java -jar myapp.jar –debug</li>
@@ -552,7 +552,7 @@
     <summary type="html">
     
       &lt;h1 id=&quot;SpringBoot的默认日志配置&quot;&gt;&lt;a href=&quot;#SpringBoot的默认日志配置&quot; class=&quot;headerlink&quot; title=&quot;SpringBoot的默认日志配置&quot;&gt;&lt;/a&gt;SpringBoot的默认日志配置&lt;/h1&gt;&lt;p&gt;&lt;code&gt;SpringBoot&lt;/code&gt;开箱即用，默认帮你配置了日志框架，使用 &lt;code&gt;Commons Logging&lt;/code&gt; ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。&lt;/p&gt;
-&lt;h2 id=&quot;控制台输出&quot;&gt;&lt;a href=&quot;#控制台输出&quot; class=&quot;headerlink&quot; title=&quot;控制台输出&quot;&gt;&lt;/a&gt;控制台输出&lt;/h2&gt;&lt;p&gt;关于log日志，首先说说的5个日志级别 LEVEL：&lt;br&gt;从高到低分别是&lt;code&gt;FATAL&lt;/code&gt;、&lt;code&gt;ERROR&lt;/code&gt;、&lt;code&gt;WARN&lt;/code&gt;、&lt;code&gt;INFO&lt;/code&gt;、&lt;code&gt;DEBUG&lt;/code&gt;&lt;br&gt;低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为&lt;code&gt;ERROR&lt;/code&gt;的话，&lt;code&gt;WARN&lt;/code&gt;、&lt;code&gt;INFO&lt;/code&gt;、&lt;code&gt;DEBUG&lt;/code&gt;的信息是不会输出的。&lt;br&gt;在&lt;code&gt;SpringBoot&lt;/code&gt;中默认配置了&lt;code&gt;ERROR&lt;/code&gt;、&lt;code&gt;WARN&lt;/code&gt;和&lt;code&gt;INFO&lt;/code&gt;级别的日志输出到控制台。&lt;/p&gt;
+&lt;h2 id=&quot;控制台输出&quot;&gt;&lt;a href=&quot;#控制台输出&quot; class=&quot;headerlink&quot; title=&quot;控制台输出&quot;&gt;&lt;/a&gt;控制台输出&lt;/h2&gt;&lt;p&gt;关于log日志，首先说说的5个日志级别 LEVEL：&lt;br&gt;从高到低分别是&lt;code&gt;ERROR&lt;/code&gt;、&lt;code&gt;WARN&lt;/code&gt;、&lt;code&gt;INFO&lt;/code&gt;、&lt;code&gt;DEBUG&lt;/code&gt;、&lt;code&gt;TRACE&lt;/code&gt;&lt;br&gt;低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为&lt;code&gt;ERROR&lt;/code&gt;的话，&lt;code&gt;WARN&lt;/code&gt;、&lt;code&gt;INFO&lt;/code&gt;、&lt;code&gt;DEBUG&lt;/code&gt;的信息是不会输出的。&lt;br&gt;在&lt;code&gt;SpringBoot&lt;/code&gt;中默认配置了&lt;code&gt;ERROR&lt;/code&gt; 、&lt;code&gt;WARN&lt;/code&gt;和&lt;code&gt;INFO&lt;/code&gt;级别的日志输出到控制台。&lt;br&gt;Logback中没有&lt;code&gt;FATAL&lt;/code&gt;级别，它会被当作&lt;code&gt;ERROR&lt;/code&gt;级别来处理。&lt;/p&gt;
     
     </summary>
     
@@ -1021,6 +1021,51 @@
   </entry>
   
   <entry>
+    <title>OkHttp的基本使用——替代Apache HttpClient</title>
+    <link href="http://peijie-sh.github.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/"/>
+    <id>http://peijie-sh.github.io/2016/10/26/OkHttp的基本使用——替代Apache HttpClient/</id>
+    <published>2016-10-26T04:27:34.000Z</published>
+    <updated>2017-03-04T12:49:08.004Z</updated>
+    
+    <content type="html"><![CDATA[<p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
+<p>OkHttp 是一个很棒HTTP客户端:</p>
+<ul>
+<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
+<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
+<li>使用GZIP压缩减少传输的数据量</li>
+<li>缓存响应避免重复的网络请求</li>
+</ul>
+<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
+<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。&lt;/p&gt;
+&lt;p&gt;OkHttp 是一个很棒HTTP客户端:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持SPDY, 可以合并多个到同一个主机的请求&lt;/li&gt;
+&lt;li&gt;使用连接池技术减少请求的延迟(如果SPDY是可用的话)&lt;/li&gt;
+&lt;li&gt;使用GZIP压缩减少传输的数据量&lt;/li&gt;
+&lt;li&gt;缓存响应避免重复的网络请求&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OkHttp可以替换Apache的HttpClient&lt;br&gt;OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包&lt;/p&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="Http" scheme="http://peijie-sh.github.io/tags/Http/"/>
+    
+      <category term="OkHttp" scheme="http://peijie-sh.github.io/tags/OkHttp/"/>
+    
+  </entry>
+  
+  <entry>
     <title>VIM编辑器的基本使用</title>
     <link href="http://peijie-sh.github.io/2016/10/26/VIM%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
     <id>http://peijie-sh.github.io/2016/10/26/VIM编辑器的基本使用/</id>
@@ -1171,51 +1216,6 @@
   </entry>
   
   <entry>
-    <title>OkHttp的基本使用——替代Apache HttpClient</title>
-    <link href="http://peijie-sh.github.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/"/>
-    <id>http://peijie-sh.github.io/2016/10/26/OkHttp的基本使用——替代Apache HttpClient/</id>
-    <published>2016-10-26T04:27:34.000Z</published>
-    <updated>2017-03-04T12:49:08.004Z</updated>
-    
-    <content type="html"><![CDATA[<p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
-<p>OkHttp 是一个很棒HTTP客户端:</p>
-<ul>
-<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
-<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
-<li>使用GZIP压缩减少传输的数据量</li>
-<li>缓存响应避免重复的网络请求</li>
-</ul>
-<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
-<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。&lt;/p&gt;
-&lt;p&gt;OkHttp 是一个很棒HTTP客户端:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;支持SPDY, 可以合并多个到同一个主机的请求&lt;/li&gt;
-&lt;li&gt;使用连接池技术减少请求的延迟(如果SPDY是可用的话)&lt;/li&gt;
-&lt;li&gt;使用GZIP压缩减少传输的数据量&lt;/li&gt;
-&lt;li&gt;缓存响应避免重复的网络请求&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;OkHttp可以替换Apache的HttpClient&lt;br&gt;OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包&lt;/p&gt;
-&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
-    
-    </summary>
-    
-      <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="Http" scheme="http://peijie-sh.github.io/tags/Http/"/>
-    
-      <category term="OkHttp" scheme="http://peijie-sh.github.io/tags/OkHttp/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Oracle入门</title>
     <link href="http://peijie-sh.github.io/2016/10/25/Oracle%E5%85%A5%E9%97%A8/"/>
     <id>http://peijie-sh.github.io/2016/10/25/Oracle入门/</id>
@@ -1356,56 +1356,6 @@
   </entry>
   
   <entry>
-    <title>Docker安装与基础命令</title>
-    <link href="http://peijie-sh.github.io/2016/10/25/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
-    <id>http://peijie-sh.github.io/2016/10/25/Docker安装与基础命令/</id>
-    <published>2016-10-25T07:28:37.000Z</published>
-    <updated>2017-04-01T14:03:10.622Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker"></p>
-<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：</p>
-<blockquote>
-<p>sudo apt-get install docker.io</p>
-</blockquote>
-<a id="more"></a>
-<p>运行完后，可以在终端输入docker看到以下信息证明我们安装成功了<br>注：提示权限问题就添加sudo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">docker</div><div class="line">Usage: docker [OPTIONS] COMMAND [arg...]</div><div class="line">       docker daemon [ --help | ... ]</div><div class="line">       docker [ --help | -v | --version ]</div><div class="line"></div><div class="line">A self-sufficient runtime <span class="keyword">for</span> containers.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">  --config=~/.docker              Location of client config files</div><div class="line">  -D, --debug                     Enable debug mode</div><div class="line">  -H, --host=[]                   Daemon socket(s) to connect to</div><div class="line">  -h, --help                      Print usage</div><div class="line">  <span class="_">-l</span>, --log-level=info            Set the logging level</div><div class="line">  --tls                           Use TLS; implied by --tlsverify</div><div class="line">  --tlscacert=~/.docker/ca.pem    Trust certs signed only by this CA</div><div class="line">  --tlscert=~/.docker/cert.pem    Path to TLS certificate file</div><div class="line">  --tlskey=~/.docker/key.pem      Path to TLS key file</div><div class="line">  --tlsverify                     Use TLS and verify the remote</div><div class="line">  -v, --version                   Print version information and quit</div><div class="line"></div><div class="line">Commands:</div><div class="line">    attach    Attach to a running container</div><div class="line">    build     Build an image from a Dockerfile</div><div class="line">    commit    Create a new image from a container<span class="string">'s changes</span></div><div class="line">    cp        Copy files/folders between a container and the local filesystem</div><div class="line">    create    Create a new container</div><div class="line">    diff      Inspect changes on a container's filesystem</div><div class="line">    events    Get real time events from the server</div><div class="line">    <span class="built_in">exec</span>      Run a <span class="built_in">command</span> <span class="keyword">in</span> a running container</div><div class="line">    <span class="built_in">export</span>    Export a container<span class="string">'s filesystem as a tar archive</span></div><div class="line">    history   Show the history of an image</div><div class="line">    images    List images</div><div class="line">    import    Import the contents from a tarball to create a filesystem image</div><div class="line">    info      Display system-wide information</div><div class="line">    inspect   Return low-level information on a container or image</div><div class="line">    kill      Kill a running container</div><div class="line">    load      Load an image from a tar archive or STDIN</div><div class="line">    login     Register or log in to a Docker registry</div><div class="line">    logout    Log out from a Docker registry</div><div class="line">    logs      Fetch the logs of a container</div><div class="line">    network   Manage Docker networks</div><div class="line">    pause     Pause all processes within a container</div><div class="line">    port      List port mappings or a specific mapping for the CONTAINER</div><div class="line">    ps        List containers</div><div class="line">    pull      Pull an image or a repository from a registry</div><div class="line">    push      Push an image or a repository to a registry</div><div class="line">    rename    Rename a container</div><div class="line">    restart   Restart a container</div><div class="line">    rm        Remove one or more containers</div><div class="line">    rmi       Remove one or more images</div><div class="line">    run       Run a command in a new container</div><div class="line">    save      Save an image(s) to a tar archive</div><div class="line">    search    Search the Docker Hub for images</div><div class="line">    start     Start one or more stopped containers</div><div class="line">    stats     Display a live stream of container(s) resource usage statistics</div><div class="line">    stop      Stop a running container</div><div class="line">    tag       Tag an image into a repository</div><div class="line">    top       Display the running processes of a container</div><div class="line">    unpause   Unpause all processes within a container</div><div class="line">    update    Update resources of one or more containers</div><div class="line">    version   Show the Docker version information</div><div class="line">    volume    Manage Docker volumes</div><div class="line">    wait      Block until a container stops, then print its exit code</div><div class="line"></div><div class="line">Run 'docker COMMAND --help<span class="string">' for more information on a command.</span></div></pre></td></tr></table></figure>
-<p>安装完以后，也可运行以下命令查看版本信息：</p>
-<blockquote>
-<p>docker -v<br>docker version<br>docker info</p>
-</blockquote>
-<p>当利用 docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
-<ul>
-<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
-<li>利用镜像创建并启动一个容器</li>
-<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
-<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
-<li>从地址池配置一个 ip 地址给容器</li>
-<li>执行用户指定的应用程序</li>
-<li>执行完毕后容器被终止</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;docker&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;Docker安装&quot;&gt;&lt;a href=&quot;#Docker安装&quot; class=&quot;headerlink&quot; title=&quot;Docker安装&quot;&gt;&lt;/a&gt;Docker安装&lt;/h1&gt;&lt;p&gt;我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;sudo apt-get install docker.io&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://peijie-sh.github.io/categories/Linux/"/>
-    
-    
-      <category term="Docker" scheme="http://peijie-sh.github.io/tags/Docker/"/>
-    
-      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Maven学习笔记（3） --- 生命周期</title>
     <link href="http://peijie-sh.github.io/2016/10/25/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%20---%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
     <id>http://peijie-sh.github.io/2016/10/25/Maven学习笔记（3） --- 生命周期/</id>
@@ -1487,6 +1437,56 @@
     
     
       <category term="Maven" scheme="http://peijie-sh.github.io/tags/Maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker安装与基础命令</title>
+    <link href="http://peijie-sh.github.io/2016/10/25/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
+    <id>http://peijie-sh.github.io/2016/10/25/Docker安装与基础命令/</id>
+    <published>2016-10-25T07:28:37.000Z</published>
+    <updated>2017-04-01T14:03:10.622Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker"></p>
+<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：</p>
+<blockquote>
+<p>sudo apt-get install docker.io</p>
+</blockquote>
+<a id="more"></a>
+<p>运行完后，可以在终端输入docker看到以下信息证明我们安装成功了<br>注：提示权限问题就添加sudo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">docker</div><div class="line">Usage: docker [OPTIONS] COMMAND [arg...]</div><div class="line">       docker daemon [ --help | ... ]</div><div class="line">       docker [ --help | -v | --version ]</div><div class="line"></div><div class="line">A self-sufficient runtime <span class="keyword">for</span> containers.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">  --config=~/.docker              Location of client config files</div><div class="line">  -D, --debug                     Enable debug mode</div><div class="line">  -H, --host=[]                   Daemon socket(s) to connect to</div><div class="line">  -h, --help                      Print usage</div><div class="line">  <span class="_">-l</span>, --log-level=info            Set the logging level</div><div class="line">  --tls                           Use TLS; implied by --tlsverify</div><div class="line">  --tlscacert=~/.docker/ca.pem    Trust certs signed only by this CA</div><div class="line">  --tlscert=~/.docker/cert.pem    Path to TLS certificate file</div><div class="line">  --tlskey=~/.docker/key.pem      Path to TLS key file</div><div class="line">  --tlsverify                     Use TLS and verify the remote</div><div class="line">  -v, --version                   Print version information and quit</div><div class="line"></div><div class="line">Commands:</div><div class="line">    attach    Attach to a running container</div><div class="line">    build     Build an image from a Dockerfile</div><div class="line">    commit    Create a new image from a container<span class="string">'s changes</span></div><div class="line">    cp        Copy files/folders between a container and the local filesystem</div><div class="line">    create    Create a new container</div><div class="line">    diff      Inspect changes on a container's filesystem</div><div class="line">    events    Get real time events from the server</div><div class="line">    <span class="built_in">exec</span>      Run a <span class="built_in">command</span> <span class="keyword">in</span> a running container</div><div class="line">    <span class="built_in">export</span>    Export a container<span class="string">'s filesystem as a tar archive</span></div><div class="line">    history   Show the history of an image</div><div class="line">    images    List images</div><div class="line">    import    Import the contents from a tarball to create a filesystem image</div><div class="line">    info      Display system-wide information</div><div class="line">    inspect   Return low-level information on a container or image</div><div class="line">    kill      Kill a running container</div><div class="line">    load      Load an image from a tar archive or STDIN</div><div class="line">    login     Register or log in to a Docker registry</div><div class="line">    logout    Log out from a Docker registry</div><div class="line">    logs      Fetch the logs of a container</div><div class="line">    network   Manage Docker networks</div><div class="line">    pause     Pause all processes within a container</div><div class="line">    port      List port mappings or a specific mapping for the CONTAINER</div><div class="line">    ps        List containers</div><div class="line">    pull      Pull an image or a repository from a registry</div><div class="line">    push      Push an image or a repository to a registry</div><div class="line">    rename    Rename a container</div><div class="line">    restart   Restart a container</div><div class="line">    rm        Remove one or more containers</div><div class="line">    rmi       Remove one or more images</div><div class="line">    run       Run a command in a new container</div><div class="line">    save      Save an image(s) to a tar archive</div><div class="line">    search    Search the Docker Hub for images</div><div class="line">    start     Start one or more stopped containers</div><div class="line">    stats     Display a live stream of container(s) resource usage statistics</div><div class="line">    stop      Stop a running container</div><div class="line">    tag       Tag an image into a repository</div><div class="line">    top       Display the running processes of a container</div><div class="line">    unpause   Unpause all processes within a container</div><div class="line">    update    Update resources of one or more containers</div><div class="line">    version   Show the Docker version information</div><div class="line">    volume    Manage Docker volumes</div><div class="line">    wait      Block until a container stops, then print its exit code</div><div class="line"></div><div class="line">Run 'docker COMMAND --help<span class="string">' for more information on a command.</span></div></pre></td></tr></table></figure>
+<p>安装完以后，也可运行以下命令查看版本信息：</p>
+<blockquote>
+<p>docker -v<br>docker version<br>docker info</p>
+</blockquote>
+<p>当利用 docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
+<ul>
+<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
+<li>利用镜像创建并启动一个容器</li>
+<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+<li>从地址池配置一个 ip 地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被终止</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;docker&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Docker安装&quot;&gt;&lt;a href=&quot;#Docker安装&quot; class=&quot;headerlink&quot; title=&quot;Docker安装&quot;&gt;&lt;/a&gt;Docker安装&lt;/h1&gt;&lt;p&gt;我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo apt-get install docker.io&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://peijie-sh.github.io/categories/Linux/"/>
+    
+    
+      <category term="Docker" scheme="http://peijie-sh.github.io/tags/Docker/"/>
+    
+      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
     
   </entry>
   

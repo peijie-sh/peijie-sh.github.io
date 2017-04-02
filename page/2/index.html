@@ -771,7 +771,7 @@
       
         
           <h1 id="SpringBoot的默认日志配置"><a href="#SpringBoot的默认日志配置" class="headerlink" title="SpringBoot的默认日志配置"></a>SpringBoot的默认日志配置</h1><p><code>SpringBoot</code>开箱即用，默认帮你配置了日志框架，使用 <code>Commons Logging</code> ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。</p>
-<h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>FATAL</code>、<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了<code>ERROR</code>、<code>WARN</code>和<code>INFO</code>级别的日志输出到控制台。</p>
+<h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>、<code>TRACE</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了<code>ERROR</code> 、<code>WARN</code>和<code>INFO</code>级别的日志输出到控制台。<br>Logback中没有<code>FATAL</code>级别，它会被当作<code>ERROR</code>级别来处理。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/02/11/在SpringBoot中使用Logback管理日志/#more" rel="contents">
               阅读全文 &raquo;
