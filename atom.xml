@@ -4,9 +4,9 @@
   <subtitle>不忘初心，方得始终</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://peijie-sh.github.io/"/>
+  <link href="http://peijie2016.oschina.io/"/>
   <updated>2017-04-01T12:02:37.910Z</updated>
-  <id>http://peijie-sh.github.io/</id>
+  <id>http://peijie2016.oschina.io/</id>
   
   <author>
     <name>Lingpj</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>HTML转图片利器：wkhtmltox</title>
-    <link href="http://peijie-sh.github.io/2017/04/01/HTML%E8%BD%AC%E5%9B%BE%E7%89%87%E5%88%A9%E5%99%A8%EF%BC%9Awkhtmltox/"/>
-    <id>http://peijie-sh.github.io/2017/04/01/HTML转图片利器：wkhtmltox/</id>
+    <link href="http://peijie2016.oschina.io/2017/04/01/HTML%E8%BD%AC%E5%9B%BE%E7%89%87%E5%88%A9%E5%99%A8%EF%BC%9Awkhtmltox/"/>
+    <id>http://peijie2016.oschina.io/2017/04/01/HTML转图片利器：wkhtmltox/</id>
     <published>2017-04-01T06:07:22.000Z</published>
     <updated>2017-04-01T12:02:37.910Z</updated>
     
@@ -62,19 +62,19 @@
     
     </summary>
     
-      <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
     
     
-      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
     
-      <category term="wkhtmltox" scheme="http://peijie-sh.github.io/tags/wkhtmltox/"/>
+      <category term="wkhtmltox" scheme="http://peijie2016.oschina.io/tags/wkhtmltox/"/>
     
   </entry>
   
   <entry>
     <title>SpringBoot中使用Redis实现缓存</title>
-    <link href="http://peijie-sh.github.io/2017/03/30/SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98/"/>
-    <id>http://peijie-sh.github.io/2017/03/30/SpringBoot中使用Redis实现缓存/</id>
+    <link href="http://peijie2016.oschina.io/2017/03/30/SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98/"/>
+    <id>http://peijie2016.oschina.io/2017/03/30/SpringBoot中使用Redis实现缓存/</id>
     <published>2017-03-30T09:11:13.000Z</published>
     <updated>2017-04-01T12:02:37.912Z</updated>
     
@@ -108,21 +108,21 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
     
     
-      <category term="Redis" scheme="http://peijie-sh.github.io/tags/Redis/"/>
+      <category term="Redis" scheme="http://peijie2016.oschina.io/tags/Redis/"/>
     
-      <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
+      <category term="SpringBoot" scheme="http://peijie2016.oschina.io/tags/SpringBoot/"/>
     
-      <category term="Cache" scheme="http://peijie-sh.github.io/tags/Cache/"/>
+      <category term="Cache" scheme="http://peijie2016.oschina.io/tags/Cache/"/>
     
   </entry>
   
   <entry>
     <title>手动安装redis-3.2.8的详细步骤</title>
-    <link href="http://peijie-sh.github.io/2017/03/30/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85redis-3.2.8%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4/"/>
-    <id>http://peijie-sh.github.io/2017/03/30/手动安装redis-3.2.8的详细步骤/</id>
+    <link href="http://peijie2016.oschina.io/2017/03/30/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85redis-3.2.8%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4/"/>
+    <id>http://peijie2016.oschina.io/2017/03/30/手动安装redis-3.2.8的详细步骤/</id>
     <published>2017-03-30T02:40:27.000Z</published>
     <updated>2017-04-01T12:47:24.809Z</updated>
     
@@ -174,19 +174,19 @@
     
     </summary>
     
-      <category term="NoSQL" scheme="http://peijie-sh.github.io/categories/NoSQL/"/>
+      <category term="NoSQL" scheme="http://peijie2016.oschina.io/categories/NoSQL/"/>
     
     
-      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
     
-      <category term="Redis" scheme="http://peijie-sh.github.io/tags/Redis/"/>
+      <category term="Redis" scheme="http://peijie2016.oschina.io/tags/Redis/"/>
     
   </entry>
   
   <entry>
     <title>谈谈Java中的代理</title>
-    <link href="http://peijie-sh.github.io/2017/02/17/%E8%B0%88%E8%B0%88Java%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%90%86/"/>
-    <id>http://peijie-sh.github.io/2017/02/17/谈谈Java中的代理/</id>
+    <link href="http://peijie2016.oschina.io/2017/02/17/%E8%B0%88%E8%B0%88Java%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%90%86/"/>
+    <id>http://peijie2016.oschina.io/2017/02/17/谈谈Java中的代理/</id>
     <published>2017-02-17T07:36:35.000Z</published>
     <updated>2017-03-04T12:49:08.010Z</updated>
     
@@ -241,17 +241,17 @@
     
     </summary>
     
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://peijie2016.oschina.io/categories/Java/"/>
     
     
-      <category term="动态代理" scheme="http://peijie-sh.github.io/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"/>
+      <category term="动态代理" scheme="http://peijie2016.oschina.io/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>谈谈Java中的堆与栈</title>
-    <link href="http://peijie-sh.github.io/2017/02/16/%E8%B0%88%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%A0%86%E4%B8%8E%E6%A0%88/"/>
-    <id>http://peijie-sh.github.io/2017/02/16/谈谈Java中的堆与栈/</id>
+    <link href="http://peijie2016.oschina.io/2017/02/16/%E8%B0%88%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%A0%86%E4%B8%8E%E6%A0%88/"/>
+    <id>http://peijie2016.oschina.io/2017/02/16/谈谈Java中的堆与栈/</id>
     <published>2017-02-16T07:25:12.000Z</published>
     <updated>2017-03-04T12:49:08.011Z</updated>
     
@@ -309,17 +309,17 @@
     
     </summary>
     
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://peijie2016.oschina.io/categories/Java/"/>
     
     
-      <category term="JVM" scheme="http://peijie-sh.github.io/tags/JVM/"/>
+      <category term="JVM" scheme="http://peijie2016.oschina.io/tags/JVM/"/>
     
   </entry>
   
   <entry>
     <title>SpringMVC统一异常处理总结</title>
-    <link href="http://peijie-sh.github.io/2017/02/15/SpringMVC%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%80%BB%E7%BB%93/"/>
-    <id>http://peijie-sh.github.io/2017/02/15/SpringMVC统一异常处理总结/</id>
+    <link href="http://peijie2016.oschina.io/2017/02/15/SpringMVC%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%80%BB%E7%BB%93/"/>
+    <id>http://peijie2016.oschina.io/2017/02/15/SpringMVC统一异常处理总结/</id>
     <published>2017-02-15T08:11:13.000Z</published>
     <updated>2017-04-01T13:00:32.485Z</updated>
     
@@ -340,17 +340,17 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
     
     
-      <category term="Spring" scheme="http://peijie-sh.github.io/tags/Spring/"/>
+      <category term="Spring" scheme="http://peijie2016.oschina.io/tags/Spring/"/>
     
   </entry>
   
   <entry>
     <title>Spring Task定时任务的配置和使用</title>
-    <link href="http://peijie-sh.github.io/2017/02/15/Spring%20Task%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
-    <id>http://peijie-sh.github.io/2017/02/15/Spring Task定时任务的配置和使用/</id>
+    <link href="http://peijie2016.oschina.io/2017/02/15/Spring%20Task%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
+    <id>http://peijie2016.oschina.io/2017/02/15/Spring Task定时任务的配置和使用/</id>
     <published>2017-02-15T03:33:12.000Z</published>
     <updated>2017-04-01T13:46:20.730Z</updated>
     
@@ -414,19 +414,19 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
     
     
-      <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
+      <category term="Spring" scheme="http://peijie2016.oschina.io/tags/Spring/"/>
     
-      <category term="Spring" scheme="http://peijie-sh.github.io/tags/Spring/"/>
+      <category term="SpringBoot" scheme="http://peijie2016.oschina.io/tags/SpringBoot/"/>
     
   </entry>
   
   <entry>
     <title>使用SpringBoot Actuator监控应用</title>
-    <link href="http://peijie-sh.github.io/2017/02/13/%E4%BD%BF%E7%94%A8SpringBoot%20Actuator%E7%9B%91%E6%8E%A7%E5%BA%94%E7%94%A8/"/>
-    <id>http://peijie-sh.github.io/2017/02/13/使用SpringBoot Actuator监控应用/</id>
+    <link href="http://peijie2016.oschina.io/2017/02/13/%E4%BD%BF%E7%94%A8SpringBoot%20Actuator%E7%9B%91%E6%8E%A7%E5%BA%94%E7%94%A8/"/>
+    <id>http://peijie2016.oschina.io/2017/02/13/使用SpringBoot Actuator监控应用/</id>
     <published>2017-02-13T04:25:34.000Z</published>
     <updated>2017-04-01T12:02:38.008Z</updated>
     
@@ -486,17 +486,17 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
     
     
-      <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
+      <category term="SpringBoot" scheme="http://peijie2016.oschina.io/tags/SpringBoot/"/>
     
   </entry>
   
   <entry>
     <title>在SpringBoot中使用Logback管理日志</title>
-    <link href="http://peijie-sh.github.io/2017/02/11/%E5%9C%A8SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Logback%E7%AE%A1%E7%90%86%E6%97%A5%E5%BF%97/"/>
-    <id>http://peijie-sh.github.io/2017/02/11/在SpringBoot中使用Logback管理日志/</id>
+    <link href="http://peijie2016.oschina.io/2017/02/11/%E5%9C%A8SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Logback%E7%AE%A1%E7%90%86%E6%97%A5%E5%BF%97/"/>
+    <id>http://peijie2016.oschina.io/2017/02/11/在SpringBoot中使用Logback管理日志/</id>
     <published>2017-02-11T07:31:35.000Z</published>
     <updated>2017-04-02T09:18:17.469Z</updated>
     
@@ -556,19 +556,19 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
     
     
-      <category term="SpringBoot" scheme="http://peijie-sh.github.io/tags/SpringBoot/"/>
+      <category term="SpringBoot" scheme="http://peijie2016.oschina.io/tags/SpringBoot/"/>
     
-      <category term="Logback" scheme="http://peijie-sh.github.io/tags/Logback/"/>
+      <category term="Logback" scheme="http://peijie2016.oschina.io/tags/Logback/"/>
     
   </entry>
   
   <entry>
     <title>用SpringMVC搭建web应用</title>
-    <link href="http://peijie-sh.github.io/2016/12/13/%E7%94%A8SpringMVC%E6%90%AD%E5%BB%BAweb%E5%BA%94%E7%94%A8/"/>
-    <id>http://peijie-sh.github.io/2016/12/13/用SpringMVC搭建web应用/</id>
+    <link href="http://peijie2016.oschina.io/2016/12/13/%E7%94%A8SpringMVC%E6%90%AD%E5%BB%BAweb%E5%BA%94%E7%94%A8/"/>
+    <id>http://peijie2016.oschina.io/2016/12/13/用SpringMVC搭建web应用/</id>
     <published>2016-12-13T03:15:35.000Z</published>
     <updated>2017-04-01T12:59:34.293Z</updated>
     
@@ -588,17 +588,17 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie-sh.github.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
     
     
-      <category term="Spring" scheme="http://peijie-sh.github.io/tags/Spring/"/>
+      <category term="Spring" scheme="http://peijie2016.oschina.io/tags/Spring/"/>
     
   </entry>
   
   <entry>
     <title>解决Linux下DNS配置重启失效问题</title>
-    <link href="http://peijie-sh.github.io/2016/12/02/%E8%A7%A3%E5%86%B3Linux%E4%B8%8BDNS%E9%85%8D%E7%BD%AE%E9%87%8D%E5%90%AF%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/"/>
-    <id>http://peijie-sh.github.io/2016/12/02/解决Linux下DNS配置重启失效问题/</id>
+    <link href="http://peijie2016.oschina.io/2016/12/02/%E8%A7%A3%E5%86%B3Linux%E4%B8%8BDNS%E9%85%8D%E7%BD%AE%E9%87%8D%E5%90%AF%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/"/>
+    <id>http://peijie2016.oschina.io/2016/12/02/解决Linux下DNS配置重启失效问题/</id>
     <published>2016-12-02T03:59:31.000Z</published>
     <updated>2017-04-01T12:58:48.221Z</updated>
     
@@ -627,17 +627,17 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://peijie-sh.github.io/categories/Linux/"/>
+      <category term="Linux" scheme="http://peijie2016.oschina.io/categories/Linux/"/>
     
     
-      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>Linux虚拟机设置静态IP</title>
-    <link href="http://peijie-sh.github.io/2016/11/15/Linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP/"/>
-    <id>http://peijie-sh.github.io/2016/11/15/Linux虚拟机设置静态IP/</id>
+    <link href="http://peijie2016.oschina.io/2016/11/15/Linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP/"/>
+    <id>http://peijie2016.oschina.io/2016/11/15/Linux虚拟机设置静态IP/</id>
     <published>2016-11-15T03:08:34.000Z</published>
     <updated>2017-03-04T12:49:08.002Z</updated>
     
@@ -695,19 +695,19 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://peijie-sh.github.io/categories/Linux/"/>
+      <category term="Linux" scheme="http://peijie2016.oschina.io/categories/Linux/"/>
     
     
-      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
     
-      <category term="Ubuntu" scheme="http://peijie-sh.github.io/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="http://peijie2016.oschina.io/tags/Ubuntu/"/>
     
   </entry>
   
   <entry>
     <title>Redis入门</title>
-    <link href="http://peijie-sh.github.io/2016/11/11/Redis%E5%85%A5%E9%97%A8/"/>
-    <id>http://peijie-sh.github.io/2016/11/11/Redis入门/</id>
+    <link href="http://peijie2016.oschina.io/2016/11/11/Redis%E5%85%A5%E9%97%A8/"/>
+    <id>http://peijie2016.oschina.io/2016/11/11/Redis入门/</id>
     <published>2016-11-11T06:27:34.000Z</published>
     <updated>2017-03-29T13:08:27.542Z</updated>
     
@@ -769,19 +769,19 @@
     
     </summary>
     
-      <category term="NoSQL" scheme="http://peijie-sh.github.io/categories/NoSQL/"/>
+      <category term="NoSQL" scheme="http://peijie2016.oschina.io/categories/NoSQL/"/>
     
     
-      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
     
-      <category term="Redis" scheme="http://peijie-sh.github.io/tags/Redis/"/>
+      <category term="Redis" scheme="http://peijie2016.oschina.io/tags/Redis/"/>
     
   </entry>
   
   <entry>
     <title>HTTP协议学习笔记</title>
-    <link href="http://peijie-sh.github.io/2016/11/08/HTTP%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://peijie-sh.github.io/2016/11/08/HTTP协议学习笔记/</id>
+    <link href="http://peijie2016.oschina.io/2016/11/08/HTTP%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://peijie2016.oschina.io/2016/11/08/HTTP协议学习笔记/</id>
     <published>2016-11-08T07:05:34.000Z</published>
     <updated>2017-03-04T12:49:08.001Z</updated>
     
@@ -928,21 +928,21 @@
     
     </summary>
     
-      <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
     
     
-      <category term="Http" scheme="http://peijie-sh.github.io/tags/Http/"/>
+      <category term="Http" scheme="http://peijie2016.oschina.io/tags/Http/"/>
     
   </entry>
   
   <entry>
     <title>使用Hexo搭建个人博客</title>
-    <link href="http://peijie-sh.github.io/2016/10/27/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://peijie-sh.github.io/2016/10/27/使用Hexo搭建个人博客/</id>
+    <link href="http://peijie2016.oschina.io/2016/10/27/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://peijie2016.oschina.io/2016/10/27/使用Hexo搭建个人博客/</id>
     <published>2016-10-27T08:39:34.000Z</published>
     <updated>2017-04-01T12:02:37.961Z</updated>
     
-    <content type="html"><![CDATA[<p>最近闲着没事，用<code>hexo</code>搭建了一个个人博客，部署在 <a href="https://peijie-sh.github.io/">github</a> 和 <a href="https://peijie-sh.github.io/">oschina</a>上，欢迎大家来我博客踩踩~ ^_^<br><img src="http://upload-images.jianshu.io/upload_images/4059338-127b161e567ad4d7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo.jpg"></p>
+    <content type="html"><![CDATA[<p>最近闲着没事，用<code>hexo</code>搭建了一个个人博客，部署在 <a href="https://peijie-sh.github.io/" target="_blank" rel="external">github</a> 和 <a href="https://peijie-sh.github.io/" target="_blank" rel="external">oschina</a>上，欢迎大家来我博客踩踩~ ^_^<br><img src="http://upload-images.jianshu.io/upload_images/4059338-127b161e567ad4d7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo.jpg"></p>
 <p>下面总结一下搭建过程：</p>
 <h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>hexo是一个简单地、轻量地、基于Node的一个静态博客框架，可以方便的生成静态网页托管在github和Heroku上<br>引用Hexo作者 @tommy351 的话：</p>
 <blockquote>
@@ -1009,66 +1009,21 @@
     
     </summary>
     
-      <category term="Web前端" scheme="http://peijie-sh.github.io/categories/Web%E5%89%8D%E7%AB%AF/"/>
+      <category term="Web前端" scheme="http://peijie2016.oschina.io/categories/Web%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="Hexo" scheme="http://peijie-sh.github.io/tags/Hexo/"/>
+      <category term="Hexo" scheme="http://peijie2016.oschina.io/tags/Hexo/"/>
     
-      <category term="Node.Js" scheme="http://peijie-sh.github.io/tags/Node-Js/"/>
+      <category term="Node.Js" scheme="http://peijie2016.oschina.io/tags/Node-Js/"/>
     
-      <category term="Git" scheme="http://peijie-sh.github.io/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>OkHttp的基本使用——替代Apache HttpClient</title>
-    <link href="http://peijie-sh.github.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/"/>
-    <id>http://peijie-sh.github.io/2016/10/26/OkHttp的基本使用——替代Apache HttpClient/</id>
-    <published>2016-10-26T04:27:34.000Z</published>
-    <updated>2017-03-04T12:49:08.004Z</updated>
-    
-    <content type="html"><![CDATA[<p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
-<p>OkHttp 是一个很棒HTTP客户端:</p>
-<ul>
-<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
-<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
-<li>使用GZIP压缩减少传输的数据量</li>
-<li>缓存响应避免重复的网络请求</li>
-</ul>
-<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
-<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。&lt;/p&gt;
-&lt;p&gt;OkHttp 是一个很棒HTTP客户端:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;支持SPDY, 可以合并多个到同一个主机的请求&lt;/li&gt;
-&lt;li&gt;使用连接池技术减少请求的延迟(如果SPDY是可用的话)&lt;/li&gt;
-&lt;li&gt;使用GZIP压缩减少传输的数据量&lt;/li&gt;
-&lt;li&gt;缓存响应避免重复的网络请求&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;OkHttp可以替换Apache的HttpClient&lt;br&gt;OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包&lt;/p&gt;
-&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
-    
-    </summary>
-    
-      <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="Http" scheme="http://peijie-sh.github.io/tags/Http/"/>
-    
-      <category term="OkHttp" scheme="http://peijie-sh.github.io/tags/OkHttp/"/>
+      <category term="Git" scheme="http://peijie2016.oschina.io/tags/Git/"/>
     
   </entry>
   
   <entry>
     <title>VIM编辑器的基本使用</title>
-    <link href="http://peijie-sh.github.io/2016/10/26/VIM%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
-    <id>http://peijie-sh.github.io/2016/10/26/VIM编辑器的基本使用/</id>
+    <link href="http://peijie2016.oschina.io/2016/10/26/VIM%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+    <id>http://peijie2016.oschina.io/2016/10/26/VIM编辑器的基本使用/</id>
     <published>2016-10-26T04:27:34.000Z</published>
     <updated>2017-03-04T12:49:08.006Z</updated>
     
@@ -1206,19 +1161,64 @@
     
     </summary>
     
-      <category term="工具杂谈" scheme="http://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
     
     
-      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
     
-      <category term="Vim" scheme="http://peijie-sh.github.io/tags/Vim/"/>
+      <category term="Vim" scheme="http://peijie2016.oschina.io/tags/Vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OkHttp的基本使用——替代Apache HttpClient</title>
+    <link href="http://peijie2016.oschina.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/"/>
+    <id>http://peijie2016.oschina.io/2016/10/26/OkHttp的基本使用——替代Apache HttpClient/</id>
+    <published>2016-10-26T04:27:34.000Z</published>
+    <updated>2017-03-04T12:49:08.004Z</updated>
+    
+    <content type="html"><![CDATA[<p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
+<p>OkHttp 是一个很棒HTTP客户端:</p>
+<ul>
+<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
+<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
+<li>使用GZIP压缩减少传输的数据量</li>
+<li>缓存响应避免重复的网络请求</li>
+</ul>
+<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
+<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。&lt;/p&gt;
+&lt;p&gt;OkHttp 是一个很棒HTTP客户端:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持SPDY, 可以合并多个到同一个主机的请求&lt;/li&gt;
+&lt;li&gt;使用连接池技术减少请求的延迟(如果SPDY是可用的话)&lt;/li&gt;
+&lt;li&gt;使用GZIP压缩减少传输的数据量&lt;/li&gt;
+&lt;li&gt;缓存响应避免重复的网络请求&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OkHttp可以替换Apache的HttpClient&lt;br&gt;OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包&lt;/p&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="Http" scheme="http://peijie2016.oschina.io/tags/Http/"/>
+    
+      <category term="OkHttp" scheme="http://peijie2016.oschina.io/tags/OkHttp/"/>
     
   </entry>
   
   <entry>
     <title>Oracle入门</title>
-    <link href="http://peijie-sh.github.io/2016/10/25/Oracle%E5%85%A5%E9%97%A8/"/>
-    <id>http://peijie-sh.github.io/2016/10/25/Oracle入门/</id>
+    <link href="http://peijie2016.oschina.io/2016/10/25/Oracle%E5%85%A5%E9%97%A8/"/>
+    <id>http://peijie2016.oschina.io/2016/10/25/Oracle入门/</id>
     <published>2016-10-25T08:39:31.000Z</published>
     <updated>2017-04-01T12:23:47.011Z</updated>
     
@@ -1348,17 +1348,67 @@
     
     </summary>
     
-      <category term="数据库" scheme="http://peijie-sh.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="http://peijie2016.oschina.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="Oracle" scheme="http://peijie-sh.github.io/tags/Oracle/"/>
+      <category term="Oracle" scheme="http://peijie2016.oschina.io/tags/Oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker安装与基础命令</title>
+    <link href="http://peijie2016.oschina.io/2016/10/25/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
+    <id>http://peijie2016.oschina.io/2016/10/25/Docker安装与基础命令/</id>
+    <published>2016-10-25T07:28:37.000Z</published>
+    <updated>2017-04-01T14:03:10.622Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker"></p>
+<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：</p>
+<blockquote>
+<p>sudo apt-get install docker.io</p>
+</blockquote>
+<a id="more"></a>
+<p>运行完后，可以在终端输入docker看到以下信息证明我们安装成功了<br>注：提示权限问题就添加sudo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">docker</div><div class="line">Usage: docker [OPTIONS] COMMAND [arg...]</div><div class="line">       docker daemon [ --help | ... ]</div><div class="line">       docker [ --help | -v | --version ]</div><div class="line"></div><div class="line">A self-sufficient runtime <span class="keyword">for</span> containers.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">  --config=~/.docker              Location of client config files</div><div class="line">  -D, --debug                     Enable debug mode</div><div class="line">  -H, --host=[]                   Daemon socket(s) to connect to</div><div class="line">  -h, --help                      Print usage</div><div class="line">  <span class="_">-l</span>, --log-level=info            Set the logging level</div><div class="line">  --tls                           Use TLS; implied by --tlsverify</div><div class="line">  --tlscacert=~/.docker/ca.pem    Trust certs signed only by this CA</div><div class="line">  --tlscert=~/.docker/cert.pem    Path to TLS certificate file</div><div class="line">  --tlskey=~/.docker/key.pem      Path to TLS key file</div><div class="line">  --tlsverify                     Use TLS and verify the remote</div><div class="line">  -v, --version                   Print version information and quit</div><div class="line"></div><div class="line">Commands:</div><div class="line">    attach    Attach to a running container</div><div class="line">    build     Build an image from a Dockerfile</div><div class="line">    commit    Create a new image from a container<span class="string">'s changes</span></div><div class="line">    cp        Copy files/folders between a container and the local filesystem</div><div class="line">    create    Create a new container</div><div class="line">    diff      Inspect changes on a container's filesystem</div><div class="line">    events    Get real time events from the server</div><div class="line">    <span class="built_in">exec</span>      Run a <span class="built_in">command</span> <span class="keyword">in</span> a running container</div><div class="line">    <span class="built_in">export</span>    Export a container<span class="string">'s filesystem as a tar archive</span></div><div class="line">    history   Show the history of an image</div><div class="line">    images    List images</div><div class="line">    import    Import the contents from a tarball to create a filesystem image</div><div class="line">    info      Display system-wide information</div><div class="line">    inspect   Return low-level information on a container or image</div><div class="line">    kill      Kill a running container</div><div class="line">    load      Load an image from a tar archive or STDIN</div><div class="line">    login     Register or log in to a Docker registry</div><div class="line">    logout    Log out from a Docker registry</div><div class="line">    logs      Fetch the logs of a container</div><div class="line">    network   Manage Docker networks</div><div class="line">    pause     Pause all processes within a container</div><div class="line">    port      List port mappings or a specific mapping for the CONTAINER</div><div class="line">    ps        List containers</div><div class="line">    pull      Pull an image or a repository from a registry</div><div class="line">    push      Push an image or a repository to a registry</div><div class="line">    rename    Rename a container</div><div class="line">    restart   Restart a container</div><div class="line">    rm        Remove one or more containers</div><div class="line">    rmi       Remove one or more images</div><div class="line">    run       Run a command in a new container</div><div class="line">    save      Save an image(s) to a tar archive</div><div class="line">    search    Search the Docker Hub for images</div><div class="line">    start     Start one or more stopped containers</div><div class="line">    stats     Display a live stream of container(s) resource usage statistics</div><div class="line">    stop      Stop a running container</div><div class="line">    tag       Tag an image into a repository</div><div class="line">    top       Display the running processes of a container</div><div class="line">    unpause   Unpause all processes within a container</div><div class="line">    update    Update resources of one or more containers</div><div class="line">    version   Show the Docker version information</div><div class="line">    volume    Manage Docker volumes</div><div class="line">    wait      Block until a container stops, then print its exit code</div><div class="line"></div><div class="line">Run 'docker COMMAND --help<span class="string">' for more information on a command.</span></div></pre></td></tr></table></figure>
+<p>安装完以后，也可运行以下命令查看版本信息：</p>
+<blockquote>
+<p>docker -v<br>docker version<br>docker info</p>
+</blockquote>
+<p>当利用 docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
+<ul>
+<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
+<li>利用镜像创建并启动一个容器</li>
+<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+<li>从地址池配置一个 ip 地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被终止</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;docker&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Docker安装&quot;&gt;&lt;a href=&quot;#Docker安装&quot; class=&quot;headerlink&quot; title=&quot;Docker安装&quot;&gt;&lt;/a&gt;Docker安装&lt;/h1&gt;&lt;p&gt;我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo apt-get install docker.io&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://peijie2016.oschina.io/categories/Linux/"/>
+    
+    
+      <category term="Docker" scheme="http://peijie2016.oschina.io/tags/Docker/"/>
+    
+      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>Maven学习笔记（3） --- 生命周期</title>
-    <link href="http://peijie-sh.github.io/2016/10/25/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%20---%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
-    <id>http://peijie-sh.github.io/2016/10/25/Maven学习笔记（3） --- 生命周期/</id>
+    <link href="http://peijie2016.oschina.io/2016/10/25/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%20---%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>http://peijie2016.oschina.io/2016/10/25/Maven学习笔记（3） --- 生命周期/</id>
     <published>2016-10-25T07:28:37.000Z</published>
     <updated>2017-03-04T12:49:08.004Z</updated>
     
@@ -1433,60 +1483,10 @@
     
     </summary>
     
-      <category term="Java" scheme="http://peijie-sh.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://peijie2016.oschina.io/categories/Java/"/>
     
     
-      <category term="Maven" scheme="http://peijie-sh.github.io/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker安装与基础命令</title>
-    <link href="http://peijie-sh.github.io/2016/10/25/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
-    <id>http://peijie-sh.github.io/2016/10/25/Docker安装与基础命令/</id>
-    <published>2016-10-25T07:28:37.000Z</published>
-    <updated>2017-04-01T14:03:10.622Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker"></p>
-<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：</p>
-<blockquote>
-<p>sudo apt-get install docker.io</p>
-</blockquote>
-<a id="more"></a>
-<p>运行完后，可以在终端输入docker看到以下信息证明我们安装成功了<br>注：提示权限问题就添加sudo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">docker</div><div class="line">Usage: docker [OPTIONS] COMMAND [arg...]</div><div class="line">       docker daemon [ --help | ... ]</div><div class="line">       docker [ --help | -v | --version ]</div><div class="line"></div><div class="line">A self-sufficient runtime <span class="keyword">for</span> containers.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">  --config=~/.docker              Location of client config files</div><div class="line">  -D, --debug                     Enable debug mode</div><div class="line">  -H, --host=[]                   Daemon socket(s) to connect to</div><div class="line">  -h, --help                      Print usage</div><div class="line">  <span class="_">-l</span>, --log-level=info            Set the logging level</div><div class="line">  --tls                           Use TLS; implied by --tlsverify</div><div class="line">  --tlscacert=~/.docker/ca.pem    Trust certs signed only by this CA</div><div class="line">  --tlscert=~/.docker/cert.pem    Path to TLS certificate file</div><div class="line">  --tlskey=~/.docker/key.pem      Path to TLS key file</div><div class="line">  --tlsverify                     Use TLS and verify the remote</div><div class="line">  -v, --version                   Print version information and quit</div><div class="line"></div><div class="line">Commands:</div><div class="line">    attach    Attach to a running container</div><div class="line">    build     Build an image from a Dockerfile</div><div class="line">    commit    Create a new image from a container<span class="string">'s changes</span></div><div class="line">    cp        Copy files/folders between a container and the local filesystem</div><div class="line">    create    Create a new container</div><div class="line">    diff      Inspect changes on a container's filesystem</div><div class="line">    events    Get real time events from the server</div><div class="line">    <span class="built_in">exec</span>      Run a <span class="built_in">command</span> <span class="keyword">in</span> a running container</div><div class="line">    <span class="built_in">export</span>    Export a container<span class="string">'s filesystem as a tar archive</span></div><div class="line">    history   Show the history of an image</div><div class="line">    images    List images</div><div class="line">    import    Import the contents from a tarball to create a filesystem image</div><div class="line">    info      Display system-wide information</div><div class="line">    inspect   Return low-level information on a container or image</div><div class="line">    kill      Kill a running container</div><div class="line">    load      Load an image from a tar archive or STDIN</div><div class="line">    login     Register or log in to a Docker registry</div><div class="line">    logout    Log out from a Docker registry</div><div class="line">    logs      Fetch the logs of a container</div><div class="line">    network   Manage Docker networks</div><div class="line">    pause     Pause all processes within a container</div><div class="line">    port      List port mappings or a specific mapping for the CONTAINER</div><div class="line">    ps        List containers</div><div class="line">    pull      Pull an image or a repository from a registry</div><div class="line">    push      Push an image or a repository to a registry</div><div class="line">    rename    Rename a container</div><div class="line">    restart   Restart a container</div><div class="line">    rm        Remove one or more containers</div><div class="line">    rmi       Remove one or more images</div><div class="line">    run       Run a command in a new container</div><div class="line">    save      Save an image(s) to a tar archive</div><div class="line">    search    Search the Docker Hub for images</div><div class="line">    start     Start one or more stopped containers</div><div class="line">    stats     Display a live stream of container(s) resource usage statistics</div><div class="line">    stop      Stop a running container</div><div class="line">    tag       Tag an image into a repository</div><div class="line">    top       Display the running processes of a container</div><div class="line">    unpause   Unpause all processes within a container</div><div class="line">    update    Update resources of one or more containers</div><div class="line">    version   Show the Docker version information</div><div class="line">    volume    Manage Docker volumes</div><div class="line">    wait      Block until a container stops, then print its exit code</div><div class="line"></div><div class="line">Run 'docker COMMAND --help<span class="string">' for more information on a command.</span></div></pre></td></tr></table></figure>
-<p>安装完以后，也可运行以下命令查看版本信息：</p>
-<blockquote>
-<p>docker -v<br>docker version<br>docker info</p>
-</blockquote>
-<p>当利用 docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
-<ul>
-<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
-<li>利用镜像创建并启动一个容器</li>
-<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
-<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
-<li>从地址池配置一个 ip 地址给容器</li>
-<li>执行用户指定的应用程序</li>
-<li>执行完毕后容器被终止</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;docker&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;Docker安装&quot;&gt;&lt;a href=&quot;#Docker安装&quot; class=&quot;headerlink&quot; title=&quot;Docker安装&quot;&gt;&lt;/a&gt;Docker安装&lt;/h1&gt;&lt;p&gt;我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;sudo apt-get install docker.io&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://peijie-sh.github.io/categories/Linux/"/>
-    
-    
-      <category term="Docker" scheme="http://peijie-sh.github.io/tags/Docker/"/>
-    
-      <category term="Linux" scheme="http://peijie-sh.github.io/tags/Linux/"/>
+      <category term="Maven" scheme="http://peijie2016.oschina.io/tags/Maven/"/>
     
   </entry>
   
