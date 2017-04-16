@@ -417,9 +417,9 @@
       <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
     
     
-      <category term="Spring" scheme="http://peijie2016.oschina.io/tags/Spring/"/>
-    
       <category term="SpringBoot" scheme="http://peijie2016.oschina.io/tags/SpringBoot/"/>
+    
+      <category term="Spring" scheme="http://peijie2016.oschina.io/tags/Spring/"/>
     
   </entry>
   
@@ -1021,6 +1021,51 @@
   </entry>
   
   <entry>
+    <title>OkHttp的基本使用——替代Apache HttpClient</title>
+    <link href="http://peijie2016.oschina.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/"/>
+    <id>http://peijie2016.oschina.io/2016/10/26/OkHttp的基本使用——替代Apache HttpClient/</id>
+    <published>2016-10-26T04:27:34.000Z</published>
+    <updated>2017-03-04T12:49:08.004Z</updated>
+    
+    <content type="html"><![CDATA[<p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
+<p>OkHttp 是一个很棒HTTP客户端:</p>
+<ul>
+<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
+<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
+<li>使用GZIP压缩减少传输的数据量</li>
+<li>缓存响应避免重复的网络请求</li>
+</ul>
+<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
+<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。&lt;/p&gt;
+&lt;p&gt;OkHttp 是一个很棒HTTP客户端:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持SPDY, 可以合并多个到同一个主机的请求&lt;/li&gt;
+&lt;li&gt;使用连接池技术减少请求的延迟(如果SPDY是可用的话)&lt;/li&gt;
+&lt;li&gt;使用GZIP压缩减少传输的数据量&lt;/li&gt;
+&lt;li&gt;缓存响应避免重复的网络请求&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OkHttp可以替换Apache的HttpClient&lt;br&gt;OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包&lt;/p&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="Http" scheme="http://peijie2016.oschina.io/tags/Http/"/>
+    
+      <category term="OkHttp" scheme="http://peijie2016.oschina.io/tags/OkHttp/"/>
+    
+  </entry>
+  
+  <entry>
     <title>VIM编辑器的基本使用</title>
     <link href="http://peijie2016.oschina.io/2016/10/26/VIM%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
     <id>http://peijie2016.oschina.io/2016/10/26/VIM编辑器的基本使用/</id>
@@ -1167,51 +1212,6 @@
       <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
     
       <category term="Vim" scheme="http://peijie2016.oschina.io/tags/Vim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>OkHttp的基本使用——替代Apache HttpClient</title>
-    <link href="http://peijie2016.oschina.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/"/>
-    <id>http://peijie2016.oschina.io/2016/10/26/OkHttp的基本使用——替代Apache HttpClient/</id>
-    <published>2016-10-26T04:27:34.000Z</published>
-    <updated>2017-03-04T12:49:08.004Z</updated>
-    
-    <content type="html"><![CDATA[<p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
-<p>OkHttp 是一个很棒HTTP客户端:</p>
-<ul>
-<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
-<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
-<li>使用GZIP压缩减少传输的数据量</li>
-<li>缓存响应避免重复的网络请求</li>
-</ul>
-<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
-<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。&lt;/p&gt;
-&lt;p&gt;OkHttp 是一个很棒HTTP客户端:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;支持SPDY, 可以合并多个到同一个主机的请求&lt;/li&gt;
-&lt;li&gt;使用连接池技术减少请求的延迟(如果SPDY是可用的话)&lt;/li&gt;
-&lt;li&gt;使用GZIP压缩减少传输的数据量&lt;/li&gt;
-&lt;li&gt;缓存响应避免重复的网络请求&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;OkHttp可以替换Apache的HttpClient&lt;br&gt;OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包&lt;/p&gt;
-&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
-    
-    </summary>
-    
-      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="Http" scheme="http://peijie2016.oschina.io/tags/Http/"/>
-    
-      <category term="OkHttp" scheme="http://peijie2016.oschina.io/tags/OkHttp/"/>
     
   </entry>
   
