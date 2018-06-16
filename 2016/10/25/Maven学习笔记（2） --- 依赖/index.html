@@ -92,10 +92,10 @@
 <meta name="description" content="maven依赖在maven项目中，我们会在pom.xml文件中引入我们需要用到的依赖，一般用groupId,artifactId,version就够了，如下：12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-core&amp;lt;/artifactId&amp;g">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maven学习笔记（2） --- 依赖">
-<meta property="og:url" content="http://peijie2016.oschina.io/2016/10/25/Maven学习笔记（2） --- 依赖/index.html">
+<meta property="og:url" content="https://peijie-sh.github.io/2016/10/25/Maven学习笔记（2） --- 依赖/index.html">
 <meta property="og:site_name" content="Lingpj's blog">
 <meta property="og:description" content="maven依赖在maven项目中，我们会在pom.xml文件中引入我们需要用到的依赖，一般用groupId,artifactId,version就够了，如下：12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-core&amp;lt;/artifactId&amp;g">
-<meta property="og:updated_time" content="2017-04-01T13:01:14.373Z">
+<meta property="og:updated_time" content="2018-04-14T12:45:39.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven学习笔记（2） --- 依赖">
 <meta name="twitter:description" content="maven依赖在maven项目中，我们会在pom.xml文件中引入我们需要用到的依赖，一般用groupId,artifactId,version就够了，如下：12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-core&amp;lt;/artifactId&amp;g">
@@ -107,7 +107,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://peijie2016.oschina.io/2016/10/25/Maven学习笔记（2） --- 依赖/"/>
+  <link rel="canonical" href="https://peijie-sh.github.io/2016/10/25/Maven学习笔记（2） --- 依赖/"/>
 
 
 
@@ -314,10 +314,10 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://peijie2016.oschina.io/2016/10/25/Maven学习笔记（2） --- 依赖/">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2016/10/25/Maven学习笔记（2） --- 依赖/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lingpj">
+      <meta itemprop="name" content="Joepis">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/uploads/avatar.jpg">
     </span>
@@ -425,12 +425,12 @@
 <p>maven有3套classpath，编译classpath，运行classpath，测试classpath。</p>
 <h1 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h1><p>依赖范围有以下几种：</p>
 <ul>
-<li><code>compile</code> 编译依赖范围。默认是这种范围。对3中classpath都有效。典型例子是<code>spring-core</code>，在编译，运行，测试时都需要。 </li>
+<li><code>compile</code> 编译依赖范围。默认是这种范围。对3种classpath都有效。典型例子是<code>spring-core</code>，在编译，运行，测试时都需要。 </li>
 <li><code>test</code> 测试依赖范围。只对测试classpath有效。典型例子是<code>junit</code>，它只在测试期间需要。</li>
 <li><code>provided</code> 已提供依赖范围。对编译classpath和测试classpath有效，运行classpath无效。典型例子是<code>servlet-api</code>，运行的时候容器会提供，所以运行时不需要。</li>
 <li><code>runtime</code> 运行时依赖范围。对运行classpath和测试classpath有效。典型例子是<code>jdbc</code>驱动实现，编译的时候只要有jdk的jdbc接口即可。</li>
-<li><code>system</code> 系统依赖范围。和<code>provided</code>一样，对3中classpath都有效。但是，使用时必须通过systemPath元素显式指定依赖文件的路径。限制比较多，一般不使用。</li>
-<li><code>import</code> 导入依赖范围。对3中classpath都没实际影响。</li>
+<li><code>system</code> 系统依赖范围。和<code>provided</code>一样，对3种classpath都有效。但是，使用时必须通过systemPath元素显式指定依赖文件的路径。限制比较多，一般不使用。</li>
+<li><code>import</code> 导入依赖范围。对3种classpath都没实际影响。</li>
 </ul>
 <h1 id="依赖机制"><a href="#依赖机制" class="headerlink" title="依赖机制"></a>依赖机制</h1><ol>
 <li>依赖会传播：A依赖B，B依赖C，那么maven解析的时候会找到B，发现B依赖C，又去把C引入，然后在引入B</li>
@@ -459,13 +459,13 @@
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/uploads/wechat-pay.png" alt="Lingpj WeChat Pay"/>
+          <img id="wechat_qr" src="/uploads/wechat-pay.png" alt="Joepis WeChat Pay"/>
           <p>微信打赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/uploads/alipay-pay.png" alt="Lingpj Alipay"/>
+          <img id="alipay_qr" src="/uploads/alipay-pay.png" alt="Joepis Alipay"/>
           <p>支付宝打赏</p>
         </div>
       
@@ -482,11 +482,11 @@
   <ul class="post-copyright">
     <li class="post-copyright-author">
       <strong>本文作者：</strong>
-      Lingpj
+      Joepis
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://peijie2016.oschina.io/2016/10/25/Maven学习笔记（2） --- 依赖/" title="Maven学习笔记（2） --- 依赖">http://peijie2016.oschina.io/2016/10/25/Maven学习笔记（2） --- 依赖/</a>
+      <a href="https://peijie-sh.github.io/2016/10/25/Maven学习笔记（2） --- 依赖/" title="Maven学习笔记（2） --- 依赖">https://peijie-sh.github.io/2016/10/25/Maven学习笔记（2） --- 依赖/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -590,8 +590,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
-               alt="Lingpj" />
-          <p class="site-author-name" itemprop="name">Lingpj</p>
+               alt="Joepis" />
+          <p class="site-author-name" itemprop="name">Joepis</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
            
@@ -601,7 +601,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -623,7 +623,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -662,7 +662,7 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://git.oschina.net/peijie2016" target="_blank" title="码云">
+                <a href="https://gitee.com/peijie2016" target="_blank" title="码云">
                   
                     <i class="fa fa-fw fa-git"></i>
                   
@@ -744,11 +744,11 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Lingpj</span>
+  <span class="author" itemprop="copyrightHolder">Joepis</span>
 </div>
 
 
@@ -793,8 +793,6 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     

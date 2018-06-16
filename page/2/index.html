@@ -92,7 +92,7 @@
 <meta name="description" content="不忘初心，方得始终">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Lingpj's blog">
-<meta property="og:url" content="http://peijie2016.oschina.io/page/2/index.html">
+<meta property="og:url" content="https://peijie-sh.github.io/page/2/index.html">
 <meta property="og:site_name" content="Lingpj's blog">
 <meta property="og:description" content="不忘初心，方得始终">
 <meta name="twitter:card" content="summary">
@@ -106,7 +106,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -125,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="http://peijie2016.oschina.io/page/2/"/>
+  <link rel="canonical" href="https://peijie-sh.github.io/page/2/"/>
 
 
 
@@ -315,10 +315,10 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://peijie2016.oschina.io/2017/02/15/SpringMVC统一异常处理总结/">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2017/04/26/Java8学习笔记之Stream API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lingpj">
+      <meta itemprop="name" content="Joepis">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/uploads/avatar.jpg">
     </span>
@@ -337,8 +337,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/15/SpringMVC统一异常处理总结/" itemprop="url">
-                  SpringMVC统一异常处理总结
+                <a class="post-title-link" href="/2017/04/26/Java8学习笔记之Stream API/" itemprop="url">
+                  Java8学习笔记之Stream API
                 </a>
               
             
@@ -354,8 +354,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-15T16:11:13+08:00">
-                2017-02-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-26T11:28:37+08:00">
+                2017-04-26
               </time>
             
 
@@ -377,8 +377,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring/SpringBoot</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -394,7 +394,7 @@
 
           
           
-             <span id="/2017/02/15/SpringMVC统一异常处理总结/" class="leancloud_visitors" data-flag-title="SpringMVC统一异常处理总结">
+             <span id="/2017/04/26/Java8学习笔记之Stream API/" class="leancloud_visitors" data-flag-title="Java8学习笔记之Stream API">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -424,11 +424,13 @@
 
       
         
-          <p>在一个Spring MVC项目中，使用统一异常处理，可以使维护代码变得容易。下面总结一下常用的3种方法。<br><img src="http://upload-images.jianshu.io/upload_images/4059338-24a47cdd2121897b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="try-catch"></p>
-<h1 id="实现HandlerExceptionResolver接口"><a href="#实现HandlerExceptionResolver接口" class="headerlink" title="实现HandlerExceptionResolver接口"></a>实现<code>HandlerExceptionResolver</code>接口</h1><p>实现<code>HandlerExceptionResolver</code>接口，实现<code>resolveException()</code>方法，根据传入的异常类型做出处理。</p>
+          <p>Stream是Java8引入的一个重度使用lambda表达式的API。<br>Stream可以用流的方式处理数据集合，在Java8之前，我们处理这些集合，是需要迭代器的，比如iterator，这是外部迭代；而Stream是内部迭代，我们不用关心集合内部元素是如何迭代的，计算机会自动帮我们选择最适合的实现方式。</p>
+<h1 id="如何创建一个流"><a href="#如何创建一个流" class="headerlink" title="如何创建一个流"></a>如何创建一个流</h1><ol>
+<li>最常见的，有一个集合对象<code>List&lt;String&gt; strs = Arrays.asList(&quot;Java 8 &quot;, &quot;Lambdas &quot;, &quot;In &quot;, &quot;Action&quot;);</code>，直接调用<code>strs.stream()</code>就得到一个<code>Stream&lt;String&gt;</code>的流。<br>如果想使用并行流增加性能，请使用<code>strs.parallelStream()</code>，或<code>strs.stream().parallel()</code>。</li>
+<li>由值创建：<code>Stream&lt;String&gt; stream = Stream.of(&quot;Java 8 &quot;, &quot;Lambdas &quot;, &quot;In &quot;, &quot;Action&quot;);</code>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/02/15/SpringMVC统一异常处理总结/#more" rel="contents">
+            <a class="btn" href="/2017/04/26/Java8学习笔记之Stream API/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -474,10 +476,10 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://peijie2016.oschina.io/2017/02/15/Spring Task定时任务的配置和使用/">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2017/04/19/Java8学习笔记之Lambda表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lingpj">
+      <meta itemprop="name" content="Joepis">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/uploads/avatar.jpg">
     </span>
@@ -496,8 +498,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/15/Spring Task定时任务的配置和使用/" itemprop="url">
-                  Spring Task定时任务的配置和使用
+                <a class="post-title-link" href="/2017/04/19/Java8学习笔记之Lambda表达式/" itemprop="url">
+                  Java8学习笔记之Lambda表达式
                 </a>
               
             
@@ -513,8 +515,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-15T11:33:12+08:00">
-                2017-02-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T16:40:34+08:00">
+                2017-04-19
               </time>
             
 
@@ -536,8 +538,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring/SpringBoot</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -553,7 +555,7 @@
 
           
           
-             <span id="/2017/02/15/Spring Task定时任务的配置和使用/" class="leancloud_visitors" data-flag-title="Spring Task定时任务的配置和使用">
+             <span id="/2017/04/19/Java8学习笔记之Lambda表达式/" class="leancloud_visitors" data-flag-title="Java8学习笔记之Lambda表达式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -583,11 +585,11 @@
 
       
         
-          <p>记录下<code>Spring</code>自带的定时任务用法。</p>
-<h1 id="spring中使用定时任务"><a href="#spring中使用定时任务" class="headerlink" title="spring中使用定时任务"></a>spring中使用定时任务</h1><h2 id="基于xml配置文件使用定时任务"><a href="#基于xml配置文件使用定时任务" class="headerlink" title="基于xml配置文件使用定时任务"></a>基于xml配置文件使用定时任务</h2><p>首先配置spring开启定时任务<br>
+          <p><img src="http://upload-images.jianshu.io/upload_images/4059338-39a526e6dbd5707d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Lambda.jpg"><br>使用Lambda表达式，我们可以很简洁地传递代码（通常是匿名函数）。</p>
+<h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h1><p>Lambda表达式主要分为三部分：参数列表，箭头，Lambda 主体</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/02/15/Spring Task定时任务的配置和使用/#more" rel="contents">
+            <a class="btn" href="/2017/04/19/Java8学习笔记之Lambda表达式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -633,10 +635,10 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://peijie2016.oschina.io/2017/02/13/使用SpringBoot Actuator监控应用/">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2017/04/19/Java8学习笔记之行为参数化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lingpj">
+      <meta itemprop="name" content="Joepis">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/uploads/avatar.jpg">
     </span>
@@ -655,8 +657,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/13/使用SpringBoot Actuator监控应用/" itemprop="url">
-                  使用SpringBoot Actuator监控应用
+                <a class="post-title-link" href="/2017/04/19/Java8学习笔记之行为参数化/" itemprop="url">
+                  Java8学习笔记之行为参数化
                 </a>
               
             
@@ -672,8 +674,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-13T12:25:34+08:00">
-                2017-02-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T13:10:12+08:00">
+                2017-04-19
               </time>
             
 
@@ -695,8 +697,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring/SpringBoot</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -712,7 +714,7 @@
 
           
           
-             <span id="/2017/02/13/使用SpringBoot Actuator监控应用/" class="leancloud_visitors" data-flag-title="使用SpringBoot Actuator监控应用">
+             <span id="/2017/04/19/Java8学习笔记之行为参数化/" class="leancloud_visitors" data-flag-title="Java8学习笔记之行为参数化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -742,338 +744,335 @@
 
       
         
-          <p>Actuator是Spring Boot提供的对应用系统的自省和监控的集成功能，可以对应用系统进行配置查看、相关功能统计等。</p>
-<h1 id="使用Actuator"><a href="#使用Actuator" class="headerlink" title="使用Actuator"></a>使用Actuator</h1><p>引入依赖即可</p>
+          <p>用一个例子说明<code>行为参数化</code>带来的变化 - 从苹果仓库中筛选苹果</p>
+<h1 id="版本1"><a href="#版本1" class="headerlink" title="版本1"></a>版本1</h1><p>从一个苹果集合中选出绿的苹果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Apple&gt; <span class="title">filterGreenApples</span><span class="params">(List&lt;Apple&gt; inventory)</span> </span>&#123;</div><div class="line">        List&lt;Apple&gt; result = <span class="keyword">new</span> ArrayList&lt;Apple&gt;();</div><div class="line">        <span class="keyword">for</span> (Apple apple : inventory) &#123;</div><div class="line">            <span class="keyword">if</span> (<span class="string">"green"</span>.equals(apple.getColor()) &#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/19/Java8学习笔记之行为参数化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2017/04/01/HTML转图片利器：wkhtmltox/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Joepis">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lingpj's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/01/HTML转图片利器：wkhtmltox/" itemprop="url">
+                  HTML转图片利器：wkhtmltox
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-01T14:07:22+08:00">
+                2017-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具杂谈/" itemprop="url" rel="index">
+                    <span itemprop="name">工具杂谈</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/04/01/HTML转图片利器：wkhtmltox/" class="leancloud_visitors" data-flag-title="HTML转图片利器：wkhtmltox">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>关于<code>wkhtmltox</code>，是一个可以把HTML转换为图片和pdf的工具。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4059338-27a3b4979a3084c2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="wkhtmltox.jpg"></p>
+<p>不多介绍了，详见官网 <a href="https://wkhtmltopdf.org/">https://wkhtmltopdf.org/</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/01/HTML转图片利器：wkhtmltox/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2017/03/30/SpringBoot中使用Redis实现缓存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Joepis">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lingpj's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/30/SpringBoot中使用Redis实现缓存/" itemprop="url">
+                  SpringBoot中使用Redis实现缓存
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-30T17:11:13+08:00">
+                2017-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/03/30/SpringBoot中使用Redis实现缓存/" class="leancloud_visitors" data-flag-title="SpringBoot中使用Redis实现缓存">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Spring Data Redis为我们封装了Redis客户端的各种操作，简化使用。</p>
 <ul>
-<li><p><code>Maven</code>：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><code>Gradle</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile(&apos;org.springframework.boot:spring-boot-starter-actuator&apos;)</div></pre></td></tr></table></figure>
-</li>
+<li>当Redis当做数据库或者消息队列来操作时，我们一般使用RedisTemplate来操作</li>
+<li>当Redis作为缓存使用时，我们可以将它作为Spring Cache的实现，直接通过注解使用</li>
 </ul>
-<h1 id="Endpoints"><a href="#Endpoints" class="headerlink" title="Endpoints"></a>Endpoints</h1><p>列举一些主要的endpoints<br>
+<p>关于RedisTemplate的使用可参考：<a href="http://blog.didispace.com/springbootredis/">http://blog.didispace.com/springbootredis/</a></p>
+<h1 id="下面总结使用Redis作为缓存"><a href="#下面总结使用Redis作为缓存" class="headerlink" title="下面总结使用Redis作为缓存"></a>下面总结使用Redis作为缓存</h1><h2 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h2><p>SpringBoot从1.4版本开始，<code>spring-boot-starter-redis</code>依赖改名了。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/02/13/使用SpringBoot Actuator监控应用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://peijie2016.oschina.io/2017/02/11/在SpringBoot中使用Logback管理日志/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lingpj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lingpj's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/11/在SpringBoot中使用Logback管理日志/" itemprop="url">
-                  在SpringBoot中使用Logback管理日志
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-11T15:31:35+08:00">
-                2017-02-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring/SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/02/11/在SpringBoot中使用Logback管理日志/" class="leancloud_visitors" data-flag-title="在SpringBoot中使用Logback管理日志">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="SpringBoot的默认日志配置"><a href="#SpringBoot的默认日志配置" class="headerlink" title="SpringBoot的默认日志配置"></a>SpringBoot的默认日志配置</h1><p><code>SpringBoot</code>开箱即用，默认帮你配置了日志框架，使用 <code>Commons Logging</code> ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。</p>
-<h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>、<code>TRACE</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了<code>ERROR</code> 、<code>WARN</code>和<code>INFO</code>级别的日志输出到控制台。<br>Logback中没有<code>FATAL</code>级别，它会被当作<code>ERROR</code>级别来处理。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/11/在SpringBoot中使用Logback管理日志/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://peijie2016.oschina.io/2016/12/13/用SpringMVC搭建web应用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lingpj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lingpj's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/13/用SpringMVC搭建web应用/" itemprop="url">
-                  用SpringMVC搭建web应用
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-13T11:15:35+08:00">
-                2016-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring/SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/12/13/用SpringMVC搭建web应用/" class="leancloud_visitors" data-flag-title="用SpringMVC搭建web应用">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SpringMVC"></p>
-<p>在使用<code>SpringMVC</code>时，最重要的2个类就是<code>DispatcherServlet</code>和<code>ContextLoaderListener</code>。<code>DispatcherServlet</code>加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，<code>ContextLoaderListener</code>加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/12/13/用SpringMVC搭建web应用/#more" rel="contents">
+            <a class="btn" href="/2017/03/30/SpringBoot中使用Redis实现缓存/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1114,7 +1113,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1148,8 +1147,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
-               alt="Lingpj" />
-          <p class="site-author-name" itemprop="name">Lingpj</p>
+               alt="Joepis" />
+          <p class="site-author-name" itemprop="name">Joepis</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
            
@@ -1159,7 +1158,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1181,7 +1180,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1220,7 +1219,7 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://git.oschina.net/peijie2016" target="_blank" title="码云">
+                <a href="https://gitee.com/peijie2016" target="_blank" title="码云">
                   
                     <i class="fa fa-fw fa-git"></i>
                   
@@ -1286,11 +1285,11 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Lingpj</span>
+  <span class="author" itemprop="copyrightHolder">Joepis</span>
 </div>
 
 
@@ -1335,8 +1334,6 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     

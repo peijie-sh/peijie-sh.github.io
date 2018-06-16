@@ -4,21 +4,561 @@
   <subtitle>不忘初心，方得始终</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://peijie2016.oschina.io/"/>
-  <updated>2017-04-01T12:02:37.910Z</updated>
-  <id>http://peijie2016.oschina.io/</id>
+  <link href="https://peijie-sh.github.io/"/>
+  <updated>2018-06-16T01:58:49.397Z</updated>
+  <id>https://peijie-sh.github.io/</id>
   
   <author>
-    <name>Lingpj</name>
+    <name>Joepis</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>使用Spring事件机制实现异步</title>
+    <link href="https://peijie-sh.github.io/2018/06/15/%E4%BD%BF%E7%94%A8Spring%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5/"/>
+    <id>https://peijie-sh.github.io/2018/06/15/使用Spring事件机制实现异步/</id>
+    <published>2018-06-15T09:21:43.000Z</published>
+    <updated>2018-06-16T01:58:49.397Z</updated>
+    
+    <content type="html"><![CDATA[<p>当把一个事件发布到Spring提供的<code>ApplicationContext</code>中，被监听器侦测到，就会执行对应的处理方法。</p>
+<h1 id="事件本身"><a href="#事件本身" class="headerlink" title="事件本身"></a>事件本身</h1><p>事件是一个自定义的类，需要继承Spring提供的<code>ApplicationEvent</code>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Data</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyEvent</span> <span class="keyword">extends</span> <span class="title">ApplicationEvent</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String msg;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyEvent</span><span class="params">(Object source, String msg)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(source);</div><div class="line">        <span class="keyword">this</span>.msg = msg;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h1 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h1><p>基本方法是实现<code>ApplicationListener</code>接口，自定义一个监听器，实现<code>onApplicationEvent()</code>方法，然后添加到<code>ApplicationContext</code>。<br>比如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyListener</span> <span class="keyword">implements</span> <span class="title">ApplicationListener</span>&lt;<span class="title">MyEvent</span>&gt; </span>&#123;  </div><div class="line"></div><div class="line">    <span class="meta">@Override</span>  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(MyEvent event)</span> </span>&#123;  </div><div class="line">        System.out.print(<span class="string">"监听到MyEvent事件"</span>);  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line">...</div><div class="line"><span class="comment">// SpringBoot的启动类中添加监听器</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		SpringApplication application = <span class="keyword">new</span> SpringApplication(MyApplication.class);</div><div class="line">		application.addListeners(<span class="keyword">new</span> MyListener());</div><div class="line">		application.run(args);</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>也可以使用注解<code>@EventListener</code>（推荐）：原理就是通过扫描这个注解，创建监听器并添加到<code>ApplicationContext</code>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Slf</span>4j</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyEventHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@EventListener</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleEvent</span><span class="params">(MyEvent event)</span> </span>&#123;</div><div class="line">        log.info(<span class="string">"------------处理事件：&#123;&#125;"</span>, event.getMsg());</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">5</span> * <span class="number">1000L</span>);</div><div class="line">            log.info(<span class="string">"事件1(5s)处理完成"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="事件发布"><a href="#事件发布" class="headerlink" title="事件发布"></a>事件发布</h1><p>可以通过上下文对象的发布方法<code>ConfigurableApplicationContext::publishEvent()</code>来发布。<br>也可以实现<code>ApplicationEventPublisherAware</code>接口来发布（推荐）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Slf</span>4j</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventService</span> <span class="keyword">implements</span> <span class="title">ApplicationEventPublisherAware</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> ApplicationEventPublisher publisher;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationEventPublisher</span><span class="params">(ApplicationEventPublisher applicationEventPublisher)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.publisher = applicationEventPublisher;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">doEventWork</span><span class="params">(String msg)</span> </span>&#123;</div><div class="line">        log.info(<span class="string">"------------publish event:"</span> + msg);</div><div class="line">        MyEvent event = <span class="keyword">new</span> MyEvent(<span class="keyword">this</span>, msg);</div><div class="line">        publisher.publishEvent(event);</div><div class="line">        <span class="keyword">return</span> <span class="string">"OK"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootTest</span></div><div class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> EventService service;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eventTest</span><span class="params">()</span> </span>&#123;</div><div class="line">        String msg=<span class="string">"Java Code"</span>;</div><div class="line">        service.doEventWork(msg);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/15/16402c8b84e8e00b?w=1371&amp;h=78&amp;f=png&amp;s=15710" alt=""></p>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>如果2个事件之间是继承关系，会先监听到子类事件，处理完再监听父类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MyEvent2 extends MyEvent</span></div><div class="line"></div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Slf</span>4j</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyEventHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@EventListener</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleEvent</span><span class="params">(MyEvent event)</span> </span>&#123;</div><div class="line">        log.info(<span class="string">"------------处理事件：&#123;&#125;"</span>, event.getMsg());</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">5</span> * <span class="number">1000L</span>);</div><div class="line">            log.info(<span class="string">"事件1(5s)处理完成"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@EventListener</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleEvent2</span><span class="params">(MyEvent2 event)</span> </span>&#123;</div><div class="line">        log.info(<span class="string">"------------处理事件2：&#123;&#125;"</span>, event.getMsg());</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">10</span> * <span class="number">1000L</span>);</div><div class="line">            log.info(<span class="string">"事件2(10s)处理完成"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当我publish一个子类事件MyEvent2时，日志如下：<br><img src="https://user-gold-cdn.xitu.io/2018/6/15/16402ca4e7d6a8c4?w=1421&amp;h=136&amp;f=png&amp;s=33952" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当把一个事件发布到Spring提供的&lt;code&gt;ApplicationContext&lt;/code&gt;中，被监听器侦测到，就会执行对应的处理方法。&lt;/p&gt;
+&lt;h1 id=&quot;事件本身&quot;&gt;&lt;a href=&quot;#事件本身&quot; class=&quot;headerlink&quot; title=&quot;事件本身&quot;&gt;&lt;/a&gt;事件本身&lt;/h1&gt;&lt;p&gt;事件是一个自定义的类，需要继承Spring提供的&lt;code&gt;ApplicationEvent&lt;/code&gt;。&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;@Data&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MyEvent&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;ApplicationEvent&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; String msg;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MyEvent&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Object source, String msg)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;(source);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.msg = msg;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
+    
+    
+      <category term="SpringBoot" scheme="https://peijie-sh.github.io/tags/SpringBoot/"/>
+    
+      <category term="Event" scheme="https://peijie-sh.github.io/tags/Event/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP的3次握手和4次挥手过程</title>
+    <link href="https://peijie-sh.github.io/2018/04/09/TCP%E7%9A%843%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%92%8C4%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B/"/>
+    <id>https://peijie-sh.github.io/2018/04/09/TCP的3次握手和4次挥手过程/</id>
+    <published>2018-04-09T02:15:35.000Z</published>
+    <updated>2018-04-14T12:45:39.754Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="建立连接（3次握手）"><a href="#建立连接（3次握手）" class="headerlink" title="建立连接（3次握手）"></a>建立连接（3次握手）</h1><p><img src="https://upload-images.jianshu.io/upload_images/4059338-8dec28773da8005b.png" alt="TCP3次握手.png"></p>
+<a id="more"></a>
+<ul>
+<li>SYN是标志位，设置SYN=1，表示请求建立连接</li>
+<li>服务端会同时和多个客户端建立连接，所以在报文交互时，需要带上序号seq，在响应是seq+1，以此来检测报文合法性</li>
+</ul>
+<h3 id="连接过程"><a href="#连接过程" class="headerlink" title="连接过程"></a>连接过程</h3><ul>
+<li>客户端：我想建立一个连接。状态：CLOSED -&gt; SYN SENT</li>
+<li>服务端：可以，我同意建立连接。状态：LISTEN -&gt; SYN RCVD</li>
+<li>客户端：好的，我收到你的确认，我准备好接收数据了。状态：SYN SENT -&gt; ESTABLISHED</li>
+<li>服务端听到客户端准备好了，也进入准备状态。状态：SYN RCVD -&gt; ESTABLISHED</li>
+</ul>
+<p>至此，TCP连接就建立完毕，开始互相发送数据了。</p>
+<h1 id="断开连接（4次挥手）"><a href="#断开连接（4次挥手）" class="headerlink" title="断开连接（4次挥手）"></a>断开连接（4次挥手）</h1><p><img src="https://upload-images.jianshu.io/upload_images/4059338-140f04e2f323b7b5.png" alt="TCP4次挥手.png"></p>
+<ul>
+<li>FIN是标志位，设置FIN=1，表示请求断开连接</li>
+</ul>
+<h3 id="断开连接过程"><a href="#断开连接过程" class="headerlink" title="断开连接过程"></a>断开连接过程</h3><ul>
+<li>客户端：我数据发完了，我要断开连接了。状态：ESTABLISHED -&gt; FIN WAIT 1</li>
+<li>服务端：好，我知道你要断开连接了。状态：ESTABLISHED -&gt; CLOSE WAIT</li>
+</ul>
+<p>此时，客户端确认服务端已经知道要断开了。但是，服务端可能还有数据没发送完，所以客户端还能接收数据但不会发送数据。状态：FIN WAIT 1 -&gt; FIN WAIT 2</p>
+<p>过了一会，服务端数据发完了。</p>
+<ul>
+<li>服务端：我准备好了，断开连接吧。状态：CLOSE WAIT -&gt; LAST ACK</li>
+<li>客户端：好，那我断开连接了，再见。状态：FIN WAIT 2 -&gt; TIME WAIT</li>
+<li>服务端：客户端已经断开了，我也断开吧。状态：LAST ACK -&gt; CLOSED</li>
+<li>客户端等待2个MSL时间以后断开连接，状态：TIME WAIT -&gt; CLOSED</li>
+</ul>
+<h1 id="TCP握手挥手的状态"><a href="#TCP握手挥手的状态" class="headerlink" title="TCP握手挥手的状态"></a>TCP握手挥手的状态</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">状态</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CLOSED</td>
+<td style="text-align:center">关闭状态，没有连接活动或正在进行</td>
+</tr>
+<tr>
+<td style="text-align:center">LISTEN</td>
+<td style="text-align:center">监听状态，服务器正在等待连接进入</td>
+</tr>
+<tr>
+<td style="text-align:center">SYN SENT</td>
+<td style="text-align:center">已经发出连接请求，等待确认</td>
+</tr>
+<tr>
+<td style="text-align:center">SYN RCVD</td>
+<td style="text-align:center">收到一个连接请求，尚未确认</td>
+</tr>
+<tr>
+<td style="text-align:center">ESTABLISHED</td>
+<td style="text-align:center">连接建立，正常数据传输状态</td>
+</tr>
+<tr>
+<td style="text-align:center">FIN WAIT 1</td>
+<td style="text-align:center">（主动关闭）已经发送关闭请求，等待确认</td>
+</tr>
+<tr>
+<td style="text-align:center">FIN WAIT 2</td>
+<td style="text-align:center">（主动关闭）收到对方关闭确认，等待对方关闭请求</td>
+</tr>
+<tr>
+<td style="text-align:center">TIME WAIT</td>
+<td style="text-align:center">完成双向关闭，等待所有分组死掉</td>
+</tr>
+<tr>
+<td style="text-align:center">CLOSE WAIT</td>
+<td style="text-align:center">（被动关闭）收到对方关闭请求，已经确认</td>
+</tr>
+<tr>
+<td style="text-align:center">LAST ACK</td>
+<td style="text-align:center">（被动关闭）等待最后一个关闭确认，并等待所有分组死掉</td>
+</tr>
+<tr>
+<td style="text-align:center">CLOSING</td>
+<td style="text-align:center">双方同时尝试关闭，等待对方确认</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;建立连接（3次握手）&quot;&gt;&lt;a href=&quot;#建立连接（3次握手）&quot; class=&quot;headerlink&quot; title=&quot;建立连接（3次握手）&quot;&gt;&lt;/a&gt;建立连接（3次握手）&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4059338-8dec28773da8005b.png&quot; alt=&quot;TCP3次握手.png&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具杂谈" scheme="https://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="TCP/IP" scheme="https://peijie-sh.github.io/tags/TCP-IP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JDK8和JDK9双版本共存</title>
+    <link href="https://peijie-sh.github.io/2017/09/30/JDK8%E5%92%8CJDK9%E5%8F%8C%E7%89%88%E6%9C%AC%E5%85%B1%E5%AD%98/"/>
+    <id>https://peijie-sh.github.io/2017/09/30/JDK8和JDK9双版本共存/</id>
+    <published>2017-09-30T02:11:25.000Z</published>
+    <updated>2018-04-14T12:45:39.668Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-19a112548aeefa7b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="java9.jpg"></p>
+<a id="more"></a>
+<p>以前安装JDK，需要手动配置环境变量。JDK8多了自动配置环境变量，所以可以不用手动配置。<br>如果我已经装了JDK8，还想再装一个JDK9，安装完，自动配置的环境变量会指向JDK9版本。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><ol>
+<li>删除自动配置的环境变量<br>自动配置的环境变量是一个隐藏目录：<code>C:\ProgramData\Oracle\Java\javapath</code>，删掉这个目录下的3个exe文件，系统就无法匹配到了。</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/4059338-8a87044b407e014f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="jdk.png"></p>
+<ol>
+<li>手动配置环境变量<br>自动匹配是匹配不到了，所以我们用老办法，手动配置环境变量即可。<br>这样，我们可以根据环境变量里配置的JDK版本去实现版本切换了。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-19a112548aeefa7b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;java9.jpg&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
+    
+    
+      <category term="JDK" scheme="https://peijie-sh.github.io/tags/JDK/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建日志分析系统ELK</title>
+    <link href="https://peijie-sh.github.io/2017/08/18/%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9FELK/"/>
+    <id>https://peijie-sh.github.io/2017/08/18/搭建日志分析系统ELK/</id>
+    <published>2017-08-18T06:11:43.000Z</published>
+    <updated>2018-04-14T12:45:39.763Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-cf6a458b1e4dc0e5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="elasticsearch.jpg"></p>
+<h1 id="日志分析组件3件套："><a href="#日志分析组件3件套：" class="headerlink" title="日志分析组件3件套："></a>日志分析组件3件套：</h1><ul>
+<li>E：<code>Elasticsearch</code>是一个搜索引擎，基于<code>Lucene</code>，天然分布式，很容易水平扩展，屏蔽了复杂的分布式概念，对外提供<code>RESTful</code>API。</li>
+<li>L：<code>Logstash</code>用于收集日志，写入<code>Elasticsearch</code>。</li>
+<li>K：<code>Kibana</code>是一个展示层，基于NodeJS，可以图标形式展示数据，界面简洁。<a id="more"></a>
+这3大组件，都可以在 <a href="https://www.elastic.co/cn/products" target="_blank" rel="external">这里</a> 直接下载。</li>
+</ul>
+<h1 id="搭建安装步骤："><a href="#搭建安装步骤：" class="headerlink" title="搭建安装步骤："></a>搭建安装步骤：</h1><ul>
+<li><p>下载elasticsearch，解压后，运行<code>bin/elasticsearch -d</code>，以守护进程形式启动，打开localhost:9200会返回json信息如下，说明启动成功。<br><img src="http://upload-images.jianshu.io/upload_images/4059338-38c4534a2a73570c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="json.png"></p>
+</li>
+<li><p>下载Logstash，解压，在/bin/config下创建一个配置文件<code>vi logstash.conf</code>。</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">  tcp &#123;</div><div class="line">    host =&gt; <span class="string">"192.168.1.91"</span> <span class="comment"># 要监听的日志来源地址</span></div><div class="line">    port =&gt; 4567</div><div class="line">    mode =&gt; <span class="string">"server"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">output &#123;</div><div class="line">  stdout&#123; codec =&gt; rubydebug &#125;</div><div class="line">  elasticsearch &#123;</div><div class="line">    hosts =&gt; [<span class="string">"192.168.1.91:9200"</span>]  <span class="comment"># elasticsearch中配置的host地址</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>指定配置文件并后台启动：<code>bin/logstash -f logstash.conf &amp;</code>。</li>
+<li>在你的应用程序中配置日志输出到<code>Logstash</code>，比如<code>Logback.xml</code><ol>
+<li>引入logstash-logback-encoder：<code>compile group: &#39;net.logstash.logback&#39;, name: &#39;logstash-logback-encoder&#39;, version: &#39;4.11&#39;</code></li>
+<li>配置logback.xml</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"stash"</span> <span class="attr">class</span>=<span class="string">"net.logstash.logback.appender.LogstashTcpSocketAppender"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">destination</span>&gt;</span>192.168.1.91:4567<span class="tag">&lt;/<span class="name">destination</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- encoder is required --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">encoder</span> <span class="attr">class</span>=<span class="string">"net.logstash.logback.encoder.LogstashEncoder"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"stdout"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"fileout"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"stash"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>下载Kibana，解压后启动：<code>bin/kibana &amp;</code>，打开<code>localhost:5601</code>即可。</li>
+</ul>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ul>
+<li>在安装Elasticsearch的时候，配置文件中我们把network.host改为0.0.0.0允许远程访问后，启动会报错，请按照 <a href="http://blog.csdn.net/u012246178/article/details/63253531" target="_blank" rel="external">如下操作</a>，放开linux的系统限制。</li>
+<li><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html" target="_blank" rel="external">Elasticsearch入门参考手册</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-cf6a458b1e4dc0e5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;elasticsearch.jpg&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;日志分析组件3件套：&quot;&gt;&lt;a href=&quot;#日志分析组件3件套：&quot; class=&quot;headerlink&quot; title=&quot;日志分析组件3件套：&quot;&gt;&lt;/a&gt;日志分析组件3件套：&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;E：&lt;code&gt;Elasticsearch&lt;/code&gt;是一个搜索引擎，基于&lt;code&gt;Lucene&lt;/code&gt;，天然分布式，很容易水平扩展，屏蔽了复杂的分布式概念，对外提供&lt;code&gt;RESTful&lt;/code&gt;API。&lt;/li&gt;
+&lt;li&gt;L：&lt;code&gt;Logstash&lt;/code&gt;用于收集日志，写入&lt;code&gt;Elasticsearch&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;K：&lt;code&gt;Kibana&lt;/code&gt;是一个展示层，基于NodeJS，可以图标形式展示数据，界面简洁。
+    
+    </summary>
+    
+      <category term="NoSQL" scheme="https://peijie-sh.github.io/categories/NoSQL/"/>
+    
+    
+      <category term="Logback" scheme="https://peijie-sh.github.io/tags/Logback/"/>
+    
+      <category term="Elasticsearch" scheme="https://peijie-sh.github.io/tags/Elasticsearch/"/>
+    
+      <category term="Logstash" scheme="https://peijie-sh.github.io/tags/Logstash/"/>
+    
+      <category term="Kibana" scheme="https://peijie-sh.github.io/tags/Kibana/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java8学习笔记之新日期API</title>
+    <link href="https://peijie-sh.github.io/2017/05/08/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%96%B0%E6%97%A5%E6%9C%9FAPI/"/>
+    <id>https://peijie-sh.github.io/2017/05/08/Java8学习笔记之新日期API/</id>
+    <published>2017-05-08T09:10:12.000Z</published>
+    <updated>2017-06-24T12:19:27.315Z</updated>
+    
+    <content type="html"><![CDATA[<p>Java8对日期API做了改进，提供了许多好用的方法和接口。<br>首先，最基本也最重要的3个对象：</p>
+<ul>
+<li><code>LocalDate</code>：日期对象</li>
+<li><code>LocalTime</code>：时间对象</li>
+<li><code>LocalDateTime</code>：日期时间对象，是<code>LocalDate</code>和<code>LocalTime</code>的合集</li>
+</ul>
+<h1 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h1><p>以上这3个对象，都各自有3种创建方式。</p>
+<ol>
+<li>通过<code>.now()</code>得到当前日期时间对象。</li>
+<li>通过<code>.of()</code>直接指定年月日，时分秒。</li>
+<li><code>LocalDate</code>和<code>LocalTime</code>通过解析字符串创建，<code>LocalDateTime</code>可以通过前2个对象创建。</li>
+</ol>
+<a id="more"></a>
+<h2 id="LocalDate对象3种创建方式以及相关方法示例"><a href="#LocalDate对象3种创建方式以及相关方法示例" class="headerlink" title="LocalDate对象3种创建方式以及相关方法示例"></a>LocalDate对象3种创建方式以及相关方法示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">localDate</span><span class="params">()</span> </span>&#123;</div><div class="line">    LocalDate date = LocalDate.of(<span class="number">2017</span>, <span class="number">5</span>, <span class="number">3</span>);</div><div class="line">    <span class="keyword">int</span> year = date.getYear();<span class="comment">// 2017</span></div><div class="line">    Month month = date.getMonth();<span class="comment">// MAY</span></div><div class="line">    <span class="keyword">int</span> day = date.getDayOfMonth();<span class="comment">// 3</span></div><div class="line">    DayOfWeek dow = date.getDayOfWeek();<span class="comment">// Wednesday</span></div><div class="line">    <span class="keyword">int</span> len = date.lengthOfMonth();<span class="comment">// 31</span></div><div class="line">    <span class="keyword">boolean</span> leap = date.isLeapYear();<span class="comment">// false</span></div><div class="line">    System.out.println(year + <span class="string">", "</span> + month + <span class="string">", "</span> + day + <span class="string">", "</span> + dow + <span class="string">", "</span> + len + <span class="string">", "</span> + leap);</div><div class="line"></div><div class="line">    LocalDate date2 = LocalDate.now();</div><div class="line">    <span class="keyword">int</span> year2 = date2.get(ChronoField.YEAR);<span class="comment">// 2017</span></div><div class="line">    <span class="keyword">int</span> month2 = date2.get(ChronoField.MONTH_OF_YEAR);<span class="comment">// 5</span></div><div class="line">    <span class="keyword">int</span> day2 = date2.get(ChronoField.DAY_OF_MONTH);<span class="comment">// 3</span></div><div class="line">    <span class="keyword">int</span> dow2 = date2.get(ChronoField.DAY_OF_WEEK);<span class="comment">// 3</span></div><div class="line">    System.out.println(year2 + <span class="string">", "</span> + month2 + <span class="string">", "</span> + day2 + <span class="string">", "</span> + dow2);</div><div class="line"></div><div class="line">    <span class="comment">// 写2017-3-18会报错，DateTimeParseException异常，可以传一个DateTimeFormatter自定义格式</span></div><div class="line">    LocalDate date3 = LocalDate.parse(<span class="string">"2017-03-18"</span>);</div><div class="line">    <span class="keyword">int</span> year3 = date3.get(ChronoField.YEAR);</div><div class="line">    <span class="keyword">int</span> month3 = date3.get(ChronoField.MONTH_OF_YEAR);</div><div class="line">    <span class="keyword">int</span> day3 = date3.get(ChronoField.DAY_OF_MONTH);</div><div class="line">    <span class="keyword">int</span> dow3 = date3.get(ChronoField.DAY_OF_WEEK);</div><div class="line">    System.out.println(year3 + <span class="string">", "</span> + month3 + <span class="string">", "</span> + day3 + <span class="string">", "</span> + dow3);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="LocalTime对象3种创建方式以及相关方法示例"><a href="#LocalTime对象3种创建方式以及相关方法示例" class="headerlink" title="LocalTime对象3种创建方式以及相关方法示例"></a>LocalTime对象3种创建方式以及相关方法示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">localTime</span><span class="params">()</span> </span>&#123;</div><div class="line">    LocalTime time = LocalTime.of(<span class="number">11</span>, <span class="number">06</span>, <span class="number">23</span>);</div><div class="line">    <span class="keyword">int</span> hour = time.getHour();</div><div class="line">    <span class="keyword">int</span> minute = time.getMinute();</div><div class="line">    <span class="keyword">int</span> second = time.getSecond();</div><div class="line">    System.out.println(hour + <span class="string">":"</span> + minute + <span class="string">":"</span> + second);</div><div class="line"></div><div class="line">    LocalTime time2 = LocalTime.now();</div><div class="line">    <span class="keyword">int</span> hour2 = time2.get(ChronoField.HOUR_OF_DAY);</div><div class="line">    <span class="keyword">int</span> minute2 = time2.get(ChronoField.MINUTE_OF_HOUR);</div><div class="line">    <span class="keyword">int</span> second2 = time2.get(ChronoField.SECOND_OF_MINUTE);</div><div class="line">    System.out.println(hour2 + <span class="string">":"</span> + minute2 + <span class="string">":"</span> + second2);</div><div class="line"></div><div class="line">    <span class="comment">// 写13:5:43会报错，DateTimeParseException异常，可以传一个DateTimeFormatter自定义格式</span></div><div class="line">    LocalTime time3 = LocalTime.parse(<span class="string">"13:05:43"</span>);</div><div class="line">    <span class="keyword">int</span> hour3 = time3.get(ChronoField.HOUR_OF_DAY);</div><div class="line">    <span class="keyword">int</span> minute3 = time3.get(ChronoField.MINUTE_OF_HOUR);</div><div class="line">    <span class="keyword">int</span> second3 = time3.get(ChronoField.SECOND_OF_MINUTE);</div><div class="line">    System.out.println(hour3 + <span class="string">":"</span> + minute3 + <span class="string">":"</span> + second3);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="LocalDateTime对象3种创建方式以及相关方法示例"><a href="#LocalDateTime对象3种创建方式以及相关方法示例" class="headerlink" title="LocalDateTime对象3种创建方式以及相关方法示例"></a>LocalDateTime对象3种创建方式以及相关方法示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">localDateTime</span><span class="params">()</span> </span>&#123;</div><div class="line">    LocalDate date = LocalDate.now();</div><div class="line">    LocalTime time = LocalTime.now();</div><div class="line"></div><div class="line">    <span class="comment">// 创建LocalDateTime</span></div><div class="line">    LocalDateTime dateTime = LocalDateTime.of(<span class="number">2017</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">11</span>, <span class="number">53</span>, <span class="number">23</span>);</div><div class="line">    LocalDateTime dateTime2 = LocalDateTime.of(date, time);</div><div class="line">    LocalDateTime dateTime3 = date.atTime(<span class="number">11</span>, <span class="number">53</span>, <span class="number">23</span>);</div><div class="line">    LocalDateTime dateTime4 = date.atTime(time);</div><div class="line">    LocalDateTime dateTime6 = time.atDate(date);</div><div class="line"></div><div class="line">    <span class="comment">// 转化</span></div><div class="line">    LocalDate date2 = dateTime2.toLocalDate();</div><div class="line">    LocalTime time2 = dateTime2.toLocalTime();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="时间间隔对象"><a href="#时间间隔对象" class="headerlink" title="时间间隔对象"></a>时间间隔对象</h1><ul>
+<li><code>Duration</code>：可以传2个localTime对象，localDateTime对象或者Instant对象</li>
+<li><code>Period</code>：用年，月，日建模，可以传2个localDate对象</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">between</span><span class="params">()</span> </span>&#123;</div><div class="line"><span class="comment">//        Duration d1 = Duration.between(time1, time2);</span></div><div class="line"><span class="comment">//        Duration d2 = Duration.between(dateTime1, dateTime2);</span></div><div class="line"><span class="comment">//        Duration d3 = Duration.between(instant1, instant2);</span></div><div class="line">        Period tenDays = Period.between(LocalDate.of(<span class="number">2014</span>, <span class="number">3</span>, <span class="number">8</span>), LocalDate.of(<span class="number">2014</span>, <span class="number">3</span>, <span class="number">18</span>));</div><div class="line"></div><div class="line">        Duration threeMinutes = Duration.ofMinutes(<span class="number">3</span>);</div><div class="line">        Duration threeMinutes2 = Duration.of(<span class="number">3</span>, ChronoUnit.MINUTES);</div><div class="line">        Period tenDays2 = Period.ofDays(<span class="number">10</span>);</div><div class="line">        Period threeWeeks = Period.ofWeeks(<span class="number">3</span>);</div><div class="line">        Period twoYearsSixMonthsOneDay = Period.of(<span class="number">2</span>, <span class="number">6</span>, <span class="number">1</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h1 id="修改日期时间对象"><a href="#修改日期时间对象" class="headerlink" title="修改日期时间对象"></a>修改日期时间对象</h1><h2 id="直接使用-with-来修改对应的年月日时分秒属性"><a href="#直接使用-with-来修改对应的年月日时分秒属性" class="headerlink" title="直接使用.with()来修改对应的年月日时分秒属性"></a>直接使用<code>.with()</code>来修改对应的年月日时分秒属性</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">editDateTime</span><span class="params">()</span> </span>&#123;</div><div class="line">    LocalDate date1 = LocalDate.of(<span class="number">2014</span>, <span class="number">3</span>, <span class="number">18</span>);<span class="comment">// 2014-03-18</span></div><div class="line">    LocalDate date2 = date1.withYear(<span class="number">2011</span>);<span class="comment">// 2011-03-18</span></div><div class="line">    LocalDate date3 = date2.withDayOfMonth(<span class="number">25</span>);<span class="comment">// 2011-03-25</span></div><div class="line">    LocalDate date4 = date3.with(ChronoField.MONTH_OF_YEAR, <span class="number">9</span>);<span class="comment">// 2011-09-25</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="在现有对象上做相对修改"><a href="#在现有对象上做相对修改" class="headerlink" title="在现有对象上做相对修改"></a>在现有对象上做相对修改</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">editDateTime</span><span class="params">()</span> </span>&#123;</div><div class="line">    LocalDate date1 = LocalDate.of(<span class="number">2014</span>, <span class="number">3</span>, <span class="number">18</span>);<span class="comment">// 2014-03-18</span></div><div class="line">    LocalDate date2 = date1.plusWeeks(<span class="number">1</span>);<span class="comment">// 2014-03-25</span></div><div class="line">    LocalDate date3 = date2.minusYears(<span class="number">3</span>);<span class="comment">// 2011-03-25</span></div><div class="line">    LocalDate date4 = date3.plus(<span class="number">6</span>, ChronoUnit.MONTHS);<span class="comment">// 2011-09-25</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="自定义修改日期"><a href="#自定义修改日期" class="headerlink" title="自定义修改日期"></a>自定义修改日期</h2><p>如果要对日期做一些复杂的修改，那么可以通过<code>TemporalAdjusters</code>接口实现复杂逻辑。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">adjust</span><span class="params">()</span> </span>&#123;</div><div class="line">    LocalDate date1 = LocalDate.of(<span class="number">2017</span>, <span class="number">5</span>, <span class="number">8</span>);<span class="comment">// 2017-05-08</span></div><div class="line">    LocalDate date2 = date1.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));<span class="comment">// 2017-05-14</span></div><div class="line">    LocalDate date3 = date2.with(TemporalAdjusters.lastDayOfMonth());<span class="comment">// 2017-05-31</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>jdk为我们实现了一些常用的方法：</p>
+<ul>
+<li>dayOfWeekInMonth：创建一个新的日期，它的值为同一个月中每一周的第几天</li>
+<li>firstDayOfMonth：创建一个新的日期，它的值为当月的第一天</li>
+<li>firstDayOfNextMonth：创建一个新的日期，它的值为下月的第一天</li>
+<li>firstDayOfNextYear：创建一个新的日期，它的值为明年的第一天</li>
+<li>firstDayOfYear：创建一个新的日期，它的值为当年的第一天</li>
+<li>firstInMonth：创建一个新的日期，它的值为同一个月中，第一个符合星期几要求的值</li>
+<li>lastDayOfMonth：创建一个新的日期，它的值为当月的最后一天</li>
+<li>lastDayOfNextMonth：创建一个新的日期，它的值为下月的最后一天</li>
+<li>lastDayOfNextYear：创建一个新的日期，它的值为明年的最后一天</li>
+<li>lastDayOfYear：创建一个新的日期，它的值为今年的最后一天</li>
+<li>lastInMonth：创建一个新的日期，它的值为同一个月中，最后一个符合星期几要求的值</li>
+<li>next/previous：创建一个新的日期，并将其值设定为日期调整后或者调整前，第一个符合指定星期几要求的日期</li>
+<li>nextOrSame/previousOrSame：创建一个新的日期，并将其值设定为日期调整后或者调整前，第一个符合指定星期几要求的日期，如果该日期已经符合要求，直接返回该对象</li>
+</ul>
+<h1 id="自定义格式化输出日期"><a href="#自定义格式化输出日期" class="headerlink" title="自定义格式化输出日期"></a>自定义格式化输出日期</h1><p>新版本，我们拥有一个线程安全的类：<code>DateTimeFormatter</code><br>来看代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">formatPrint</span><span class="params">()</span> </span>&#123;</div><div class="line">    LocalDate date = LocalDate.of(<span class="number">2014</span>, <span class="number">3</span>, <span class="number">18</span>);</div><div class="line">    String s1 = date.format(DateTimeFormatter.BASIC_ISO_DATE);<span class="comment">// 20140318</span></div><div class="line">    String s2 = date.format(DateTimeFormatter.ISO_LOCAL_DATE);<span class="comment">// 2014-03-18</span></div><div class="line"></div><div class="line">    LocalDate date1 = LocalDate.parse(<span class="string">"20140318"</span>, DateTimeFormatter.BASIC_ISO_DATE);</div><div class="line">    LocalDate date2 = LocalDate.parse(<span class="string">"2014-03-18"</span>, DateTimeFormatter.ISO_LOCAL_DATE);</div><div class="line"></div><div class="line">    <span class="comment">// 自定义格式</span></div><div class="line">    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(<span class="string">"dd/MM/yyyy"</span>);</div><div class="line">    String formattedDate = date.format(formatter);</div><div class="line">    System.out.println(formattedDate);<span class="comment">// 18/03/2014</span></div><div class="line">    LocalDate date3 = LocalDate.parse(formattedDate, formatter);</div><div class="line"></div><div class="line">    <span class="comment">// 带时区的日期(本地化)</span></div><div class="line">    DateTimeFormatter italianFormatter = DateTimeFormatter.ofPattern(<span class="string">"d. MMMM yyyy"</span>, Locale.ITALIAN);</div><div class="line">    String formattedDate2 = date.format(italianFormatter); <span class="comment">// 18. marzo 2014</span></div><div class="line">    LocalDate date4 = LocalDate.parse(formattedDate2, italianFormatter);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Java8对日期API做了改进，提供了许多好用的方法和接口。&lt;br&gt;首先，最基本也最重要的3个对象：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;LocalDate&lt;/code&gt;：日期对象&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LocalTime&lt;/code&gt;：时间对象&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LocalDateTime&lt;/code&gt;：日期时间对象，是&lt;code&gt;LocalDate&lt;/code&gt;和&lt;code&gt;LocalTime&lt;/code&gt;的合集&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;对象的创建&quot;&gt;&lt;a href=&quot;#对象的创建&quot; class=&quot;headerlink&quot; title=&quot;对象的创建&quot;&gt;&lt;/a&gt;对象的创建&lt;/h1&gt;&lt;p&gt;以上这3个对象，都各自有3种创建方式。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;通过&lt;code&gt;.now()&lt;/code&gt;得到当前日期时间对象。&lt;/li&gt;
+&lt;li&gt;通过&lt;code&gt;.of()&lt;/code&gt;直接指定年月日，时分秒。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LocalDate&lt;/code&gt;和&lt;code&gt;LocalTime&lt;/code&gt;通过解析字符串创建，&lt;code&gt;LocalDateTime&lt;/code&gt;可以通过前2个对象创建。&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
+    
+    
+      <category term="时间日期API" scheme="https://peijie-sh.github.io/tags/%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9FAPI/"/>
+    
+      <category term="java8" scheme="https://peijie-sh.github.io/tags/java8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java8学习笔记之Stream API</title>
+    <link href="https://peijie-sh.github.io/2017/04/26/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BStream%20API/"/>
+    <id>https://peijie-sh.github.io/2017/04/26/Java8学习笔记之Stream API/</id>
+    <published>2017-04-26T03:28:37.000Z</published>
+    <updated>2017-06-24T12:19:27.314Z</updated>
+    
+    <content type="html"><![CDATA[<p>Stream是Java8引入的一个重度使用lambda表达式的API。<br>Stream可以用流的方式处理数据集合，在Java8之前，我们处理这些集合，是需要迭代器的，比如iterator，这是外部迭代；而Stream是内部迭代，我们不用关心集合内部元素是如何迭代的，计算机会自动帮我们选择最适合的实现方式。</p>
+<h1 id="如何创建一个流"><a href="#如何创建一个流" class="headerlink" title="如何创建一个流"></a>如何创建一个流</h1><ol>
+<li>最常见的，有一个集合对象<code>List&lt;String&gt; strs = Arrays.asList(&quot;Java 8 &quot;, &quot;Lambdas &quot;, &quot;In &quot;, &quot;Action&quot;);</code>，直接调用<code>strs.stream()</code>就得到一个<code>Stream&lt;String&gt;</code>的流。<br>如果想使用并行流增加性能，请使用<code>strs.parallelStream()</code>，或<code>strs.stream().parallel()</code>。</li>
+<li>由值创建：<code>Stream&lt;String&gt; stream = Stream.of(&quot;Java 8 &quot;, &quot;Lambdas &quot;, &quot;In &quot;, &quot;Action&quot;);</code><a id="more"></a></li>
+<li><p>由数组创建：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span>[] numbers = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;;</div><div class="line"><span class="keyword">int</span> sum = Arrays.stream(numbers).sum();</div></pre></td></tr></table></figure>
+</li>
+<li><p>由文件创建：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 统计文本文件中有多少个不同的单词</span></div><div class="line"><span class="keyword">long</span> uniqueWords = <span class="number">0</span>;</div><div class="line"><span class="keyword">try</span> (Stream&lt;String&gt; lines = Files.lines(Paths.get(<span class="string">"data.txt"</span>), Charset.defaultCharset())) &#123;</div><div class="line">    uniqueWords = lines.flatMap(line -&gt; Arrays.stream(line.split(<span class="string">" "</span>)))</div><div class="line">            .distinct()</div><div class="line">            .count();</div><div class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>由函数生成流：<code>Stream.iterate()</code>和<code>Stream.generate()</code>可以生产无限流，即元素有无穷多个。一般来说，应该使用limit(n)来对这种流加以限制，以避免产生无穷多个元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">iterator</span><span class="params">()</span> </span>&#123;</div><div class="line">    Stream.iterate(<span class="number">0</span>, n -&gt; n + <span class="number">2</span>).limit(<span class="number">10</span>).forEach(System.out::println);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">generate</span><span class="params">()</span> </span>&#123;</div><div class="line">    Stream.generate(Math::random).limit(<span class="number">5</span>).forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Stream常用方法"><a href="#Stream常用方法" class="headerlink" title="Stream常用方法"></a>Stream常用方法</h1><blockquote>
+<p>Stream API 支持两种类型的操作：中间操作（如filter或map）和终端操作（如count、findFirst、forEach和reduce）。</p>
+</blockquote>
+<p>我用一个筛选菜单的需求作为示例。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dish</span> </span>&#123;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> String name;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">boolean</span> vegetarian;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> calories;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Type type;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Dish</span><span class="params">(String name, <span class="keyword">boolean</span> vegetarian, <span class="keyword">int</span> calories, Type type)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.name = name;</div><div class="line">            <span class="keyword">this</span>.vegetarian = vegetarian;</div><div class="line">            <span class="keyword">this</span>.calories = calories;</div><div class="line">            <span class="keyword">this</span>.type = type;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> name;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isVegetarian</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> vegetarian;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCalories</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> calories;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Type <span class="title">getType</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> type;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> name;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Type &#123;MEAT, FISH, OTHER&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> List&lt;Dish&gt; <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> Arrays.asList(</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"pork"</span>, <span class="keyword">false</span>, <span class="number">800</span>, Type.MEAT),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"beef"</span>, <span class="keyword">false</span>, <span class="number">700</span>, Type.MEAT),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"chicken"</span>, <span class="keyword">false</span>, <span class="number">400</span>, Type.MEAT),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"french fries"</span>, <span class="keyword">true</span>, <span class="number">530</span>, Type.OTHER),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"rice"</span>, <span class="keyword">true</span>, <span class="number">350</span>, Type.OTHER),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"season fruit"</span>, <span class="keyword">true</span>, <span class="number">120</span>, Type.OTHER),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"pizza"</span>, <span class="keyword">true</span>, <span class="number">550</span>, Type.OTHER),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"prawns"</span>, <span class="keyword">false</span>, <span class="number">300</span>, Type.FISH),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"salmon"</span>, <span class="keyword">false</span>, <span class="number">450</span>, Type.FISH));</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="过滤筛选"><a href="#过滤筛选" class="headerlink" title="过滤筛选"></a>过滤筛选</h2><blockquote>
+<p>谓词：返回boolean的函数</p>
+</blockquote>
+<ul>
+<li><p>filter()：接受一个谓词，返回符合条件的元素集合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">filter</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    List&lt;Dish&gt; vegetarianMenu = menu.stream()</div><div class="line">            .filter(Dish::isVegetarian)</div><div class="line">            .collect(Collectors.toList());</div><div class="line">    Assert.assertEquals(<span class="number">4</span>, vegetarianMenu.size());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>distinct()：返回集合中各异的元素集合(去重)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">distinct</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">5</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>);</div><div class="line">    numbers.stream().distinct().forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>limit()：截取流中指定数量的元素，返回一个不超过给定长度的流。如果流是有序的，则最多会返回前n个元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">``` java</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">limit</span><span class="params">()</span> </span>&#123;</div><div class="line">        List&lt;Dish&gt; menu = init();</div><div class="line">        menu.stream()</div><div class="line">                .filter(d -&gt; d.getCalories() &gt; <span class="number">300</span>)</div><div class="line">                .limit(<span class="number">3</span>)</div><div class="line">                .forEach(System.out::println);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>skip()：跳过指定数量元素，返回一个扔掉了前n个元素的流。如果流中元素不足n个，则返回一个空流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">skip</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    menu.stream()</div><div class="line">            .filter(d -&gt; d.getCalories() &gt; <span class="number">300</span>)</div><div class="line">            .limit(<span class="number">3</span>)</div><div class="line">            .skip(<span class="number">2</span>)</div><div class="line">            .forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h2><ul>
+<li><p>map()：接受一个函数作为参数。这个函数会被应用到每个元素上，并将其映射成一个新的元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    List&lt;String&gt; dishNames = menu.stream().map(m -&gt; m.getName()).collect(Collectors.toList());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>flatMap()：一个流中的每个值都换成另一个流，然后把所有的流连接起来成为一个流，即扁平化为一个流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flatMap</span><span class="params">()</span> </span>&#123;</div><div class="line">    String[] arrayOfWords = &#123;<span class="string">"Goodbye"</span>, <span class="string">"World"</span>&#125;;</div><div class="line">    List&lt;String&gt; words = Arrays.asList(arrayOfWords);</div><div class="line">    words.stream()</div><div class="line">            .map(w -&gt; w.split(<span class="string">""</span>))</div><div class="line">            .flatMap(Arrays::stream)</div><div class="line">            .distinct()</div><div class="line">            .forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面例子中，<code>split()</code>得到的是String[] 而不是String，因此各个数组并不是分别映射成一个流，而是映射成流的内容。所有使用map(Arrays::stream)时生成的单个流都被合并起来，变为一个流。</p>
+<h2 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h2><p>匹配比较简单，返回一个boolean</p>
+<ul>
+<li>anyMatch()：至少匹配一个</li>
+<li>allMatch()：全部匹配</li>
+<li>noneMatch()：全部不匹配，和allMatch相反</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">anyMatch</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    Assert.assertEquals(<span class="keyword">true</span>, menu.stream().anyMatch(Dish::isVegetarian));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">allMatch</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    Assert.assertEquals(<span class="keyword">true</span>, menu.stream().allMatch(d -&gt; d.getCalories() &lt; <span class="number">1000</span>));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">noneMatch</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    Assert.assertEquals(<span class="keyword">true</span>, menu.stream().noneMatch(d -&gt; d.getCalories() &gt;= <span class="number">1000</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p>查找有2个方法：<code>findFirst()</code>和<code>findAny()</code>，返回一个<code>Optional&lt;T&gt;</code>集合。<br>如果你不关心返回的元素是哪个，请使用<code>findAny()</code>，因为它在使用并行流时限制较少。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findFirst</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; someNumbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</div><div class="line">    Optional&lt;Integer&gt; firstSquareDivisibleByThree =</div><div class="line">            someNumbers.stream()</div><div class="line">                    .map(x -&gt; x * x)</div><div class="line">                    .filter(x -&gt; x % <span class="number">3</span> == <span class="number">0</span>)</div><div class="line">                    .findFirst(); <span class="comment">// 9</span></div><div class="line">    System.out.println(firstSquareDivisibleByThree.get());</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAny</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; someNumbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</div><div class="line">    Optional&lt;Integer&gt; firstSquareDivisibleByThree =</div><div class="line">            someNumbers.stream()</div><div class="line">                    .map(x -&gt; x * x)</div><div class="line">                    .filter(x -&gt; x % <span class="number">3</span> == <span class="number">0</span>)</div><div class="line">                    .findAny(); <span class="comment">// 9</span></div><div class="line">    System.out.println(firstSquareDivisibleByThree.get());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="归约"><a href="#归约" class="headerlink" title="归约"></a>归约</h2><p>归约在汇总结合内所有数据的时候使用。比如求 max，min，sum。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</div><div class="line">    <span class="keyword">int</span> sum = numbers.stream().reduce(<span class="number">0</span>, Integer::sum);</div><div class="line">    System.out.println(sum);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="原始类型流特化"><a href="#原始类型流特化" class="headerlink" title="原始类型流特化"></a>原始类型流特化</h1><p>流在内部迭代的过程中，对基本类型会自动装箱和拆箱。为了避免不需要的装箱拆箱，Java8提供了<code>IntStream</code>、<code>DoubleStream</code>和<code>LongStream</code></p>
+<ul>
+<li>普通流转特化流：mapToInt(), mapToLong(), mapToDouble()</li>
+<li>特化流转普通流：boxed()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">boxedStream</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    <span class="comment">// 特化</span></div><div class="line">    IntStream intStream = menu.stream().mapToInt(Dish::getCalories);</div><div class="line">    <span class="comment">// 转回普通Stream</span></div><div class="line">    Stream&lt;Integer&gt; stream = intStream.boxed();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Java 8引入了两个可以用于IntStream和LongStream的静态方法，用于生成给定范围的数字流：</p>
+<ul>
+<li>range(min, max)：随机生成的数字不包含max，即(min, max)</li>
+<li>rangeClosed(min, max)：随机生成的数字包含max，即(min, max]</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Stream是Java8引入的一个重度使用lambda表达式的API。&lt;br&gt;Stream可以用流的方式处理数据集合，在Java8之前，我们处理这些集合，是需要迭代器的，比如iterator，这是外部迭代；而Stream是内部迭代，我们不用关心集合内部元素是如何迭代的，计算机会自动帮我们选择最适合的实现方式。&lt;/p&gt;
+&lt;h1 id=&quot;如何创建一个流&quot;&gt;&lt;a href=&quot;#如何创建一个流&quot; class=&quot;headerlink&quot; title=&quot;如何创建一个流&quot;&gt;&lt;/a&gt;如何创建一个流&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;最常见的，有一个集合对象&lt;code&gt;List&amp;lt;String&amp;gt; strs = Arrays.asList(&amp;quot;Java 8 &amp;quot;, &amp;quot;Lambdas &amp;quot;, &amp;quot;In &amp;quot;, &amp;quot;Action&amp;quot;);&lt;/code&gt;，直接调用&lt;code&gt;strs.stream()&lt;/code&gt;就得到一个&lt;code&gt;Stream&amp;lt;String&amp;gt;&lt;/code&gt;的流。&lt;br&gt;如果想使用并行流增加性能，请使用&lt;code&gt;strs.parallelStream()&lt;/code&gt;，或&lt;code&gt;strs.stream().parallel()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;由值创建：&lt;code&gt;Stream&amp;lt;String&amp;gt; stream = Stream.of(&amp;quot;Java 8 &amp;quot;, &amp;quot;Lambdas &amp;quot;, &amp;quot;In &amp;quot;, &amp;quot;Action&amp;quot;);&lt;/code&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
+    
+    
+      <category term="java8" scheme="https://peijie-sh.github.io/tags/java8/"/>
+    
+      <category term="Stream API" scheme="https://peijie-sh.github.io/tags/Stream-API/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java8学习笔记之Lambda表达式</title>
+    <link href="https://peijie-sh.github.io/2017/04/19/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>https://peijie-sh.github.io/2017/04/19/Java8学习笔记之Lambda表达式/</id>
+    <published>2017-04-19T08:40:34.000Z</published>
+    <updated>2017-06-24T12:19:27.314Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-39a526e6dbd5707d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Lambda.jpg"><br>使用Lambda表达式，我们可以很简洁地传递代码（通常是匿名函数）。</p>
+<h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h1><p>Lambda表达式主要分为三部分：参数列表，箭头，Lambda 主体</p>
+<a id="more"></a>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><ul>
+<li>(parameters) -&gt; expression</li>
+<li>(parameters) -&gt; { statements; }</li>
+</ul>
+<p>如果表达式只有一行，用第一种，多行用第二种。</p>
+<p>Java8中，标注了<code>@FunctionalInterface</code>，表明这个接口将是一个函数式接口，它里面只能有一个抽象方法。</p>
+<h1 id="常用的函数式接口"><a href="#常用的函数式接口" class="headerlink" title="常用的函数式接口"></a>常用的函数式接口</h1><p>JDK已经为我们提供了很多常用的函数式接口：</p>
+<ul>
+<li>Predicate：<code>java.util.function.Predicate&lt;T&gt;</code>接口定义了一个名叫test的抽象方法，它接受泛型T对象，并返回一个boolean。在需要表示一个涉及类型T的布尔表达式时可以使用。</li>
+<li>Consumer：<code>java.util.function.Consumer&lt;T&gt;</code>定义了一个名叫accept的抽象方法，它接受泛型T的对象，没有返回（void）。如果需要访问类型T的对象，并对其执行某些操作，就可以使用这个接口。</li>
+<li>Supplier：<code>java.util.function.Supplier&lt;T&gt;</code>不接受对象，返回一个泛型对象T。在需要new一个对象实例时可以使用。</li>
+<li>Function：<code>java.util.function.Function&lt;T, R&gt;</code>接口定义了一个叫作apply的方法，它接受一个泛型T的对象，并返回一个泛型R的对象。如果需要定义一个Lambda，将输入对象的信息映射到输出，就可以使用这个接口。</li>
+</ul>
+<h1 id="原始类型特化"><a href="#原始类型特化" class="headerlink" title="原始类型特化"></a>原始类型特化</h1><p>我们知道，泛型只能绑定到引用类型的对象。因此，在使用泛型绑定基本类型的时候，Java会为我们自动装箱和拆箱，但这是会消耗性能的。<br>如果输入和输出都是基本类型时，Java8为我们提供了新的函数式接口，以避免自动装箱拆箱。</p>
+<p>简单列举一部分：</p>
+<ul>
+<li>Predicate：<code>IntPredicate</code>, <code>LongPredicate</code>, <code>DoublePredicate</code></li>
+<li>Consumer：<code>IntConsumer</code>,<code>LongConsumer</code>, <code>DoubleConsumer</code></li>
+<li>Supplier：<code>BooleanSupplier</code>, <code>IntSupplier</code>, <code>LongSupplier</code>, <code>DoubleSupplier</code></li>
+<li>Function：<code>IntFunction&lt;R&gt;</code>,<code>LongToDoubleFunction</code>,<code>ToLongFunction&lt;T&gt;</code></li>
+</ul>
+<p>从命名可以轻易看出从什么类型转成什么类型，可以在<code>java.util.function</code>包下查看所有接口。</p>
+<h1 id="使用局部变量"><a href="#使用局部变量" class="headerlink" title="使用局部变量"></a>使用局部变量</h1><p>在使用lambda时，主体代码块内允许使用的外部变量。但是，不允许改变外部变量。这些变量应该声明为<code>final</code>或者事实上是<code>final</code>的（即之后代码中不会改变）</p>
+<h1 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h1><p>方法引用主要有三类：</p>
+<ul>
+<li>指向静态方法的方法引用<ul>
+<li>Lambda: <code>(args) -&gt; ClassName.staticMethod(args)</code></li>
+<li>方法引用：<code>ClassName :: staticMethod</code></li>
+</ul>
+</li>
+<li>指向任意类型实例方法的方法引用<ul>
+<li>Lambda: <code>(arg0, rest) -&gt; arg0.instanceMethod(rest)</code></li>
+<li>方法引用：<code>ClassName :: instanceMethod</code>(arg0 是 ClassName 类型的)</li>
+</ul>
+</li>
+<li>指向现有对象的实例方法的方法引用<ul>
+<li>Lambda: <code>(args) -&gt; expr.instanceMethod(args)</code></li>
+<li>方法引用：<code>expr :: intanceMethod</code></li>
+</ul>
+</li>
+</ul>
+<p>除此之外，还有构造函数引用：<code>ClassName :: new</code><br>比如用Map来将构造函数映射到字符串值：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> Map&lt;String, Function&lt;Integer, Fruit&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line"><span class="keyword">static</span> &#123;</div><div class="line">    map.put(<span class="string">"apple"</span>, Apple::<span class="keyword">new</span>);</div><div class="line">    map.put(<span class="string">"orange"</span>, Orange::<span class="keyword">new</span>);</div><div class="line">    <span class="comment">// etc...</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Fruit <span class="title">giveMeFruit</span><span class="params">(String fruit, Integer weight)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> map.get(fruit.toLowerCase()).apply(weight);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="复合-Lambda-表达式"><a href="#复合-Lambda-表达式" class="headerlink" title="复合 Lambda 表达式"></a>复合 Lambda 表达式</h1><p>Comparator、Predicate和Function等函数式接口都有几个可以用来结Lambda表达式的默认方法。</p>
+<h2 id="比较器复合"><a href="#比较器复合" class="headerlink" title="比较器复合"></a>比较器复合</h2><ol>
+<li><p>普通排序<code>comparing()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Comparator&lt;Apple&gt; c = Comparator.comparing(Apple::getWeight);</div></pre></td></tr></table></figure>
+</li>
+<li><p>逆序<code>reversed()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">inventory.sort(comparing(Apple::getWeight).reversed());</div></pre></td></tr></table></figure>
+</li>
+<li><p>比较器链<code>thenComparing()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">inventory.sort(comparing(Apple::getWeight).reversed()</div><div class="line">    .thenComparing(Apple::getCountry));</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="谓词复合"><a href="#谓词复合" class="headerlink" title="谓词复合"></a>谓词复合</h2><p>3个方法增强已有的Predicate接口：</p>
+<ul>
+<li><code>and</code>：与</li>
+<li><code>or</code>：或</li>
+<li><code>negate</code>：非</li>
+</ul>
+<p><strong>请注意，and和or方法是按照在表达式链中的位置，从左向右确定优先级的。</strong>因此，a.or(b).and(c)可以看作(a || b) &amp;&amp; c。</p>
+<h2 id="函数复合"><a href="#函数复合" class="headerlink" title="函数复合"></a>函数复合</h2><p>Function接口有<code>andThen</code>和<code>compose</code>两个默认方法，它们都会返回Function的一个实例。</p>
+<p>举个例子：<br>有2个函数，一个加1，一个乘2<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Function&lt;Integer, Integer&gt; f = x -&gt; x + <span class="number">1</span>; <span class="comment">// f(x)=x+1</span></div><div class="line">Function&lt;Integer, Integer&gt; g = x -&gt; x * <span class="number">2</span>; <span class="comment">// g(x)=2x</span></div></pre></td></tr></table></figure></p>
+<ol>
+<li><p><code>andThen()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Function&lt;Integer, Integer&gt; h = f.andThen(g); <span class="comment">// g(f(x))</span></div><div class="line"><span class="keyword">int</span> result = h.apply(<span class="number">1</span>); <span class="comment">// 4</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><code>compose()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Function&lt;Integer, Integer&gt; h = f.compose(g); <span class="comment">// f(g(x))</span></div><div class="line"><span class="keyword">int</span> result = h.apply(<span class="number">1</span>); <span class="comment">// 3</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-39a526e6dbd5707d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Lambda.jpg&quot;&gt;&lt;br&gt;使用Lambda表达式，我们可以很简洁地传递代码（通常是匿名函数）。&lt;/p&gt;
+&lt;h1 id=&quot;结构&quot;&gt;&lt;a href=&quot;#结构&quot; class=&quot;headerlink&quot; title=&quot;结构&quot;&gt;&lt;/a&gt;结构&lt;/h1&gt;&lt;p&gt;Lambda表达式主要分为三部分：参数列表，箭头，Lambda 主体&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
+    
+    
+      <category term="java8" scheme="https://peijie-sh.github.io/tags/java8/"/>
+    
+      <category term="Lambda表达式" scheme="https://peijie-sh.github.io/tags/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java8学习笔记之行为参数化</title>
+    <link href="https://peijie-sh.github.io/2017/04/19/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/"/>
+    <id>https://peijie-sh.github.io/2017/04/19/Java8学习笔记之行为参数化/</id>
+    <published>2017-04-19T05:10:12.000Z</published>
+    <updated>2017-06-24T12:19:27.315Z</updated>
+    
+    <content type="html"><![CDATA[<p>用一个例子说明<code>行为参数化</code>带来的变化 - 从苹果仓库中筛选苹果</p>
+<h1 id="版本1"><a href="#版本1" class="headerlink" title="版本1"></a>版本1</h1><p>从一个苹果集合中选出绿的苹果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Apple&gt; <span class="title">filterGreenApples</span><span class="params">(List&lt;Apple&gt; inventory)</span> </span>&#123;</div><div class="line">        List&lt;Apple&gt; result = <span class="keyword">new</span> ArrayList&lt;Apple&gt;();</div><div class="line">        <span class="keyword">for</span> (Apple apple : inventory) &#123;</div><div class="line">            <span class="keyword">if</span> (<span class="string">"green"</span>.equals(apple.getColor()) &#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h1 id="版本2"><a href="#版本2" class="headerlink" title="版本2"></a>版本2</h1><p>这时，如果需求变了，要从集合中选出红苹果，我们会这样<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Apple&gt; <span class="title">filterApplesByColor</span><span class="params">(List&lt;Apple&gt; inventory, String color)</span> </span>&#123;</div><div class="line">        List&lt;Apple&gt; result = <span class="keyword">new</span> ArrayList&lt;Apple&gt;();</div><div class="line">        <span class="keyword">for</span> (Apple apple : inventory) &#123;</div><div class="line">            <span class="keyword">if</span> (apple.getColor().equals(color)) &#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>然后传入颜色参数来筛选<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; apples = filterApplesByColor(inventory, <span class="string">"red"</span>);</div></pre></td></tr></table></figure></p>
+<h1 id="版本3"><a href="#版本3" class="headerlink" title="版本3"></a>版本3</h1><p>但是，如果现在要选出重量超过150g的苹果呢？在方法参数列表中多加一个weight么？<br>你会发现我们所有的代码，只有if判断中的条件发生了变化，这违反了DRY原则(Don’t Repeat Yourself)。</p>
+<p>所以，我们把整个具体行为作为参数来传递，这样，方法体本身的代码就可以复用了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义一个接口</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplePredicate</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">test</span><span class="params">(Apple apple)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppleHeavyWeightPredicate</span> <span class="keyword">implements</span> <span class="title">ApplePredicate</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">test</span><span class="params">(Apple apple)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> apple.getWeight() &gt; <span class="number">150</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppleGreenColorPredicate</span> <span class="keyword">implements</span> <span class="title">ApplePredicate</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">test</span><span class="params">(Apple apple)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"green"</span>.equals(apple.getColor());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Apple&gt; <span class="title">filterApples</span><span class="params">(List&lt;Apple&gt; inventory, ApplePredicate p)</span> </span>&#123;</div><div class="line">    List&lt;Apple&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    <span class="keyword">for</span> (Apple apple : inventory) &#123;</div><div class="line">        <span class="keyword">if</span> (p.test(apple)) &#123;</div><div class="line">            result.add(apple);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在，我们可以很灵活的调用了<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; redAndHeavyApples = filterApples(inventory, <span class="keyword">new</span> AppleHeavyWeightPredicate());</div></pre></td></tr></table></figure></p>
+<h1 id="版本4"><a href="#版本4" class="headerlink" title="版本4"></a>版本4</h1><p>其实，接口的具体实现，我们只会用到一次。所以，我们可以改成匿名类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; redApples = filterApples(inventory, <span class="keyword">new</span> ApplePredicate() &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">test</span><span class="params">(Apple apple)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">"red"</span>.equals(apple.getColor());</div><div class="line">        &#125;</div><div class="line">    &#125;);</div></pre></td></tr></table></figure></p>
+<p>现在，代码已经变得非常简洁和灵活了。</p>
+<h1 id="版本5"><a href="#版本5" class="headerlink" title="版本5"></a>版本5</h1><p>从Java8开始，我们可以利用Lambda表达式，进一步改进代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; result = filterApples(inventory, (Apple apple) -&gt; <span class="string">"red"</span>.equals(apple.getColor()));</div></pre></td></tr></table></figure></p>
+<p>现在，调用方法，我们只要一行代码，而且代码的可读性非常好。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用一个例子说明&lt;code&gt;行为参数化&lt;/code&gt;带来的变化 - 从苹果仓库中筛选苹果&lt;/p&gt;
+&lt;h1 id=&quot;版本1&quot;&gt;&lt;a href=&quot;#版本1&quot; class=&quot;headerlink&quot; title=&quot;版本1&quot;&gt;&lt;/a&gt;版本1&lt;/h1&gt;&lt;p&gt;从一个苹果集合中选出绿的苹果&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; List&amp;lt;Apple&amp;gt; &lt;span class=&quot;title&quot;&gt;filterGreenApples&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(List&amp;lt;Apple&amp;gt; inventory)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        List&amp;lt;Apple&amp;gt; result = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; ArrayList&amp;lt;Apple&amp;gt;();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (Apple apple : inventory) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;string&quot;&gt;&quot;green&quot;&lt;/span&gt;.equals(apple.getColor()) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                result.add(apple);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; result;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
+    
+    
+      <category term="java8" scheme="https://peijie-sh.github.io/tags/java8/"/>
+    
+      <category term="Lambda表达式" scheme="https://peijie-sh.github.io/tags/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HTML转图片利器：wkhtmltox</title>
-    <link href="http://peijie2016.oschina.io/2017/04/01/HTML%E8%BD%AC%E5%9B%BE%E7%89%87%E5%88%A9%E5%99%A8%EF%BC%9Awkhtmltox/"/>
-    <id>http://peijie2016.oschina.io/2017/04/01/HTML转图片利器：wkhtmltox/</id>
+    <link href="https://peijie-sh.github.io/2017/04/01/HTML%E8%BD%AC%E5%9B%BE%E7%89%87%E5%88%A9%E5%99%A8%EF%BC%9Awkhtmltox/"/>
+    <id>https://peijie-sh.github.io/2017/04/01/HTML转图片利器：wkhtmltox/</id>
     <published>2017-04-01T06:07:22.000Z</published>
     <updated>2017-04-01T12:02:37.910Z</updated>
     
@@ -62,21 +602,21 @@
     
     </summary>
     
-      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
+      <category term="工具杂谈" scheme="https://peijie-sh.github.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
     
     
-      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
+      <category term="wkhtmltox" scheme="https://peijie-sh.github.io/tags/wkhtmltox/"/>
     
-      <category term="wkhtmltox" scheme="http://peijie2016.oschina.io/tags/wkhtmltox/"/>
+      <category term="Linux" scheme="https://peijie-sh.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>SpringBoot中使用Redis实现缓存</title>
-    <link href="http://peijie2016.oschina.io/2017/03/30/SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98/"/>
-    <id>http://peijie2016.oschina.io/2017/03/30/SpringBoot中使用Redis实现缓存/</id>
+    <link href="https://peijie-sh.github.io/2017/03/30/SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98/"/>
+    <id>https://peijie-sh.github.io/2017/03/30/SpringBoot中使用Redis实现缓存/</id>
     <published>2017-03-30T09:11:13.000Z</published>
-    <updated>2017-04-01T12:02:37.912Z</updated>
+    <updated>2018-04-14T12:45:39.733Z</updated>
     
     <content type="html"><![CDATA[<p>Spring Data Redis为我们封装了Redis客户端的各种操作，简化使用。</p>
 <ul>
@@ -108,21 +648,21 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
     
     
-      <category term="Redis" scheme="http://peijie2016.oschina.io/tags/Redis/"/>
+      <category term="SpringBoot" scheme="https://peijie-sh.github.io/tags/SpringBoot/"/>
     
-      <category term="SpringBoot" scheme="http://peijie2016.oschina.io/tags/SpringBoot/"/>
+      <category term="Cache" scheme="https://peijie-sh.github.io/tags/Cache/"/>
     
-      <category term="Cache" scheme="http://peijie2016.oschina.io/tags/Cache/"/>
+      <category term="Redis" scheme="https://peijie-sh.github.io/tags/Redis/"/>
     
   </entry>
   
   <entry>
     <title>手动安装redis-3.2.8的详细步骤</title>
-    <link href="http://peijie2016.oschina.io/2017/03/30/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85redis-3.2.8%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4/"/>
-    <id>http://peijie2016.oschina.io/2017/03/30/手动安装redis-3.2.8的详细步骤/</id>
+    <link href="https://peijie-sh.github.io/2017/03/30/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85redis-3.2.8%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4/"/>
+    <id>https://peijie-sh.github.io/2017/03/30/手动安装redis-3.2.8的详细步骤/</id>
     <published>2017-03-30T02:40:27.000Z</published>
     <updated>2017-04-01T12:47:24.809Z</updated>
     
@@ -174,19 +714,19 @@
     
     </summary>
     
-      <category term="NoSQL" scheme="http://peijie2016.oschina.io/categories/NoSQL/"/>
+      <category term="NoSQL" scheme="https://peijie-sh.github.io/categories/NoSQL/"/>
     
     
-      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://peijie-sh.github.io/tags/Linux/"/>
     
-      <category term="Redis" scheme="http://peijie2016.oschina.io/tags/Redis/"/>
+      <category term="Redis" scheme="https://peijie-sh.github.io/tags/Redis/"/>
     
   </entry>
   
   <entry>
     <title>谈谈Java中的代理</title>
-    <link href="http://peijie2016.oschina.io/2017/02/17/%E8%B0%88%E8%B0%88Java%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%90%86/"/>
-    <id>http://peijie2016.oschina.io/2017/02/17/谈谈Java中的代理/</id>
+    <link href="https://peijie-sh.github.io/2017/02/17/%E8%B0%88%E8%B0%88Java%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%90%86/"/>
+    <id>https://peijie-sh.github.io/2017/02/17/谈谈Java中的代理/</id>
     <published>2017-02-17T07:36:35.000Z</published>
     <updated>2017-03-04T12:49:08.010Z</updated>
     
@@ -241,17 +781,17 @@
     
     </summary>
     
-      <category term="Java" scheme="http://peijie2016.oschina.io/categories/Java/"/>
+      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
     
     
-      <category term="动态代理" scheme="http://peijie2016.oschina.io/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"/>
+      <category term="动态代理" scheme="https://peijie-sh.github.io/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>谈谈Java中的堆与栈</title>
-    <link href="http://peijie2016.oschina.io/2017/02/16/%E8%B0%88%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%A0%86%E4%B8%8E%E6%A0%88/"/>
-    <id>http://peijie2016.oschina.io/2017/02/16/谈谈Java中的堆与栈/</id>
+    <link href="https://peijie-sh.github.io/2017/02/16/%E8%B0%88%E8%B0%88Java%E4%B8%AD%E7%9A%84%E5%A0%86%E4%B8%8E%E6%A0%88/"/>
+    <id>https://peijie-sh.github.io/2017/02/16/谈谈Java中的堆与栈/</id>
     <published>2017-02-16T07:25:12.000Z</published>
     <updated>2017-03-04T12:49:08.011Z</updated>
     
@@ -309,19 +849,19 @@
     
     </summary>
     
-      <category term="Java" scheme="http://peijie2016.oschina.io/categories/Java/"/>
+      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
     
     
-      <category term="JVM" scheme="http://peijie2016.oschina.io/tags/JVM/"/>
+      <category term="JVM" scheme="https://peijie-sh.github.io/tags/JVM/"/>
     
   </entry>
   
   <entry>
     <title>SpringMVC统一异常处理总结</title>
-    <link href="http://peijie2016.oschina.io/2017/02/15/SpringMVC%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%80%BB%E7%BB%93/"/>
-    <id>http://peijie2016.oschina.io/2017/02/15/SpringMVC统一异常处理总结/</id>
+    <link href="https://peijie-sh.github.io/2017/02/15/SpringMVC%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%80%BB%E7%BB%93/"/>
+    <id>https://peijie-sh.github.io/2017/02/15/SpringMVC统一异常处理总结/</id>
     <published>2017-02-15T08:11:13.000Z</published>
-    <updated>2017-04-01T13:00:32.485Z</updated>
+    <updated>2018-04-14T12:45:39.747Z</updated>
     
     <content type="html"><![CDATA[<p>在一个Spring MVC项目中，使用统一异常处理，可以使维护代码变得容易。下面总结一下常用的3种方法。<br><img src="http://upload-images.jianshu.io/upload_images/4059338-24a47cdd2121897b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="try-catch"></p>
 <h1 id="实现HandlerExceptionResolver接口"><a href="#实现HandlerExceptionResolver接口" class="headerlink" title="实现HandlerExceptionResolver接口"></a>实现<code>HandlerExceptionResolver</code>接口</h1><p>实现<code>HandlerExceptionResolver</code>接口，实现<code>resolveException()</code>方法，根据传入的异常类型做出处理。</p>
@@ -340,19 +880,19 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
     
     
-      <category term="Spring" scheme="http://peijie2016.oschina.io/tags/Spring/"/>
+      <category term="Spring" scheme="https://peijie-sh.github.io/tags/Spring/"/>
     
   </entry>
   
   <entry>
     <title>Spring Task定时任务的配置和使用</title>
-    <link href="http://peijie2016.oschina.io/2017/02/15/Spring%20Task%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
-    <id>http://peijie2016.oschina.io/2017/02/15/Spring Task定时任务的配置和使用/</id>
+    <link href="https://peijie-sh.github.io/2017/02/15/Spring%20Task%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
+    <id>https://peijie-sh.github.io/2017/02/15/Spring Task定时任务的配置和使用/</id>
     <published>2017-02-15T03:33:12.000Z</published>
-    <updated>2017-04-01T13:46:20.730Z</updated>
+    <updated>2018-04-14T12:45:39.727Z</updated>
     
     <content type="html"><![CDATA[<p>记录下<code>Spring</code>自带的定时任务用法。</p>
 <h1 id="spring中使用定时任务"><a href="#spring中使用定时任务" class="headerlink" title="spring中使用定时任务"></a>spring中使用定时任务</h1><h2 id="基于xml配置文件使用定时任务"><a href="#基于xml配置文件使用定时任务" class="headerlink" title="基于xml配置文件使用定时任务"></a>基于xml配置文件使用定时任务</h2><p>首先配置spring开启定时任务<br><a id="more"></a><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span>  </span></div><div class="line">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>   </div><div class="line">    <span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span>  </div><div class="line">    <span class="attr">xmlns:task</span>=<span class="string">"http://www.springframework.org/schema/task"</span>  </div><div class="line">    <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span>  </div><div class="line">    <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span>   </div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans   </span></div><div class="line">    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  </div><div class="line">    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd    </div><div class="line">    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd    </div><div class="line">    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd    </div><div class="line">    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd    </div><div class="line">    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd"&gt;  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">task:annotation-driven</span> /&gt;</span> <span class="comment">&lt;!-- 定时器开关--&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myTask"</span> <span class="attr">class</span>=<span class="string">"com.spring.task.MyTask"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">task:scheduled-tasks</span>&gt;</span>  </div><div class="line">        <span class="comment">&lt;!-- 这里表示的是每隔五秒执行一次 --&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">task:scheduled</span> <span class="attr">ref</span>=<span class="string">"myTask"</span> <span class="attr">method</span>=<span class="string">"show"</span> <span class="attr">cron</span>=<span class="string">"*/5 * * * * ?"</span> /&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">task:scheduled</span> <span class="attr">ref</span>=<span class="string">"myTask"</span> <span class="attr">method</span>=<span class="string">"print"</span> <span class="attr">cron</span>=<span class="string">"*/10 * * * * ?"</span>/&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">task:scheduled-tasks</span>&gt;</span>  </div><div class="line">      </div><div class="line">    <span class="comment">&lt;!-- 自动扫描的包名 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.spring.task"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
@@ -414,21 +954,21 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
     
     
-      <category term="SpringBoot" scheme="http://peijie2016.oschina.io/tags/SpringBoot/"/>
+      <category term="SpringBoot" scheme="https://peijie-sh.github.io/tags/SpringBoot/"/>
     
-      <category term="Spring" scheme="http://peijie2016.oschina.io/tags/Spring/"/>
+      <category term="Spring" scheme="https://peijie-sh.github.io/tags/Spring/"/>
     
   </entry>
   
   <entry>
     <title>使用SpringBoot Actuator监控应用</title>
-    <link href="http://peijie2016.oschina.io/2017/02/13/%E4%BD%BF%E7%94%A8SpringBoot%20Actuator%E7%9B%91%E6%8E%A7%E5%BA%94%E7%94%A8/"/>
-    <id>http://peijie2016.oschina.io/2017/02/13/使用SpringBoot Actuator监控应用/</id>
+    <link href="https://peijie-sh.github.io/2017/02/13/%E4%BD%BF%E7%94%A8SpringBoot%20Actuator%E7%9B%91%E6%8E%A7%E5%BA%94%E7%94%A8/"/>
+    <id>https://peijie-sh.github.io/2017/02/13/使用SpringBoot Actuator监控应用/</id>
     <published>2017-02-13T04:25:34.000Z</published>
-    <updated>2017-04-01T12:02:38.008Z</updated>
+    <updated>2018-04-14T12:45:39.758Z</updated>
     
     <content type="html"><![CDATA[<p>Actuator是Spring Boot提供的对应用系统的自省和监控的集成功能，可以对应用系统进行配置查看、相关功能统计等。</p>
 <h1 id="使用Actuator"><a href="#使用Actuator" class="headerlink" title="使用Actuator"></a>使用Actuator</h1><p>引入依赖即可</p>
@@ -486,19 +1026,19 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
     
     
-      <category term="SpringBoot" scheme="http://peijie2016.oschina.io/tags/SpringBoot/"/>
+      <category term="SpringBoot" scheme="https://peijie-sh.github.io/tags/SpringBoot/"/>
     
   </entry>
   
   <entry>
     <title>在SpringBoot中使用Logback管理日志</title>
-    <link href="http://peijie2016.oschina.io/2017/02/11/%E5%9C%A8SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Logback%E7%AE%A1%E7%90%86%E6%97%A5%E5%BF%97/"/>
-    <id>http://peijie2016.oschina.io/2017/02/11/在SpringBoot中使用Logback管理日志/</id>
+    <link href="https://peijie-sh.github.io/2017/02/11/%E5%9C%A8SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8Logback%E7%AE%A1%E7%90%86%E6%97%A5%E5%BF%97/"/>
+    <id>https://peijie-sh.github.io/2017/02/11/在SpringBoot中使用Logback管理日志/</id>
     <published>2017-02-11T07:31:35.000Z</published>
-    <updated>2017-04-02T09:18:17.469Z</updated>
+    <updated>2018-04-14T12:45:39.761Z</updated>
     
     <content type="html"><![CDATA[<h1 id="SpringBoot的默认日志配置"><a href="#SpringBoot的默认日志配置" class="headerlink" title="SpringBoot的默认日志配置"></a>SpringBoot的默认日志配置</h1><p><code>SpringBoot</code>开箱即用，默认帮你配置了日志框架，使用 <code>Commons Logging</code> ，但是默认配置也提供了对常用日志的支持，如： Java Util Logging ， Log4J , Log4J2 和 Logback。每种Logger都可以通过配置使用控制台或者文件输出日志内容。</p>
 <h2 id="控制台输出"><a href="#控制台输出" class="headerlink" title="控制台输出"></a>控制台输出</h2><p>关于log日志，首先说说的5个日志级别 LEVEL：<br>从高到低分别是<code>ERROR</code>、<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>、<code>TRACE</code><br>低级别的会输出高级别信息，高级别不会输出低级别信息。例如：等级设为<code>ERROR</code>的话，<code>WARN</code>、<code>INFO</code>、<code>DEBUG</code>的信息是不会输出的。<br>在<code>SpringBoot</code>中默认配置了<code>ERROR</code> 、<code>WARN</code>和<code>INFO</code>级别的日志输出到控制台。<br>Logback中没有<code>FATAL</code>级别，它会被当作<code>ERROR</code>级别来处理。</p>
@@ -556,21 +1096,21 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
     
     
-      <category term="SpringBoot" scheme="http://peijie2016.oschina.io/tags/SpringBoot/"/>
+      <category term="SpringBoot" scheme="https://peijie-sh.github.io/tags/SpringBoot/"/>
     
-      <category term="Logback" scheme="http://peijie2016.oschina.io/tags/Logback/"/>
+      <category term="Logback" scheme="https://peijie-sh.github.io/tags/Logback/"/>
     
   </entry>
   
   <entry>
     <title>用SpringMVC搭建web应用</title>
-    <link href="http://peijie2016.oschina.io/2016/12/13/%E7%94%A8SpringMVC%E6%90%AD%E5%BB%BAweb%E5%BA%94%E7%94%A8/"/>
-    <id>http://peijie2016.oschina.io/2016/12/13/用SpringMVC搭建web应用/</id>
+    <link href="https://peijie-sh.github.io/2016/12/13/%E7%94%A8SpringMVC%E6%90%AD%E5%BB%BAweb%E5%BA%94%E7%94%A8/"/>
+    <id>https://peijie-sh.github.io/2016/12/13/用SpringMVC搭建web应用/</id>
     <published>2016-12-13T03:15:35.000Z</published>
-    <updated>2017-04-01T12:59:34.293Z</updated>
+    <updated>2018-04-14T12:45:39.766Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-fe41c5b216f5ff66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SpringMVC"></p>
 <p>在使用<code>SpringMVC</code>时，最重要的2个类就是<code>DispatcherServlet</code>和<code>ContextLoaderListener</code>。<code>DispatcherServlet</code>加载包含Web组件的bean，如控制器、视图解析器以及处理器映射，<code>ContextLoaderListener</code>加载应用中的其他bean(通常是驱动应用后端的中间层和数据层组件)。</p>
@@ -588,27 +1128,28 @@
     
     </summary>
     
-      <category term="Spring/SpringBoot" scheme="http://peijie2016.oschina.io/categories/Spring-SpringBoot/"/>
+      <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
     
     
-      <category term="Spring" scheme="http://peijie2016.oschina.io/tags/Spring/"/>
+      <category term="Spring" scheme="https://peijie-sh.github.io/tags/Spring/"/>
     
   </entry>
   
   <entry>
     <title>解决Linux下DNS配置重启失效问题</title>
-    <link href="http://peijie2016.oschina.io/2016/12/02/%E8%A7%A3%E5%86%B3Linux%E4%B8%8BDNS%E9%85%8D%E7%BD%AE%E9%87%8D%E5%90%AF%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/"/>
-    <id>http://peijie2016.oschina.io/2016/12/02/解决Linux下DNS配置重启失效问题/</id>
+    <link href="https://peijie-sh.github.io/2016/12/02/%E8%A7%A3%E5%86%B3Linux%E4%B8%8BDNS%E9%85%8D%E7%BD%AE%E9%87%8D%E5%90%AF%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/"/>
+    <id>https://peijie-sh.github.io/2016/12/02/解决Linux下DNS配置重启失效问题/</id>
     <published>2016-12-02T03:59:31.000Z</published>
-    <updated>2017-04-01T12:58:48.221Z</updated>
+    <updated>2018-04-14T12:45:39.770Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-31dffaf4f06dcb24.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DNS"></p>
-<p>有时候能<code>ping</code>通ip地址，却<code>ping</code>不通域名，这就是<code>dns</code>没有配置的缘故。<br><a id="more"></a><br>但是DNS配置文件 <code>/etc/resolv.conf</code> 每次重启就会失效。<br>打开这个配置文件，发现有注释提示：</p>
+<p>有时候能<code>ping</code>通ip地址，却<code>ping</code>不通域名，这就是<code>dns</code>没有配置的缘故。<br>但是DNS配置文件 <code>/etc/resolv.conf</code> 每次重启就会失效。</p>
+<h1 id="那么问题来了，怎么解决每次都要配置的问题呢？"><a href="#那么问题来了，怎么解决每次都要配置的问题呢？" class="headerlink" title="那么问题来了，怎么解决每次都要配置的问题呢？"></a>那么问题来了，怎么解决每次都要配置的问题呢？</h1><h1 id="Ubuntu系统下"><a href="#Ubuntu系统下" class="headerlink" title="Ubuntu系统下"></a>Ubuntu系统下</h1><p>打开这个配置文件，发现有注释提示：</p>
 <blockquote>
-<h1 id="Dynamic-resolv-conf-5-file-for-glibc-resolver-3-generated-by-resolvconf-8-DO-NOT-EDIT-THIS-FILE-BY-HAND-—-YOUR-CHANGES-WILL-BE-OVERWRITTEN"><a href="#Dynamic-resolv-conf-5-file-for-glibc-resolver-3-generated-by-resolvconf-8-DO-NOT-EDIT-THIS-FILE-BY-HAND-—-YOUR-CHANGES-WILL-BE-OVERWRITTEN" class="headerlink" title="Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)# DO NOT EDIT THIS FILE BY HAND — YOUR CHANGES WILL BE OVERWRITTEN"></a>Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)# DO NOT EDIT THIS FILE BY HAND — YOUR CHANGES WILL BE OVERWRITTEN</h1></blockquote>
+<p># Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)# DO NOT EDIT THIS FILE BY HAND — YOUR CHANGES WILL BE OVERWRITTEN</p>
+</blockquote>
 <p>原来系统已经提示我们不要手动改此文件，因为这里每次重启会被覆盖。</p>
-<hr>
-<h1 id="那么问题来了，怎么解决每次都要配置的问题呢？"><a href="#那么问题来了，怎么解决每次都要配置的问题呢？" class="headerlink" title="那么问题来了，怎么解决每次都要配置的问题呢？"></a>那么问题来了，怎么解决每次都要配置的问题呢？</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><ul>
+<h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><ul>
 <li>执行<code>sudo vim /etc/network/interfaces</code></li>
 <li>添加一行DNS配置，比如<code>dns-nameservers 8.8.8.8</code></li>
 </ul>
@@ -616,28 +1157,37 @@
 <li>执行<code>sudo vim /etc/resolvconf/resolv.conf.d/base</code></li>
 <li>添加DNS配置，比如<code>nameserver 8.8.8.8</code></li>
 <li>如果有多个DNS就添加多行，一行一个</li>
-<li>保存后执行<code>resolvconf -u</code><br>此时，再打开<code>/etc/resolv.conf</code>会发现刚才添加的DNS配置了。<br>以后在重启就没问题了  ^_^</li>
+<li>保存后执行<code>resolvconf -u</code><br>此时，再打开<code>/etc/resolv.conf</code>会发现刚才添加的DNS配置了。</li>
+</ul>
+<hr>
+<h1 id="CentOS系统下"><a href="#CentOS系统下" class="headerlink" title="CentOS系统下"></a>CentOS系统下</h1><p>直接编辑<code>/etc/resolv.conf</code>，重启之后一样会失效。</p>
+<h2 id="方法：直接将DNS配置写入网卡中"><a href="#方法：直接将DNS配置写入网卡中" class="headerlink" title="方法：直接将DNS配置写入网卡中"></a>方法：直接将DNS配置写入网卡中</h2><ul>
+<li>执行 <code>cd /etc/sysconfig/network-scripts/</code></li>
+<li>编辑网卡配置文件 <code>vi ifcfg-eth0</code>，在后面加入DNS配置<blockquote>
+<p>DNS1=223.5.5.5<br>DNS1=223.6.6.6</p>
+</blockquote>
+</li>
+<li>重启网卡<code>service network restart</code>即可<br>此时，再打开/etc/resolv.conf会发现刚才添加的DNS配置了。<br>以后在重启就没问题了 ^_^</li>
 </ul>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-31dffaf4f06dcb24.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;DNS&quot;&gt;&lt;/p&gt;
-&lt;p&gt;有时候能&lt;code&gt;ping&lt;/code&gt;通ip地址，却&lt;code&gt;ping&lt;/code&gt;不通域名，这就是&lt;code&gt;dns&lt;/code&gt;没有配置的缘故。&lt;br&gt;
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-31dffaf4f06dcb24.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; 
     
     </summary>
     
-      <category term="Linux" scheme="http://peijie2016.oschina.io/categories/Linux/"/>
+      <category term="Linux" scheme="https://peijie-sh.github.io/categories/Linux/"/>
     
     
-      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://peijie-sh.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>Linux虚拟机设置静态IP</title>
-    <link href="http://peijie2016.oschina.io/2016/11/15/Linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP/"/>
-    <id>http://peijie2016.oschina.io/2016/11/15/Linux虚拟机设置静态IP/</id>
+    <link href="https://peijie-sh.github.io/2016/11/15/Linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP/"/>
+    <id>https://peijie-sh.github.io/2016/11/15/Linux虚拟机设置静态IP/</id>
     <published>2016-11-15T03:08:34.000Z</published>
     <updated>2017-03-04T12:49:08.002Z</updated>
     
@@ -695,798 +1245,12 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://peijie2016.oschina.io/categories/Linux/"/>
+      <category term="Linux" scheme="https://peijie-sh.github.io/categories/Linux/"/>
     
     
-      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://peijie-sh.github.io/tags/Linux/"/>
     
-      <category term="Ubuntu" scheme="http://peijie2016.oschina.io/tags/Ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Redis入门</title>
-    <link href="http://peijie2016.oschina.io/2016/11/11/Redis%E5%85%A5%E9%97%A8/"/>
-    <id>http://peijie2016.oschina.io/2016/11/11/Redis入门/</id>
-    <published>2016-11-11T06:27:34.000Z</published>
-    <updated>2017-03-29T13:08:27.542Z</updated>
-    
-    <content type="html"><![CDATA[<p>redis官方不支持windows系统，所以我将redis装在linux下。<br>我用的Ubuntu 16 64位系统。</p>
-<h1 id="安装Redis"><a href="#安装Redis" class="headerlink" title="安装Redis"></a>安装Redis</h1><blockquote>
-<p>sudo apt-get install redis-server</p>
-</blockquote>
-<p>非常方便，一句话搞定。</p>
-<h1 id="配置Redis"><a href="#配置Redis" class="headerlink" title="配置Redis"></a>配置Redis</h1><p>由于要远程连接Redis，所以要修改Redis的默认配置文件。<br>修改<code>/etc/redis/redis.conf</code>，把<code>bind 127.0.0.1</code>注释掉即可</p>
-<blockquote>
-<p> # bind 127.0.0.1</p>
-</blockquote>
-<h1 id="启动和关闭Redis服务"><a href="#启动和关闭Redis服务" class="headerlink" title="启动和关闭Redis服务"></a>启动和关闭Redis服务</h1><p>如果是用<code>apt-get</code>或者<code>yum install</code>安装的redis，可以直接通过下面的命令停止/启动/重启：</p>
-<blockquote>
-<p>/etc/init.d/redis-server stop<br>/etc/init.d/redis-server start<br>/etc/init.d/redis-server restart</p>
-</blockquote>
-<a id="more"></a>
-<p>如果是通过源码安装的redis，则可以通过redis的客户端程序<code>redis-cli</code>的<code>shutdown</code>命令来重启redis：</p>
-<blockquote>
-<p>redis-cli -h 127.0.0.1 -p 6379 shutdown</p>
-</blockquote>
-<p>如果上述方式都没有成功停止redis，则可以使用终极武器 <code>kill -9</code>直接杀进程。</p>
-<h1 id="Redis数据类型"><a href="#Redis数据类型" class="headerlink" title="Redis数据类型"></a>Redis数据类型</h1><p>redis有5种数据类型：</p>
-<ul>
-<li><code>string</code>（字符串）</li>
-<li><code>hash</code>（哈希）</li>
-<li><code>list</code>（列表）</li>
-<li><code>set</code>（集合）</li>
-<li><code>zset</code>（sorted set：有序集合）</li>
-</ul>
-<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。<br>string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象 。<br>string类型是Redis最基本的数据类型，一个键最大能存储512MB。</p>
-<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>Redis hash 是一个键值对集合。<br>Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。</p>
-<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><p>Redis 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。</p>
-<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><p>Redis的Set是string类型的无序集合。<br>集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)。</p>
-<h2 id="zset"><a href="#zset" class="headerlink" title="zset"></a>zset</h2><p>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。<br>不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。<br>zset的成员是唯一的,但分数(score)却可以重复。</p>
-<h1 id="Java操作Redis"><a href="#Java操作Redis" class="headerlink" title="Java操作Redis"></a>Java操作Redis</h1><h2 id="引入redis驱动包"><a href="#引入redis驱动包" class="headerlink" title="引入redis驱动包"></a>引入redis驱动包</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="创建连接"><a href="#创建连接" class="headerlink" title="创建连接"></a>创建连接</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"192.168.1.185"</span>);</div><div class="line">System.out.println(<span class="string">"Connection to server sucessfully"</span>);</div><div class="line"><span class="comment">//查看服务是否运行</span></div><div class="line">System.out.println(<span class="string">"Server is running: "</span> + jedis.ping());</div></pre></td></tr></table></figure>
-<p>看到如下输出，说明连接成功</p>
-<blockquote>
-<p>Connection to server sucessfully<br>Server is running: PONG</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;redis官方不支持windows系统，所以我将redis装在linux下。&lt;br&gt;我用的Ubuntu 16 64位系统。&lt;/p&gt;
-&lt;h1 id=&quot;安装Redis&quot;&gt;&lt;a href=&quot;#安装Redis&quot; class=&quot;headerlink&quot; title=&quot;安装Redis&quot;&gt;&lt;/a&gt;安装Redis&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;sudo apt-get install redis-server&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;非常方便，一句话搞定。&lt;/p&gt;
-&lt;h1 id=&quot;配置Redis&quot;&gt;&lt;a href=&quot;#配置Redis&quot; class=&quot;headerlink&quot; title=&quot;配置Redis&quot;&gt;&lt;/a&gt;配置Redis&lt;/h1&gt;&lt;p&gt;由于要远程连接Redis，所以要修改Redis的默认配置文件。&lt;br&gt;修改&lt;code&gt;/etc/redis/redis.conf&lt;/code&gt;，把&lt;code&gt;bind 127.0.0.1&lt;/code&gt;注释掉即可&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt; # bind 127.0.0.1&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;启动和关闭Redis服务&quot;&gt;&lt;a href=&quot;#启动和关闭Redis服务&quot; class=&quot;headerlink&quot; title=&quot;启动和关闭Redis服务&quot;&gt;&lt;/a&gt;启动和关闭Redis服务&lt;/h1&gt;&lt;p&gt;如果是用&lt;code&gt;apt-get&lt;/code&gt;或者&lt;code&gt;yum install&lt;/code&gt;安装的redis，可以直接通过下面的命令停止/启动/重启：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;/etc/init.d/redis-server stop&lt;br&gt;/etc/init.d/redis-server start&lt;br&gt;/etc/init.d/redis-server restart&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="NoSQL" scheme="http://peijie2016.oschina.io/categories/NoSQL/"/>
-    
-    
-      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
-    
-      <category term="Redis" scheme="http://peijie2016.oschina.io/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTP协议学习笔记</title>
-    <link href="http://peijie2016.oschina.io/2016/11/08/HTTP%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://peijie2016.oschina.io/2016/11/08/HTTP协议学习笔记/</id>
-    <published>2016-11-08T07:05:34.000Z</published>
-    <updated>2017-03-04T12:49:08.001Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="HTTP基本概念"><a href="#HTTP基本概念" class="headerlink" title="HTTP基本概念"></a>HTTP基本概念</h1><ul>
-<li>HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。</li>
-<li>HTTP是一个应用层协议，由请求和响应构成，是一个标准的客户端服务器模型。</li>
-<li>HTTP是一个无状态的协议。</li>
-</ul>
-<h1 id="在TCP-IP协议栈中的位置"><a href="#在TCP-IP协议栈中的位置" class="headerlink" title="在TCP/IP协议栈中的位置"></a>在TCP/IP协议栈中的位置</h1><p>HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS。如下图所示：<br><img src="http://img.blog.csdn.net/20161108133850318" alt="这里写图片描述"><br><a id="more"></a><br><strong>默认HTTP的端口号为80，HTTPS的端口号为443。</strong></p>
-<h1 id="HTTP的请求响应模型"><a href="#HTTP的请求响应模型" class="headerlink" title="HTTP的请求响应模型"></a>HTTP的请求响应模型</h1><p>HTTP协议永远都是客户端发起请求，服务器回送响应。见下图：<br><img src="http://img.blog.csdn.net/20161108134113119" alt="这里写图片描述"></p>
-<p>这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。HTML5定义了WebSocket协议，它实现了浏览器与服务器全双工通信(full-duplex)，可以借助它实现服务器向客户端推送消息。</p>
-<h1 id="HTTP工作流程"><a href="#HTTP工作流程" class="headerlink" title="HTTP工作流程"></a>HTTP工作流程</h1><p>一次HTTP操作称为一个事务，其工作过程可分为四步：</p>
-<ol>
-<li>首先客户机与服务器需要建立连接。只要单击某个超级链接，HTTP的工作开始。</li>
-<li>建立连接后，客户机发送一个请求给服务器，请求方式的格式为：统一资源标识符（URL）、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容。</li>
-<li>服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容。</li>
-<li>客户端接收服务器所返回的信息通过浏览器显示在用户的显示屏上，然后客户机与服务器断开连接。<br>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回到客户端，有显示屏输出。对于用户来说，这些过程是由HTTP自己完成的，用户只要用鼠标点击，等待信息显示就可以了。</li>
-</ol>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>HTTP支持几种不同的的请求命令，成为 HTTP方法。每一个请求报文中都包含一个方法，告诉服务器执行什么动作。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">常见http方法</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">GET</td>
-<td style="text-align:left">向特定的资源发出请求，获取指定资源</td>
-</tr>
-<tr>
-<td style="text-align:left">POST</td>
-<td style="text-align:left">发送客户端数据到服务器（如表单提交）</td>
-</tr>
-<tr>
-<td style="text-align:left">DELETE</td>
-<td style="text-align:left">从服务器删除指定资源</td>
-</tr>
-<tr>
-<td style="text-align:left">PUT</td>
-<td style="text-align:left">向服务器指定资源上传最新数据（完整替换数据）</td>
-</tr>
-<tr>
-<td style="text-align:left">PATCH</td>
-<td style="text-align:left">向服务器指定资源上传最新数据（局部更新数据）</td>
-</tr>
-</tbody>
-</table>
-<p>此外，还有<code>head</code>，<code>trace</code>，<code>options</code>等。</p>
-<h1 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h1><p>当服务器收到请求，返回的响应报文中会带有一个3位数字的状态码，告诉客户端请求是否成功。状态码分5类：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">整体范围</th>
-<th style="text-align:center">已定义范围</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">100-199</td>
-<td style="text-align:center">100-101</td>
-<td style="text-align:center">信息提示</td>
-</tr>
-<tr>
-<td style="text-align:center">200-299</td>
-<td style="text-align:center">200-206</td>
-<td style="text-align:center">成功</td>
-</tr>
-<tr>
-<td style="text-align:center">300-399</td>
-<td style="text-align:center">300-305</td>
-<td style="text-align:center">重定向</td>
-</tr>
-<tr>
-<td style="text-align:center">400-499</td>
-<td style="text-align:center">400-415</td>
-<td style="text-align:center">客户端错误</td>
-</tr>
-<tr>
-<td style="text-align:center">500-599</td>
-<td style="text-align:center">500-505</td>
-<td style="text-align:center">服务器错误</td>
-</tr>
-</tbody>
-</table>
-<p>常见的状态：<code>200</code>表示成功； <code>302</code>表示重定向；<code>404</code>表示找不到资源。</p>
-<h1 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h1><h2 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h2><p>报文是具有固定格式的数据块，由3部分组成：</p>
-<ul>
-<li>对报文进行描述的起始行（start line）</li>
-<li>包含属性的首部块（header）</li>
-<li>可选的，包含数据的主体部分（body）</li>
-</ul>
-<p>请求报文格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;method&gt; &lt;request-URL&gt; &lt;version&gt;</div><div class="line">&lt;headers&gt;</div><div class="line"></div><div class="line">&lt;entity-body&gt;</div></pre></td></tr></table></figure></p>
-<p>响应报文格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;version&gt; &lt;status&gt; &lt;reason-phrase&gt;</div><div class="line">&lt;headers&gt;</div><div class="line"></div><div class="line">&lt;entity-body&gt;</div></pre></td></tr></table></figure></p>
-<p>只有起始行不同，主体是可选的。下图是一个报文例子：<br><img src="http://img.blog.csdn.net/20161108144346350" alt="这里写图片描述"></p>
-<h2 id="Content-Type-字段"><a href="#Content-Type-字段" class="headerlink" title="Content-Type 字段"></a>Content-Type 字段</h2><p>头信息必须是 ASCII 码，后面的数据可以是任何格式。因此，服务器回应的时候，必须告诉客户端，数据是什么格式，所以有了<code>Content-Type</code>这个字段。<br>常见的类型:</p>
-<ul>
-<li>text/plain</li>
-<li>text/html</li>
-<li>text/css</li>
-<li>image/jpeg</li>
-<li>image/png</li>
-<li>video/mp4</li>
-<li>audio/mp4</li>
-<li>application/javascript</li>
-<li>application/json</li>
-</ul>
-<p>这些数据类型总称为<code>MIME type</code>，每个值包括一级类型和二级类型，之间用斜杠分隔。<br>除了预定义的类型，厂商也可以自定义类型：</p>
-<blockquote>
-<p>application/vnd.debian.binary-package</p>
-</blockquote>
-<p>上面的类型表明，发送的是Debian系统的二进制数据包。<br>MIME type还可以在尾部使用分号，添加参数。</p>
-<blockquote>
-<p>Content-Type: text/html; charset=utf-8</p>
-</blockquote>
-<p>上面的类型表明，发送的是网页，而且编码是UTF-8。<br>客户端请求的时候，可以使用Accept字段声明自己可以接受哪些数据格式。</p>
-<blockquote>
-<p>Accept: <em>/</em></p>
-</blockquote>
-<p>上面代码中，客户端声明自己可以接受任何格式的数据。<br>MIME type不仅用在HTTP协议，还可以用在其他地方，比如HTML网页。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;</div><div class="line">&lt;!-- 等同于 --&gt;</div><div class="line">&lt;meta charset=&quot;utf-8&quot; /&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="Content-Encoding-字段"><a href="#Content-Encoding-字段" class="headerlink" title="Content-Encoding 字段"></a>Content-Encoding 字段</h2><p>由于发送的数据可以是任何格式，因此可以把数据压缩后再发送。Content-Encoding字段说明数据的压缩方法。</p>
-<ul>
-<li>Content-Encoding: gzip</li>
-<li>Content-Encoding: compress</li>
-<li>Content-Encoding: deflate</li>
-</ul>
-<p>客户端在请求时，用Accept-Encoding字段说明自己可以接受哪些压缩方法。</p>
-<blockquote>
-<p>Accept-Encoding: gzip, deflate</p>
-</blockquote>
-<p>参考资料：<br>《HTTP权威指南》<br><a href="http://www.ruanyifeng.com/blog/2016/08/http.html" target="_blank" rel="external">阮一峰-http入门</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;HTTP基本概念&quot;&gt;&lt;a href=&quot;#HTTP基本概念&quot; class=&quot;headerlink&quot; title=&quot;HTTP基本概念&quot;&gt;&lt;/a&gt;HTTP基本概念&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。&lt;/li&gt;
-&lt;li&gt;HTTP是一个应用层协议，由请求和响应构成，是一个标准的客户端服务器模型。&lt;/li&gt;
-&lt;li&gt;HTTP是一个无状态的协议。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&quot;在TCP-IP协议栈中的位置&quot;&gt;&lt;a href=&quot;#在TCP-IP协议栈中的位置&quot; class=&quot;headerlink&quot; title=&quot;在TCP/IP协议栈中的位置&quot;&gt;&lt;/a&gt;在TCP/IP协议栈中的位置&lt;/h1&gt;&lt;p&gt;HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS。如下图所示：&lt;br&gt;&lt;img src=&quot;http://img.blog.csdn.net/20161108133850318&quot; alt=&quot;这里写图片描述&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="Http" scheme="http://peijie2016.oschina.io/tags/Http/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Hexo搭建个人博客</title>
-    <link href="http://peijie2016.oschina.io/2016/10/27/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://peijie2016.oschina.io/2016/10/27/使用Hexo搭建个人博客/</id>
-    <published>2016-10-27T08:39:34.000Z</published>
-    <updated>2017-04-01T12:02:37.961Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近闲着没事，用<code>hexo</code>搭建了一个个人博客，部署在 <a href="https://peijie-sh.github.io/" target="_blank" rel="external">github</a> 和 <a href="https://peijie-sh.github.io/" target="_blank" rel="external">oschina</a>上，欢迎大家来我博客踩踩~ ^_^<br><img src="http://upload-images.jianshu.io/upload_images/4059338-127b161e567ad4d7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo.jpg"></p>
-<p>下面总结一下搭建过程：</p>
-<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>hexo是一个简单地、轻量地、基于Node的一个静态博客框架，可以方便的生成静态网页托管在github和Heroku上<br>引用Hexo作者 @tommy351 的话：</p>
-<blockquote>
-<p>快速、简单且功能强大的 Node.js 博客框架。A fast, simple &amp; powerful blog framework, powered by Node.js.</p>
-</blockquote>
-<p>所以，第一步，就是下载node的安装包并安装，附上<a href="https://nodejs.org/en/download/" target="_blank" rel="external">node下载地址</a>。<br>安装好node，会默认一起安装好npm包管理器，这可是一个神器啊。<br>可以打开终端cmd，执行一下命令确认安装完毕。</p>
-<blockquote>
-<p>node -v<br>npm -version</p>
-</blockquote>
-<p>另外一个，就是git了。git也没什么好说的，官网下载，选择自己操作系统的版本，一路next就装好了。<br><a id="more"></a></p>
-<h1 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h1><p>在<code>git</code>终端或者<code>cmd</code>执行安装<code>hexo</code></p>
-<blockquote>
-<p>npm install hexo-cli -g</p>
-</blockquote>
-<p>以windows系统为例，在你想要安装的盘新建一个目录，比如<code>d:/blog</code>,在此目录下右键打开<code>git</code>的终端(就是<code>Git Bash Here</code>),然后执行</p>
-<blockquote>
-<p>hexo init</p>
-</blockquote>
-<p>初始化博客目录，然后执行</p>
-<blockquote>
-<p>npm install</p>
-</blockquote>
-<p>会下载需要的库。之后执行</p>
-<blockquote>
-<p>hexo server</p>
-</blockquote>
-<p>简便语法：<code>hexo s</code><br>启动本地服务器，在浏览器打开<code>localhost:4000</code>就可以看到效果了。<br>关闭本地服务：<code>ctrl + c</code><br>有不明白可以看<a href="https://hexo.io/" target="_blank" rel="external">hexo官网</a>,官网讲的很详细了。</p>
-<h1 id="创建Github仓库"><a href="#创建Github仓库" class="headerlink" title="创建Github仓库"></a>创建Github仓库</h1><p>本地博客搭建完，只要部署在github上就ok啦。</p>
-<ul>
-<li>登录github，没有的自己注册。</li>
-<li>创建一个Repository，名字必须为【你的用户名.github.io】。</li>
-</ul>
-<h1 id="配置博客部署信息"><a href="#配置博客部署信息" class="headerlink" title="配置博客部署信息"></a>配置博客部署信息</h1><p>博客的根目录<code>d:/blog</code>下有一个配置文件<code>_config.yml</code>，这里可以配置你的github的地址等信息，配置完，执行</p>
-<blockquote>
-<p>hexo g</p>
-</blockquote>
-<p>生成静态文件，然后</p>
-<blockquote>
-<p>hexo d</p>
-</blockquote>
-<p>就部署到github上了，然后在浏览器打开 【你的用户名.github.io】就可以了。</p>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>这个过程你会遇到许多问题，这边放上几篇参考，可以解决你的困惑。</p>
-<ul>
-<li><a href="http://www.jianshu.com/p/465830080ea9" target="_blank" rel="external">http://www.jianshu.com/p/465830080ea9</a></li>
-<li><a href="http://www.tuicool.com/articles/ueI7naV" target="_blank" rel="external">http://www.tuicool.com/articles/ueI7naV</a></li>
-<li>这些不能解决你的问题，请自行google</li>
-</ul>
-<h1 id="DIY博客"><a href="#DIY博客" class="headerlink" title="DIY博客"></a>DIY博客</h1><p><code>hexo</code>默认主题是<code>landscape</code>，不喜欢，可以自己替换主题，这当然需要自己配置许多东西，我用的是<code>NexT</code>主题，放上一点参考吧<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">NexT官网</a>。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近闲着没事，用&lt;code&gt;hexo&lt;/code&gt;搭建了一个个人博客，部署在 &lt;a href=&quot;https://peijie-sh.github.io/&quot;&gt;github&lt;/a&gt; 和 &lt;a href=&quot;https://peijie-sh.github.io/&quot;&gt;oschina&lt;/a&gt;上，欢迎大家来我博客踩踩~ ^_^&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-127b161e567ad4d7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;hexo.jpg&quot;&gt;&lt;/p&gt;
-&lt;p&gt;下面总结一下搭建过程：&lt;/p&gt;
-&lt;h1 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h1&gt;&lt;p&gt;hexo是一个简单地、轻量地、基于Node的一个静态博客框架，可以方便的生成静态网页托管在github和Heroku上&lt;br&gt;引用Hexo作者 @tommy351 的话：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;快速、简单且功能强大的 Node.js 博客框架。A fast, simple &amp;amp; powerful blog framework, powered by Node.js.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;所以，第一步，就是下载node的安装包并安装，附上&lt;a href=&quot;https://nodejs.org/en/download/&quot;&gt;node下载地址&lt;/a&gt;。&lt;br&gt;安装好node，会默认一起安装好npm包管理器，这可是一个神器啊。&lt;br&gt;可以打开终端cmd，执行一下命令确认安装完毕。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;node -v&lt;br&gt;npm -version&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;另外一个，就是git了。git也没什么好说的，官网下载，选择自己操作系统的版本，一路next就装好了。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Web前端" scheme="http://peijie2016.oschina.io/categories/Web%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="Hexo" scheme="http://peijie2016.oschina.io/tags/Hexo/"/>
-    
-      <category term="Node.Js" scheme="http://peijie2016.oschina.io/tags/Node-Js/"/>
-    
-      <category term="Git" scheme="http://peijie2016.oschina.io/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>OkHttp的基本使用——替代Apache HttpClient</title>
-    <link href="http://peijie2016.oschina.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/"/>
-    <id>http://peijie2016.oschina.io/2016/10/26/OkHttp的基本使用——替代Apache HttpClient/</id>
-    <published>2016-10-26T04:27:34.000Z</published>
-    <updated>2017-03-04T12:49:08.004Z</updated>
-    
-    <content type="html"><![CDATA[<p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
-<p>OkHttp 是一个很棒HTTP客户端:</p>
-<ul>
-<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
-<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
-<li>使用GZIP压缩减少传输的数据量</li>
-<li>缓存响应避免重复的网络请求</li>
-</ul>
-<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
-<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。&lt;/p&gt;
-&lt;p&gt;OkHttp 是一个很棒HTTP客户端:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;支持SPDY, 可以合并多个到同一个主机的请求&lt;/li&gt;
-&lt;li&gt;使用连接池技术减少请求的延迟(如果SPDY是可用的话)&lt;/li&gt;
-&lt;li&gt;使用GZIP压缩减少传输的数据量&lt;/li&gt;
-&lt;li&gt;缓存响应避免重复的网络请求&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;OkHttp可以替换Apache的HttpClient&lt;br&gt;OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包&lt;/p&gt;
-&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
-    
-    </summary>
-    
-      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="Http" scheme="http://peijie2016.oschina.io/tags/Http/"/>
-    
-      <category term="OkHttp" scheme="http://peijie2016.oschina.io/tags/OkHttp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VIM编辑器的基本使用</title>
-    <link href="http://peijie2016.oschina.io/2016/10/26/VIM%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
-    <id>http://peijie2016.oschina.io/2016/10/26/VIM编辑器的基本使用/</id>
-    <published>2016-10-26T04:27:34.000Z</published>
-    <updated>2017-03-04T12:49:08.006Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="VIM的运行模式"><a href="#VIM的运行模式" class="headerlink" title="VIM的运行模式"></a>VIM的运行模式</h1><ul>
-<li>编辑模式：等待编辑命令输入</li>
-<li>插入模式：编辑模式下，输入 i 进入插入模式，插入文本信息，<code>esc</code>退出</li>
-<li>命令模式：在编辑模式下，输入 “：” 进行命令模式</li>
-</ul>
-<h1 id="VIM-常用命令"><a href="#VIM-常用命令" class="headerlink" title="VIM 常用命令"></a>VIM 常用命令</h1><ul>
-<li>：q 直接退出vi</li>
-<li>：wq保存后退出vi ，并可以新建文件</li>
-<li>：q! 强制退出</li>
-<li>：w file 将当前内容保存成某个文件</li>
-<li>：set number 在编辑文件显示行号</li>
-<li>：set nonumber  在编辑文件不显示行号</li>
-</ul>
-<a id="more"></a>
-<h1 id="VIM命令大全"><a href="#VIM命令大全" class="headerlink" title="VIM命令大全"></a>VIM命令大全</h1><p><img src="http://img.blog.csdn.net/20161115114043493" alt="这里写图片描述"></p>
-<h2 id="进入vi的命令"><a href="#进入vi的命令" class="headerlink" title="进入vi的命令"></a>进入vi的命令</h2><ul>
-<li>vi filename :打开或新建文件，并将光标置于第一行首</li>
-<li>vi +n filename ：打开文件，并将光标置于第n行首</li>
-<li>vi + filename ：打开文件，并将光标置于最后一行首</li>
-<li>vi +/pattern filename：打开文件，并将光标置于第一个与pattern匹配的串处</li>
-<li>vi -r filename ：在上次正用vi编辑时发生系统崩溃，恢复filename</li>
-<li>vi filename….filename ：打开多个文件，依次进行编辑</li>
-</ul>
-<h2 id="移动光标类命令"><a href="#移动光标类命令" class="headerlink" title="移动光标类命令"></a>移动光标类命令</h2><ul>
-<li>h ：光标左移一个字符</li>
-<li>l ：光标右移一个字符</li>
-<li>space：光标右移一个字符</li>
-<li>Backspace：光标左移一个字符</li>
-<li>k或Ctrl+p：光标上移一行</li>
-<li>j或Ctrl+n ：光标下移一行 </li>
-<li>Enter ：光标下移一行</li>
-<li>w或W ：光标右移一个字至字首 </li>
-<li>b或B ：光标左移一个字至字首 </li>
-<li>e或E ：光标右移一个字至字尾 </li>
-<li>) ：光标移至句尾 </li>
-<li>( ：光标移至句首 </li>
-<li>}：光标移至段落开头 </li>
-<li>{：光标移至段落结尾 </li>
-<li>nG：光标移至第n行首</li>
-<li>n+：光标下移n行</li>
-<li>n-：光标上移n行</li>
-<li>n$：光标移至第n行尾</li>
-<li>H ：光标移至屏幕顶行</li>
-<li>M ：光标移至屏幕中间行</li>
-<li>L ：光标移至屏幕最后行</li>
-<li>0：（注意是数字零）光标移至当前行首</li>
-<li>$：光标移至当前行尾 </li>
-</ul>
-<h2 id="屏幕翻滚类命令"><a href="#屏幕翻滚类命令" class="headerlink" title="屏幕翻滚类命令"></a>屏幕翻滚类命令</h2><ul>
-<li>Ctrl+u：向文件首翻半屏</li>
-<li>Ctrl+d：向文件尾翻半屏</li>
-<li>Ctrl+f：向文件尾翻一屏</li>
-<li>Ctrl＋b；向文件首翻一屏</li>
-<li>nz：将第n行滚至屏幕顶部，不指定n时将当前行滚至屏幕顶部。</li>
-</ul>
-<h2 id="插入文本类命令"><a href="#插入文本类命令" class="headerlink" title="插入文本类命令"></a>插入文本类命令</h2><ul>
-<li>i ：在光标前 </li>
-<li>I ：在当前行首 </li>
-<li>a：光标后 </li>
-<li>A：在当前行尾 </li>
-<li>o：在当前行之下新开一行</li>
-<li>O：在当前行之上新开一行</li>
-<li>r：替换当前字符 </li>
-<li>R：替换当前字符及其后的字符，直至按ESC键</li>
-<li>s：从当前光标位置处开始，以输入的文本替代指定数目的字符</li>
-<li>S：删除指定数目的行，并以所输入文本代替之</li>
-<li>ncw或nCW：修改指定数目的字</li>
-<li>nCC：修改指定数目的行</li>
-</ul>
-<h2 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h2><ul>
-<li>ndw或ndW：删除光标处开始及其后的n-1个字</li>
-<li>do：删至行首 </li>
-<li>d$：删至行尾 </li>
-<li>ndd：删除当前行及其后n-1行</li>
-<li>x或X：删除一个字符，x删除光标后的，而X删除光标前的</li>
-<li>Ctrl+u：删除输入方式下所输入的文本</li>
-</ul>
-<h2 id="搜索及替换命令"><a href="#搜索及替换命令" class="headerlink" title="搜索及替换命令"></a>搜索及替换命令</h2><ul>
-<li>/pattern：从光标开始处向文件尾搜索pattern</li>
-<li>?pattern：从光标开始处向文件首搜索pattern</li>
-<li>n：在同一方向重复上一次搜索命令</li>
-<li>N：在反方向上重复上一次搜索命令</li>
-<li>：s/p1/p2/g：将当前行中所有p1均用p2替代</li>
-<li>：n1,n2s/p1/p2/g：将第n1至n2行中所有p1均用p2替代</li>
-<li>：g/p1/s//p2/g：将文件中所有p1均用p2替换</li>
-</ul>
-<h2 id="选项设置"><a href="#选项设置" class="headerlink" title="选项设置"></a>选项设置</h2><ul>
-<li>all：列出所有选项设置情况</li>
-<li>term：设置终端类型</li>
-<li>ignorance：在搜索中忽略大小写</li>
-<li>list：显示制表位(Ctrl+I)和行尾标志（$)</li>
-<li>number：显示行号</li>
-<li>report：显示由面向行的命令修改过的数目</li>
-<li>terse：显示简短的警告信息</li>
-<li>warn：在转到别的文件时若没保存当前文件则显示NO write信息</li>
-<li>nomagic：允许在搜索模式中，使用前面不带“\”的特殊字符</li>
-<li>nowrapscan：禁止vi在搜索到达文件两端时，又从另一端开始</li>
-<li>mesg：允许vi显示其他用户用write写到自己终端上的信息</li>
-</ul>
-<h2 id="最后行方式命令"><a href="#最后行方式命令" class="headerlink" title="最后行方式命令"></a>最后行方式命令</h2><ul>
-<li>：n1,n2 co n3：将n1行到n2行之间的内容拷贝到第n3行下</li>
-<li>：n1,n2 m n3：将n1行到n2行之间的内容移至到第n3行下</li>
-<li>：n1,n2 d ：将n1行到n2行之间的内容删除</li>
-<li>：w ：保存当前文件</li>
-<li>：e filename：打开文件filename进行编辑</li>
-<li>：x：保存当前文件并退出</li>
-<li>：q：退出vi</li>
-<li>：q!：不保存文件并退出vi</li>
-<li>：!command：执行shell命令command</li>
-<li>：n1,n2 w!command：将文件中n1行至n2行的内容作为command的输入并执行之，若不指定n1，n2，则表示将整个文件内容作为command的输入</li>
-<li>：r!command：将命令command的输出结果放到当前行</li>
-</ul>
-<hr>
-<p><a href="http://www.cnblogs.com/mfc-itblog/p/5895395.html" target="_blank" rel="external">更多使用参考</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;VIM的运行模式&quot;&gt;&lt;a href=&quot;#VIM的运行模式&quot; class=&quot;headerlink&quot; title=&quot;VIM的运行模式&quot;&gt;&lt;/a&gt;VIM的运行模式&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;编辑模式：等待编辑命令输入&lt;/li&gt;
-&lt;li&gt;插入模式：编辑模式下，输入 i 进入插入模式，插入文本信息，&lt;code&gt;esc&lt;/code&gt;退出&lt;/li&gt;
-&lt;li&gt;命令模式：在编辑模式下，输入 “：” 进行命令模式&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&quot;VIM-常用命令&quot;&gt;&lt;a href=&quot;#VIM-常用命令&quot; class=&quot;headerlink&quot; title=&quot;VIM 常用命令&quot;&gt;&lt;/a&gt;VIM 常用命令&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;：q 直接退出vi&lt;/li&gt;
-&lt;li&gt;：wq保存后退出vi ，并可以新建文件&lt;/li&gt;
-&lt;li&gt;：q! 强制退出&lt;/li&gt;
-&lt;li&gt;：w file 将当前内容保存成某个文件&lt;/li&gt;
-&lt;li&gt;：set number 在编辑文件显示行号&lt;/li&gt;
-&lt;li&gt;：set nonumber  在编辑文件不显示行号&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="工具杂谈" scheme="http://peijie2016.oschina.io/categories/%E5%B7%A5%E5%85%B7%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
-    
-      <category term="Vim" scheme="http://peijie2016.oschina.io/tags/Vim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Oracle入门</title>
-    <link href="http://peijie2016.oschina.io/2016/10/25/Oracle%E5%85%A5%E9%97%A8/"/>
-    <id>http://peijie2016.oschina.io/2016/10/25/Oracle入门/</id>
-    <published>2016-10-25T08:39:31.000Z</published>
-    <updated>2017-04-01T12:23:47.011Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-7bf55c1ff662d501.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="oracle.png"></p>
-<p>今天学习了Oracle的基本使用，做下总结：</p>
-<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><p>以Oracle 11g为例，安装好以后，普通账户都是未解锁的，不能使用，只能使用超级管理员登录。</p>
-<blockquote>
-<p>sqlplus / as sysdba</p>
-</blockquote>
-<p>这样就用超级管理员登录了，无需密码。<br>然后解锁普通用户之后，就可以使用使用普通用户了。<br>举例：<br><a id="more"></a></p>
-<blockquote>
-<p>– – 解锁用户 scott<br>alter user scott account unlock;<br>– – 设置密码为 tiger<br>alter user scott identified by tiger;<br>– – 退出登录<br>exit<br>– – 使用普通用户 scott 登录<br>sqlplus scott/tiger</p>
-</blockquote>
-<ul>
-<li><p>普通用户修改密码，需要验证旧密码，然后根据提示修改即可。</p>
-<blockquote>
-<p>password</p>
-</blockquote>
-</li>
-<li><p>查询当前用户是谁         </p>
-<blockquote>
-<p>show user;</p>
-</blockquote>
-</li>
-<li><p>查询scott用户下的所有对象（表），使用tab表，tab表每个用户都有</p>
-<blockquote>
-<p>select * from tab;</p>
-</blockquote>
-</li>
-<li><p>设置显示的列宽（字符型varchar2、日期型date），10个宽度位，a表示字符型，大小写均可</p>
-<blockquote>
-<p>column ename format a12;</p>
-</blockquote>
-</li>
-<li><p>设置显示的列宽（数值型number），9表示数字型，一个9表示一个数字位，四个9表示四个数字位，只能用9</p>
-<blockquote>
-<p>column empno format 9999;</p>
-</blockquote>
-</li>
-<li><p>设置一页显示60条记录的高度</p>
-<blockquote>
-<p>set pagesize 60;</p>
-</blockquote>
-</li>
-<li><p>使用/杠，执行最近一次的SQL语句</p>
-<blockquote>
-<p>/</p>
-</blockquote>
-</li>
-<li><p>清屏，属于SQL*PLUS工具中的命令</p>
-<blockquote>
-<p>host cls;</p>
-</blockquote>
-</li>
-<li><p>查询emp表的结构</p>
-<blockquote>
-<p>desc emp;</p>
-</blockquote>
-</li>
-<li><p>使用dual哑表或者伪表，使用字符串连接符号||，输出”hello world”，在oracle中from是必须写的</p>
-<blockquote>
-<p>select ‘hello’ || ‘ world’ “结果” from dual;</p>
-</blockquote>
-</li>
-<li><p>使用sysdate，显示系统当前时间，在默认情况下，oracle只显示日期，而不显示时间，格式：26-4月-15</p>
-<blockquote>
-<p>select sysdate from dual;</p>
-</blockquote>
-</li>
-<li><p>使用spool命令，保存SQL语句到硬盘文件e:/oracle-day01.sql，并创建sql文件</p>
-<blockquote>
-<p>spool e:/oracle-day01.sql;</p>
-</blockquote>
-</li>
-<li><p>使用spool off命令，保存SQL语句到硬盘文件e:/oracle-day01.sql，并创建sql文件，结束语句</p>
-<blockquote>
-<p>spool off;</p>
-</blockquote>
-</li>
-<li><p>使用<code>@</code>命令，将硬盘文件e:/crm.sql，读到orcl实例中，并执行文件中的sql语句</p>
-<blockquote>
-<p>@ e:/crm.sql; </p>
-</blockquote>
-</li>
-<li><p>使用<code>--</code>符号，设置单行注释</p>
-</li>
-<li>使用<code>/* */</code>符号，设置多行注释</li>
-</ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>SQL语句的特点</p>
-<ol>
-<li>是SQL92/99的ANSI官方标准，只要按照该标准来写，在任何的关系型数据库中都可以直接执行</li>
-<li>SQL语句的关健字不能简写，例如：select，where，from</li>
-<li>大小写不敏感，提倡大写 </li>
-<li>能够对表数据进行增删改查操作</li>
-<li>必须以分号结束</li>
-<li>通常称做语句</li>
-</ol>
-<p>SQLPLUS命令的特点</p>
-<ol>
-<li>是oracle自带的一款工具，在该工具中执行的命令叫SQLPLUS命令</li>
-<li>SQLPLUS工具的命令中的关健字可以简写，也可以不简写，例如：col ename for a10;</li>
-<li>大小写不敏感，提倡大写</li>
-<li>不能够对表数据进行增删改查操作，只能完成显示格式控制，例如：设置显示列宽，清屏，记录执行结果</li>
-<li>可以不用分号结束，也可以用分号结束，个人提倡不管SQL或SQLPLUS，都以分号结束</li>
-<li>通常称做命令，是SQLPLUS工具中的命令<br><strong>注意：SQLPLUS命令是SQLPLUS工具中特有的语句</strong></li>
-</ol>
-<p>单引号出现的地方如下：</p>
-<ol>
-<li>字符串型，例如：’hello’ || ‘ world’</li>
-<li>日期型，例如’25-4月-15’</li>
-</ol>
-<p>双引号出现的地方如下：</p>
-<ol>
-<li>列别名，例如：sal<em>12 “年 薪”，或 sal</em>12 年薪，个人提倡用<code>&quot;&quot;</code>双引号作列别名</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-7bf55c1ff662d501.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;oracle.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;今天学习了Oracle的基本使用，做下总结：&lt;/p&gt;
-&lt;h1 id=&quot;基本操作&quot;&gt;&lt;a href=&quot;#基本操作&quot; class=&quot;headerlink&quot; title=&quot;基本操作&quot;&gt;&lt;/a&gt;基本操作&lt;/h1&gt;&lt;p&gt;以Oracle 11g为例，安装好以后，普通账户都是未解锁的，不能使用，只能使用超级管理员登录。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;sqlplus / as sysdba&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这样就用超级管理员登录了，无需密码。&lt;br&gt;然后解锁普通用户之后，就可以使用使用普通用户了。&lt;br&gt;举例：&lt;br&gt;
-    
-    </summary>
-    
-      <category term="数据库" scheme="http://peijie2016.oschina.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="Oracle" scheme="http://peijie2016.oschina.io/tags/Oracle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker安装与基础命令</title>
-    <link href="http://peijie2016.oschina.io/2016/10/25/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
-    <id>http://peijie2016.oschina.io/2016/10/25/Docker安装与基础命令/</id>
-    <published>2016-10-25T07:28:37.000Z</published>
-    <updated>2017-04-01T14:03:10.622Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker"></p>
-<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：</p>
-<blockquote>
-<p>sudo apt-get install docker.io</p>
-</blockquote>
-<a id="more"></a>
-<p>运行完后，可以在终端输入docker看到以下信息证明我们安装成功了<br>注：提示权限问题就添加sudo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">docker</div><div class="line">Usage: docker [OPTIONS] COMMAND [arg...]</div><div class="line">       docker daemon [ --help | ... ]</div><div class="line">       docker [ --help | -v | --version ]</div><div class="line"></div><div class="line">A self-sufficient runtime <span class="keyword">for</span> containers.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">  --config=~/.docker              Location of client config files</div><div class="line">  -D, --debug                     Enable debug mode</div><div class="line">  -H, --host=[]                   Daemon socket(s) to connect to</div><div class="line">  -h, --help                      Print usage</div><div class="line">  <span class="_">-l</span>, --log-level=info            Set the logging level</div><div class="line">  --tls                           Use TLS; implied by --tlsverify</div><div class="line">  --tlscacert=~/.docker/ca.pem    Trust certs signed only by this CA</div><div class="line">  --tlscert=~/.docker/cert.pem    Path to TLS certificate file</div><div class="line">  --tlskey=~/.docker/key.pem      Path to TLS key file</div><div class="line">  --tlsverify                     Use TLS and verify the remote</div><div class="line">  -v, --version                   Print version information and quit</div><div class="line"></div><div class="line">Commands:</div><div class="line">    attach    Attach to a running container</div><div class="line">    build     Build an image from a Dockerfile</div><div class="line">    commit    Create a new image from a container<span class="string">'s changes</span></div><div class="line">    cp        Copy files/folders between a container and the local filesystem</div><div class="line">    create    Create a new container</div><div class="line">    diff      Inspect changes on a container's filesystem</div><div class="line">    events    Get real time events from the server</div><div class="line">    <span class="built_in">exec</span>      Run a <span class="built_in">command</span> <span class="keyword">in</span> a running container</div><div class="line">    <span class="built_in">export</span>    Export a container<span class="string">'s filesystem as a tar archive</span></div><div class="line">    history   Show the history of an image</div><div class="line">    images    List images</div><div class="line">    import    Import the contents from a tarball to create a filesystem image</div><div class="line">    info      Display system-wide information</div><div class="line">    inspect   Return low-level information on a container or image</div><div class="line">    kill      Kill a running container</div><div class="line">    load      Load an image from a tar archive or STDIN</div><div class="line">    login     Register or log in to a Docker registry</div><div class="line">    logout    Log out from a Docker registry</div><div class="line">    logs      Fetch the logs of a container</div><div class="line">    network   Manage Docker networks</div><div class="line">    pause     Pause all processes within a container</div><div class="line">    port      List port mappings or a specific mapping for the CONTAINER</div><div class="line">    ps        List containers</div><div class="line">    pull      Pull an image or a repository from a registry</div><div class="line">    push      Push an image or a repository to a registry</div><div class="line">    rename    Rename a container</div><div class="line">    restart   Restart a container</div><div class="line">    rm        Remove one or more containers</div><div class="line">    rmi       Remove one or more images</div><div class="line">    run       Run a command in a new container</div><div class="line">    save      Save an image(s) to a tar archive</div><div class="line">    search    Search the Docker Hub for images</div><div class="line">    start     Start one or more stopped containers</div><div class="line">    stats     Display a live stream of container(s) resource usage statistics</div><div class="line">    stop      Stop a running container</div><div class="line">    tag       Tag an image into a repository</div><div class="line">    top       Display the running processes of a container</div><div class="line">    unpause   Unpause all processes within a container</div><div class="line">    update    Update resources of one or more containers</div><div class="line">    version   Show the Docker version information</div><div class="line">    volume    Manage Docker volumes</div><div class="line">    wait      Block until a container stops, then print its exit code</div><div class="line"></div><div class="line">Run 'docker COMMAND --help<span class="string">' for more information on a command.</span></div></pre></td></tr></table></figure>
-<p>安装完以后，也可运行以下命令查看版本信息：</p>
-<blockquote>
-<p>docker -v<br>docker version<br>docker info</p>
-</blockquote>
-<p>当利用 docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
-<ul>
-<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
-<li>利用镜像创建并启动一个容器</li>
-<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
-<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
-<li>从地址池配置一个 ip 地址给容器</li>
-<li>执行用户指定的应用程序</li>
-<li>执行完毕后容器被终止</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-0771491bb3c9125a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;docker&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;Docker安装&quot;&gt;&lt;a href=&quot;#Docker安装&quot; class=&quot;headerlink&quot; title=&quot;Docker安装&quot;&gt;&lt;/a&gt;Docker安装&lt;/h1&gt;&lt;p&gt;我是在Ubuntu 16上安装的docker，linux安装docker只需要一个命令：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;sudo apt-get install docker.io&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://peijie2016.oschina.io/categories/Linux/"/>
-    
-    
-      <category term="Docker" scheme="http://peijie2016.oschina.io/tags/Docker/"/>
-    
-      <category term="Linux" scheme="http://peijie2016.oschina.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Maven学习笔记（3） --- 生命周期</title>
-    <link href="http://peijie2016.oschina.io/2016/10/25/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%20---%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
-    <id>http://peijie2016.oschina.io/2016/10/25/Maven学习笔记（3） --- 生命周期/</id>
-    <published>2016-10-25T07:28:37.000Z</published>
-    <updated>2017-03-04T12:49:08.004Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Maven的3个生命周期："><a href="#Maven的3个生命周期：" class="headerlink" title="Maven的3个生命周期："></a>Maven的3个生命周期：</h1><p>Maven的生命周期就是对所有的构建过程进行抽象和统一。包含了项目的清理、初始化、编译、测试、打包、集成测试、验证、部署和站点生成等几乎所有的构建步骤。</p>
-<p>Maven的生命周期是抽象的，即生命周期不做任何实际的工作，实际任务由插件完成，类似于设计模式中的模板方法。<br>每个生命周期包含一些阶段（phase），阶段是有顺序的，后面的阶段依赖于前面的阶段。</p>
-<ul>
-<li>clean生命周期：清理项目，phase如下。<ul>
-<li><code>pre-clean</code>：执行清理前需要完成的工作</li>
-<li><code>clean</code>：清理上一次构建生成的文件</li>
-<li><code>post-clean</code>：执行清理后需要完成的工作</li>
-</ul>
-</li>
-</ul>
-<a id="more"></a>    
-<ul>
-<li><p>default生命周期：构建项目，phase如下。</p>
-<ul>
-<li><code>validate</code>：验证工程是否正确，所有需要的资源是否可用。</li>
-<li><code>initialize</code>：初始化</li>
-<li><code>generate-sources</code>：</li>
-<li><code>process-sources</code>：处理资源文件 【src/main/resources】</li>
-<li><code>generate-resources</code>：</li>
-<li><code>process-resources</code>：</li>
-<li><code>compile</code>：编译项目的源代码。【src/main/java】</li>
-<li><code>process-classes</code>：处理编译后的class文件</li>
-<li><code>generate-test-sources</code>：</li>
-<li><code>process-test-sources</code>：处理测试资源文件【src/test/resources】</li>
-<li><code>generate-test-resources</code>：</li>
-<li><code>process-test-resources</code>：</li>
-<li><code>test-compile</code>：编译测试文件【src/test/java】</li>
-<li><code>process-test-classes</code>：处理编译后的测试class文件</li>
-<li><code>test</code>：使用单元测试框架来测试已编译的源代码。测试代码不会被打包或布署。</li>
-<li><code>pre-package</code>：打包之前要做的准备工作</li>
-<li><code>package</code>：把已编译的代码打包成可发布的格式，比如jar。</li>
-<li><code>pre-integration-test</code>：</li>
-<li><code>integration-test</code>：如有需要，将包处理和发布到一个能够进行集成测试的环境。</li>
-<li><code>post-integration-test</code>：</li>
-<li><code>verify</code>：运行所有检查，验证包是否有效且达到质量标准。</li>
-<li><code>install</code>：把包安装到maven本地仓库，可以被其他工程作为依赖来使用。</li>
-<li><code>deploy</code>：在集成或者发布环境下执行，将最终版本的包拷贝到远程的repository，使得其他的开发者或者工程可以共享。</li>
-</ul>
-</li>
-<li><p>site生命周期：建立和发布项目站点，phase如下。</p>
-<ul>
-<li><code>pre-site</code>：生成项目站点之前需要完成的工作</li>
-<li><code>site</code>：生成项目站点文档</li>
-<li><code>post-site</code>：生成项目站点之后需要完成的工作</li>
-<li><code>site-deploy</code>：将项目站点发布到服务器</li>
-</ul>
-</li>
-</ul>
-<h1 id="命令行与生命周期"><a href="#命令行与生命周期" class="headerlink" title="命令行与生命周期"></a>命令行与生命周期</h1><ul>
-<li><code>mvn clean</code> ：调用clean生命周期的clean阶段，实际执行pre-clean和clean阶段。</li>
-<li><code>mvn test</code>：调用default生命周期的test阶段，实际执行test以及之前所有阶段。</li>
-<li><code>mvn clean install</code>：调用clean生命周期的clean阶段和default的install阶段，实际执行pre-clean和clean，install以及之前所有阶段。</li>
-<li><code>mvn clean deploy site-deploy</code>：调用clean生命周期的clean阶段，default生命周期的deploy阶段和site生命周期的site-deploy阶段。</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Maven的3个生命周期：&quot;&gt;&lt;a href=&quot;#Maven的3个生命周期：&quot; class=&quot;headerlink&quot; title=&quot;Maven的3个生命周期：&quot;&gt;&lt;/a&gt;Maven的3个生命周期：&lt;/h1&gt;&lt;p&gt;Maven的生命周期就是对所有的构建过程进行抽象和统一。包含了项目的清理、初始化、编译、测试、打包、集成测试、验证、部署和站点生成等几乎所有的构建步骤。&lt;/p&gt;
-&lt;p&gt;Maven的生命周期是抽象的，即生命周期不做任何实际的工作，实际任务由插件完成，类似于设计模式中的模板方法。&lt;br&gt;每个生命周期包含一些阶段（phase），阶段是有顺序的，后面的阶段依赖于前面的阶段。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;clean生命周期：清理项目，phase如下。&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;pre-clean&lt;/code&gt;：执行清理前需要完成的工作&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;clean&lt;/code&gt;：清理上一次构建生成的文件&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;post-clean&lt;/code&gt;：执行清理后需要完成的工作&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://peijie2016.oschina.io/categories/Java/"/>
-    
-    
-      <category term="Maven" scheme="http://peijie2016.oschina.io/tags/Maven/"/>
+      <category term="Ubuntu" scheme="https://peijie-sh.github.io/tags/Ubuntu/"/>
     
   </entry>
   

@@ -1,0 +1,1234 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java8,Stream API," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lingpj's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Stream是Java8引入的一个重度使用lambda表达式的API。Stream可以用流的方式处理数据集合，在Java8之前，我们处理这些集合，是需要迭代器的，比如iterator，这是外部迭代；而Stream是内部迭代，我们不用关心集合内部元素是如何迭代的，计算机会自动帮我们选择最适合的实现方式。
+如何创建一个流
+最常见的，有一个集合对象List&amp;lt;String&amp;gt; strs = Ar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8学习笔记之Stream API">
+<meta property="og:url" content="https://peijie-sh.github.io/2017/04/26/Java8学习笔记之Stream API/index.html">
+<meta property="og:site_name" content="Lingpj's blog">
+<meta property="og:description" content="Stream是Java8引入的一个重度使用lambda表达式的API。Stream可以用流的方式处理数据集合，在Java8之前，我们处理这些集合，是需要迭代器的，比如iterator，这是外部迭代；而Stream是内部迭代，我们不用关心集合内部元素是如何迭代的，计算机会自动帮我们选择最适合的实现方式。
+如何创建一个流
+最常见的，有一个集合对象List&amp;lt;String&amp;gt; strs = Ar">
+<meta property="og:updated_time" content="2017-06-24T12:19:27.314Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java8学习笔记之Stream API">
+<meta name="twitter:description" content="Stream是Java8引入的一个重度使用lambda表达式的API。Stream可以用流的方式处理数据集合，在Java8之前，我们处理这些集合，是需要迭代器的，比如iterator，这是外部迭代；而Stream是内部迭代，我们不用关心集合内部元素是如何迭代的，计算机会自动帮我们选择最适合的实现方式。
+如何创建一个流
+最常见的，有一个集合对象List&amp;lt;String&amp;gt; strs = Ar">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://peijie-sh.github.io/2017/04/26/Java8学习笔记之Stream API/"/>
+
+
+
+
+
+  <title> Java8学习笔记之Stream API | Lingpj's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?355ae8c28957f336bcc9be170de0217b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=60770945";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lingpj's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">不忘初心，方得始终</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2017/04/26/Java8学习笔记之Stream API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Joepis">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lingpj's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java8学习笔记之Stream API
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-26T11:28:37+08:00">
+                2017-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/04/26/Java8学习笔记之Stream API/" class="leancloud_visitors" data-flag-title="Java8学习笔记之Stream API">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Stream是Java8引入的一个重度使用lambda表达式的API。<br>Stream可以用流的方式处理数据集合，在Java8之前，我们处理这些集合，是需要迭代器的，比如iterator，这是外部迭代；而Stream是内部迭代，我们不用关心集合内部元素是如何迭代的，计算机会自动帮我们选择最适合的实现方式。</p>
+<h1 id="如何创建一个流"><a href="#如何创建一个流" class="headerlink" title="如何创建一个流"></a>如何创建一个流</h1><ol>
+<li>最常见的，有一个集合对象<code>List&lt;String&gt; strs = Arrays.asList(&quot;Java 8 &quot;, &quot;Lambdas &quot;, &quot;In &quot;, &quot;Action&quot;);</code>，直接调用<code>strs.stream()</code>就得到一个<code>Stream&lt;String&gt;</code>的流。<br>如果想使用并行流增加性能，请使用<code>strs.parallelStream()</code>，或<code>strs.stream().parallel()</code>。</li>
+<li>由值创建：<code>Stream&lt;String&gt; stream = Stream.of(&quot;Java 8 &quot;, &quot;Lambdas &quot;, &quot;In &quot;, &quot;Action&quot;);</code><a id="more"></a></li>
+<li><p>由数组创建：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span>[] numbers = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;;</div><div class="line"><span class="keyword">int</span> sum = Arrays.stream(numbers).sum();</div></pre></td></tr></table></figure>
+</li>
+<li><p>由文件创建：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 统计文本文件中有多少个不同的单词</span></div><div class="line"><span class="keyword">long</span> uniqueWords = <span class="number">0</span>;</div><div class="line"><span class="keyword">try</span> (Stream&lt;String&gt; lines = Files.lines(Paths.get(<span class="string">"data.txt"</span>), Charset.defaultCharset())) &#123;</div><div class="line">    uniqueWords = lines.flatMap(line -&gt; Arrays.stream(line.split(<span class="string">" "</span>)))</div><div class="line">            .distinct()</div><div class="line">            .count();</div><div class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>由函数生成流：<code>Stream.iterate()</code>和<code>Stream.generate()</code>可以生产无限流，即元素有无穷多个。一般来说，应该使用limit(n)来对这种流加以限制，以避免产生无穷多个元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">iterator</span><span class="params">()</span> </span>&#123;</div><div class="line">    Stream.iterate(<span class="number">0</span>, n -&gt; n + <span class="number">2</span>).limit(<span class="number">10</span>).forEach(System.out::println);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">generate</span><span class="params">()</span> </span>&#123;</div><div class="line">    Stream.generate(Math::random).limit(<span class="number">5</span>).forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Stream常用方法"><a href="#Stream常用方法" class="headerlink" title="Stream常用方法"></a>Stream常用方法</h1><blockquote>
+<p>Stream API 支持两种类型的操作：中间操作（如filter或map）和终端操作（如count、findFirst、forEach和reduce）。</p>
+</blockquote>
+<p>我用一个筛选菜单的需求作为示例。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dish</span> </span>&#123;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> String name;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">boolean</span> vegetarian;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> calories;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Type type;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Dish</span><span class="params">(String name, <span class="keyword">boolean</span> vegetarian, <span class="keyword">int</span> calories, Type type)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.name = name;</div><div class="line">            <span class="keyword">this</span>.vegetarian = vegetarian;</div><div class="line">            <span class="keyword">this</span>.calories = calories;</div><div class="line">            <span class="keyword">this</span>.type = type;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> name;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isVegetarian</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> vegetarian;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCalories</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> calories;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Type <span class="title">getType</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> type;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> name;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Type &#123;MEAT, FISH, OTHER&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> List&lt;Dish&gt; <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> Arrays.asList(</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"pork"</span>, <span class="keyword">false</span>, <span class="number">800</span>, Type.MEAT),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"beef"</span>, <span class="keyword">false</span>, <span class="number">700</span>, Type.MEAT),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"chicken"</span>, <span class="keyword">false</span>, <span class="number">400</span>, Type.MEAT),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"french fries"</span>, <span class="keyword">true</span>, <span class="number">530</span>, Type.OTHER),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"rice"</span>, <span class="keyword">true</span>, <span class="number">350</span>, Type.OTHER),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"season fruit"</span>, <span class="keyword">true</span>, <span class="number">120</span>, Type.OTHER),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"pizza"</span>, <span class="keyword">true</span>, <span class="number">550</span>, Type.OTHER),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"prawns"</span>, <span class="keyword">false</span>, <span class="number">300</span>, Type.FISH),</div><div class="line">                <span class="keyword">new</span> Dish(<span class="string">"salmon"</span>, <span class="keyword">false</span>, <span class="number">450</span>, Type.FISH));</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="过滤筛选"><a href="#过滤筛选" class="headerlink" title="过滤筛选"></a>过滤筛选</h2><blockquote>
+<p>谓词：返回boolean的函数</p>
+</blockquote>
+<ul>
+<li><p>filter()：接受一个谓词，返回符合条件的元素集合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">filter</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    List&lt;Dish&gt; vegetarianMenu = menu.stream()</div><div class="line">            .filter(Dish::isVegetarian)</div><div class="line">            .collect(Collectors.toList());</div><div class="line">    Assert.assertEquals(<span class="number">4</span>, vegetarianMenu.size());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>distinct()：返回集合中各异的元素集合(去重)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">distinct</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">5</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>);</div><div class="line">    numbers.stream().distinct().forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>limit()：截取流中指定数量的元素，返回一个不超过给定长度的流。如果流是有序的，则最多会返回前n个元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">``` java</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">limit</span><span class="params">()</span> </span>&#123;</div><div class="line">        List&lt;Dish&gt; menu = init();</div><div class="line">        menu.stream()</div><div class="line">                .filter(d -&gt; d.getCalories() &gt; <span class="number">300</span>)</div><div class="line">                .limit(<span class="number">3</span>)</div><div class="line">                .forEach(System.out::println);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>skip()：跳过指定数量元素，返回一个扔掉了前n个元素的流。如果流中元素不足n个，则返回一个空流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">skip</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    menu.stream()</div><div class="line">            .filter(d -&gt; d.getCalories() &gt; <span class="number">300</span>)</div><div class="line">            .limit(<span class="number">3</span>)</div><div class="line">            .skip(<span class="number">2</span>)</div><div class="line">            .forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h2><ul>
+<li><p>map()：接受一个函数作为参数。这个函数会被应用到每个元素上，并将其映射成一个新的元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    List&lt;String&gt; dishNames = menu.stream().map(m -&gt; m.getName()).collect(Collectors.toList());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>flatMap()：一个流中的每个值都换成另一个流，然后把所有的流连接起来成为一个流，即扁平化为一个流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flatMap</span><span class="params">()</span> </span>&#123;</div><div class="line">    String[] arrayOfWords = &#123;<span class="string">"Goodbye"</span>, <span class="string">"World"</span>&#125;;</div><div class="line">    List&lt;String&gt; words = Arrays.asList(arrayOfWords);</div><div class="line">    words.stream()</div><div class="line">            .map(w -&gt; w.split(<span class="string">""</span>))</div><div class="line">            .flatMap(Arrays::stream)</div><div class="line">            .distinct()</div><div class="line">            .forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面例子中，<code>split()</code>得到的是String[] 而不是String，因此各个数组并不是分别映射成一个流，而是映射成流的内容。所有使用map(Arrays::stream)时生成的单个流都被合并起来，变为一个流。</p>
+<h2 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h2><p>匹配比较简单，返回一个boolean</p>
+<ul>
+<li>anyMatch()：至少匹配一个</li>
+<li>allMatch()：全部匹配</li>
+<li>noneMatch()：全部不匹配，和allMatch相反</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">anyMatch</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    Assert.assertEquals(<span class="keyword">true</span>, menu.stream().anyMatch(Dish::isVegetarian));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">allMatch</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    Assert.assertEquals(<span class="keyword">true</span>, menu.stream().allMatch(d -&gt; d.getCalories() &lt; <span class="number">1000</span>));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">noneMatch</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    Assert.assertEquals(<span class="keyword">true</span>, menu.stream().noneMatch(d -&gt; d.getCalories() &gt;= <span class="number">1000</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p>查找有2个方法：<code>findFirst()</code>和<code>findAny()</code>，返回一个<code>Optional&lt;T&gt;</code>集合。<br>如果你不关心返回的元素是哪个，请使用<code>findAny()</code>，因为它在使用并行流时限制较少。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findFirst</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; someNumbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</div><div class="line">    Optional&lt;Integer&gt; firstSquareDivisibleByThree =</div><div class="line">            someNumbers.stream()</div><div class="line">                    .map(x -&gt; x * x)</div><div class="line">                    .filter(x -&gt; x % <span class="number">3</span> == <span class="number">0</span>)</div><div class="line">                    .findFirst(); <span class="comment">// 9</span></div><div class="line">    System.out.println(firstSquareDivisibleByThree.get());</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAny</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; someNumbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</div><div class="line">    Optional&lt;Integer&gt; firstSquareDivisibleByThree =</div><div class="line">            someNumbers.stream()</div><div class="line">                    .map(x -&gt; x * x)</div><div class="line">                    .filter(x -&gt; x % <span class="number">3</span> == <span class="number">0</span>)</div><div class="line">                    .findAny(); <span class="comment">// 9</span></div><div class="line">    System.out.println(firstSquareDivisibleByThree.get());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="归约"><a href="#归约" class="headerlink" title="归约"></a>归约</h2><p>归约在汇总结合内所有数据的时候使用。比如求 max，min，sum。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</div><div class="line">    <span class="keyword">int</span> sum = numbers.stream().reduce(<span class="number">0</span>, Integer::sum);</div><div class="line">    System.out.println(sum);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="原始类型流特化"><a href="#原始类型流特化" class="headerlink" title="原始类型流特化"></a>原始类型流特化</h1><p>流在内部迭代的过程中，对基本类型会自动装箱和拆箱。为了避免不需要的装箱拆箱，Java8提供了<code>IntStream</code>、<code>DoubleStream</code>和<code>LongStream</code></p>
+<ul>
+<li>普通流转特化流：mapToInt(), mapToLong(), mapToDouble()</li>
+<li>特化流转普通流：boxed()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">boxedStream</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Dish&gt; menu = init();</div><div class="line">    <span class="comment">// 特化</span></div><div class="line">    IntStream intStream = menu.stream().mapToInt(Dish::getCalories);</div><div class="line">    <span class="comment">// 转回普通Stream</span></div><div class="line">    Stream&lt;Integer&gt; stream = intStream.boxed();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Java 8引入了两个可以用于IntStream和LongStream的静态方法，用于生成给定范围的数字流：</p>
+<ul>
+<li>range(min, max)：随机生成的数字不包含max，即(min, max)</li>
+<li>rangeClosed(min, max)：随机生成的数字包含max，即(min, max]</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wechat-pay.png" alt="Joepis WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/alipay-pay.png" alt="Joepis Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Joepis
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://peijie-sh.github.io/2017/04/26/Java8学习笔记之Stream API/" title="Java8学习笔记之Stream API">https://peijie-sh.github.io/2017/04/26/Java8学习笔记之Stream API/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java8/" rel="tag"># java8</a>
+          
+            <a href="/tags/Stream-API/" rel="tag"># Stream API</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/19/Java8学习笔记之Lambda表达式/" rel="next" title="Java8学习笔记之Lambda表达式">
+                <i class="fa fa-chevron-left"></i> Java8学习笔记之Lambda表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/08/Java8学习笔记之新日期API/" rel="prev" title="Java8学习笔记之新日期API">
+                Java8学习笔记之新日期API <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Joepis" />
+          <p class="site-author-name" itemprop="name">Joepis</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peijie-sh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3198519853" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://gitee.com/peijie2016" target="_blank" title="码云">
+                  
+                    <i class="fa fa-fw fa-git"></i>
+                  
+                  码云
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/513b08b56afe" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/" title="阮一峰" target="_blank">阮一峰</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.didispace.com/" title="程序猿DD" target="_blank">程序猿DD</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何创建一个流"><span class="nav-number">1.</span> <span class="nav-text">如何创建一个流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stream常用方法"><span class="nav-number">2.</span> <span class="nav-text">Stream常用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">2.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤筛选"><span class="nav-number">2.2.</span> <span class="nav-text">过滤筛选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射"><span class="nav-number">2.3.</span> <span class="nav-text">映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配"><span class="nav-number">2.4.</span> <span class="nav-text">匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找"><span class="nav-number">2.5.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归约"><span class="nav-number">2.6.</span> <span class="nav-text">归约</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原始类型流特化"><span class="nav-number">3.</span> <span class="nav-text">原始类型流特化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joepis</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2130764"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("pYJncR9IaWevHwwCaexGialM-gzGzoHsz", "bAF5zPFUavOwt0E05r6iAdfV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
