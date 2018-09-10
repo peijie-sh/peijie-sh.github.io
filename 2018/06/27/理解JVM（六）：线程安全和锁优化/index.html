@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="SpringBoot,Event," />
+  <meta name="keywords" content="JVM,锁," />
 
 
 
@@ -89,22 +89,25 @@
 
 
 
-<meta name="description" content="当把一个事件发布到Spring提供的ApplicationContext中，被监听器侦测到，就会执行对应的处理方法。
-事件本身事件是一个自定义的类，需要继承Spring提供的ApplicationEvent。123456789@Datapublic class MyEvent extends ApplicationEvent &amp;#123;    private String msg;    pub">
+<meta name="description" content="线程安全的实现方法互斥同步互斥是因，同步是果；互斥是方法，同步是目的。
+synchronized关键字
+synchronized关键字是基本的互斥同步手段。它在编译后会在同步代码块前后加入2条字节码指令：monitorenter和monitorexit。
+这两个字节码都需要一个reference类型的参数来指明要锁定和解锁的对象。如果Java程序中的synchronized指定了对象参数，那就是这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Spring事件机制实现异步">
-<meta property="og:url" content="https://peijie-sh.github.io/2018/06/15/使用Spring事件机制实现异步/index.html">
+<meta property="og:title" content="理解JVM（六）：线程安全和锁优化">
+<meta property="og:url" content="https://peijie-sh.github.io/2018/06/27/理解JVM（六）：线程安全和锁优化/index.html">
 <meta property="og:site_name" content="Lingpj's blog">
-<meta property="og:description" content="当把一个事件发布到Spring提供的ApplicationContext中，被监听器侦测到，就会执行对应的处理方法。
-事件本身事件是一个自定义的类，需要继承Spring提供的ApplicationEvent。123456789@Datapublic class MyEvent extends ApplicationEvent &amp;#123;    private String msg;    pub">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/15/16402c8b84e8e00b?w=1371&h=78&f=png&s=15710">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/15/16402ca4e7d6a8c4?w=1421&h=136&f=png&s=33952">
-<meta property="og:updated_time" content="2018-06-16T01:58:49.397Z">
+<meta property="og:description" content="线程安全的实现方法互斥同步互斥是因，同步是果；互斥是方法，同步是目的。
+synchronized关键字
+synchronized关键字是基本的互斥同步手段。它在编译后会在同步代码块前后加入2条字节码指令：monitorenter和monitorexit。
+这两个字节码都需要一个reference类型的参数来指明要锁定和解锁的对象。如果Java程序中的synchronized指定了对象参数，那就是这">
+<meta property="og:updated_time" content="2018-08-20T12:21:16.298Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Spring事件机制实现异步">
-<meta name="twitter:description" content="当把一个事件发布到Spring提供的ApplicationContext中，被监听器侦测到，就会执行对应的处理方法。
-事件本身事件是一个自定义的类，需要继承Spring提供的ApplicationEvent。123456789@Datapublic class MyEvent extends ApplicationEvent &amp;#123;    private String msg;    pub">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/6/15/16402c8b84e8e00b?w=1371&h=78&f=png&s=15710">
+<meta name="twitter:title" content="理解JVM（六）：线程安全和锁优化">
+<meta name="twitter:description" content="线程安全的实现方法互斥同步互斥是因，同步是果；互斥是方法，同步是目的。
+synchronized关键字
+synchronized关键字是基本的互斥同步手段。它在编译后会在同步代码块前后加入2条字节码指令：monitorenter和monitorexit。
+这两个字节码都需要一个reference类型的参数来指明要锁定和解锁的对象。如果Java程序中的synchronized指定了对象参数，那就是这">
 
 
 
@@ -132,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="https://peijie-sh.github.io/2018/06/15/使用Spring事件机制实现异步/"/>
+  <link rel="canonical" href="https://peijie-sh.github.io/2018/06/27/理解JVM（六）：线程安全和锁优化/"/>
 
 
 
 
 
-  <title> 使用Spring事件机制实现异步 | Lingpj's blog </title>
+  <title> 理解JVM（六）：线程安全和锁优化 | Lingpj's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -320,7 +323,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2018/06/15/使用Spring事件机制实现异步/">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2018/06/27/理解JVM（六）：线程安全和锁优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Joepis">
@@ -341,7 +344,7 @@
             
             
               
-                使用Spring事件机制实现异步
+                理解JVM（六）：线程安全和锁优化
               
             
           </h2>
@@ -356,8 +359,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-15T17:21:43+08:00">
-                2018-06-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T14:17:42+08:00">
+                2018-06-27
               </time>
             
 
@@ -379,8 +382,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -396,7 +399,7 @@
 
           
           
-             <span id="/2018/06/15/使用Spring事件机制实现异步/" class="leancloud_visitors" data-flag-title="使用Spring事件机制实现异步">
+             <span id="/2018/06/27/理解JVM（六）：线程安全和锁优化/" class="leancloud_visitors" data-flag-title="理解JVM（六）：线程安全和锁优化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -425,16 +428,57 @@
       
 
       
-        <p>当把一个事件发布到Spring提供的<code>ApplicationContext</code>中，被监听器侦测到，就会执行对应的处理方法。</p>
-<h1 id="事件本身"><a href="#事件本身" class="headerlink" title="事件本身"></a>事件本身</h1><p>事件是一个自定义的类，需要继承Spring提供的<code>ApplicationEvent</code>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Data</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyEvent</span> <span class="keyword">extends</span> <span class="title">ApplicationEvent</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String msg;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyEvent</span><span class="params">(Object source, String msg)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(source);</div><div class="line">        <span class="keyword">this</span>.msg = msg;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<h1 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h1><p>基本方法是实现<code>ApplicationListener</code>接口，自定义一个监听器，实现<code>onApplicationEvent()</code>方法，然后添加到<code>ApplicationContext</code>。<br>比如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyListener</span> <span class="keyword">implements</span> <span class="title">ApplicationListener</span>&lt;<span class="title">MyEvent</span>&gt; </span>&#123;  </div><div class="line"></div><div class="line">    <span class="meta">@Override</span>  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(MyEvent event)</span> </span>&#123;  </div><div class="line">        System.out.print(<span class="string">"监听到MyEvent事件"</span>);  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line">...</div><div class="line"><span class="comment">// SpringBoot的启动类中添加监听器</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		SpringApplication application = <span class="keyword">new</span> SpringApplication(MyApplication.class);</div><div class="line">		application.addListeners(<span class="keyword">new</span> MyListener());</div><div class="line">		application.run(args);</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
-<p>也可以使用注解<code>@EventListener</code>（推荐）：原理就是通过扫描这个注解，创建监听器并添加到<code>ApplicationContext</code>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Slf</span>4j</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyEventHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@EventListener</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleEvent</span><span class="params">(MyEvent event)</span> </span>&#123;</div><div class="line">        log.info(<span class="string">"------------处理事件：&#123;&#125;"</span>, event.getMsg());</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">5</span> * <span class="number">1000L</span>);</div><div class="line">            log.info(<span class="string">"事件1(5s)处理完成"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="事件发布"><a href="#事件发布" class="headerlink" title="事件发布"></a>事件发布</h1><p>可以通过上下文对象的发布方法<code>ConfigurableApplicationContext::publishEvent()</code>来发布。<br>也可以实现<code>ApplicationEventPublisherAware</code>接口来发布（推荐）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Slf</span>4j</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventService</span> <span class="keyword">implements</span> <span class="title">ApplicationEventPublisherAware</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> ApplicationEventPublisher publisher;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationEventPublisher</span><span class="params">(ApplicationEventPublisher applicationEventPublisher)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.publisher = applicationEventPublisher;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">doEventWork</span><span class="params">(String msg)</span> </span>&#123;</div><div class="line">        log.info(<span class="string">"------------publish event:"</span> + msg);</div><div class="line">        MyEvent event = <span class="keyword">new</span> MyEvent(<span class="keyword">this</span>, msg);</div><div class="line">        publisher.publishEvent(event);</div><div class="line">        <span class="keyword">return</span> <span class="string">"OK"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootTest</span></div><div class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> EventService service;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eventTest</span><span class="params">()</span> </span>&#123;</div><div class="line">        String msg=<span class="string">"Java Code"</span>;</div><div class="line">        service.doEventWork(msg);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="https://user-gold-cdn.xitu.io/2018/6/15/16402c8b84e8e00b?w=1371&amp;h=78&amp;f=png&amp;s=15710" alt=""></p>
-<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>如果2个事件之间是继承关系，会先监听到子类事件，处理完再监听父类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MyEvent2 extends MyEvent</span></div><div class="line"></div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Slf</span>4j</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyEventHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@EventListener</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleEvent</span><span class="params">(MyEvent event)</span> </span>&#123;</div><div class="line">        log.info(<span class="string">"------------处理事件：&#123;&#125;"</span>, event.getMsg());</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">5</span> * <span class="number">1000L</span>);</div><div class="line">            log.info(<span class="string">"事件1(5s)处理完成"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@EventListener</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleEvent2</span><span class="params">(MyEvent2 event)</span> </span>&#123;</div><div class="line">        log.info(<span class="string">"------------处理事件2：&#123;&#125;"</span>, event.getMsg());</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">10</span> * <span class="number">1000L</span>);</div><div class="line">            log.info(<span class="string">"事件2(10s)处理完成"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>当我publish一个子类事件MyEvent2时，日志如下：<br><img src="https://user-gold-cdn.xitu.io/2018/6/15/16402ca4e7d6a8c4?w=1421&amp;h=136&amp;f=png&amp;s=33952" alt=""></p>
+        <h1 id="线程安全的实现方法"><a href="#线程安全的实现方法" class="headerlink" title="线程安全的实现方法"></a>线程安全的实现方法</h1><h2 id="互斥同步"><a href="#互斥同步" class="headerlink" title="互斥同步"></a>互斥同步</h2><p>互斥是因，同步是果；互斥是方法，同步是目的。</p>
+<h3 id="synchronized关键字"><a href="#synchronized关键字" class="headerlink" title="synchronized关键字"></a>synchronized关键字</h3><ul>
+<li><code>synchronized</code>关键字是基本的互斥同步手段。它在编译后会在同步代码块前后加入2条字节码指令：<code>monitorenter</code>和<code>monitorexit</code>。</li>
+<li>这两个字节码都需要一个<code>reference</code>类型的参数来指明要锁定和解锁的对象。如果Java程序中的<code>synchronized</code>指定了对象参数，那就是这个对象的<code>reference</code>；如果没有指定，就根据<code>synchronized</code>修饰的是实例方法还是类方法，去取对应的对象实例或Class对象来作为锁对象。</li>
+<li>执行<code>monitorenter</code>指令时，首先要尝试获取对象的锁。如果这个对象没被锁定，或当前线程已经拥有了那个对象的锁，把锁的计数器加1；在执行<code>monitorexit</code>指令时会将锁计数器减1。当计数器为0时，锁就被释放。如果获取对象锁失败，那当前线程就要阻塞等待，直到对象锁被另外一个线程释放为止。</li>
+<li><code>synchronized</code>同步块对同一条线程来说是可重入的，不会出现自己把自己锁死的问题。</li>
+<li>同步块在已进入的线程执行完之前，会阻塞后面其他线程的进入。</li>
+<li>Java的线程是映射到操作系统的原生线程之上的，如果要阻塞或唤醒一个线程，都需要操作系统来完成，这就需要从用户态转换到核心态中，因此状态转换需要耗费很多的处理器时间，所以synchronized是Java语言中一个重量级的操作。不过虚拟机会有一些优化措施，比如自旋等待。<a id="more"></a>
+<h3 id="ReentrantLock重入锁"><a href="#ReentrantLock重入锁" class="headerlink" title="ReentrantLock重入锁"></a>ReentrantLock重入锁</h3>重入锁位于<code>java.util.concurrent</code>包。基本用法和<code>synchronized</code>相似，只是代码写法有区别：<code>synchronized</code>是原生语法层面的实现。<code>ReentrantLock</code>是API层面，使用<code>lock()</code>和<code>unlock()</code>方法配合<code>try/finally</code>语句块来实现。</li>
+</ul>
+<p>重入锁有3个高级特性：</p>
+<ul>
+<li>等待可中断：当持有锁的线程长期不释放锁时，正在等待的线程可以选择放弃等待，改为处理其他事情。可中断特性对处理执行时间非常长的同步块很有帮助。</li>
+<li>可实现公平锁：公平锁是指多个线程在等待同一个锁时，必须按照申请锁的时间顺序来依次获得锁；而非公平锁则不保证这一点，在锁被释放时，任何一个等待锁的线程都有机会获得锁。<code>synchronized</code>中的锁是非公平的，<code>ReentrantLock</code>默认情况下也是非公平的，但可以通过带布尔值的构造函数要求使用公平锁。</li>
+<li>锁可以绑定多个条件：一个<code>ReentrantLock</code>对象可以同时绑定多个<code>Condition</code>对象，而在<code>synchronized</code>中，锁对象的<code>wait()</code>和<code>notify()</code>或<code>notifyAll()</code>方法可以实现一个隐含的条件，如果要和多于一个的条件关联的时候，就不得不额外地添加一个锁，而<code>ReentrantLock</code>则无须这样做，只需要多次调用<code>newCondition()</code>方法即可。</li>
+</ul>
+<h3 id="性能比较"><a href="#性能比较" class="headerlink" title="性能比较"></a>性能比较</h3><ul>
+<li>JDK1.6之前，在多线程环境下，<code>synchronized</code>的吞吐量随着处理器数量增加而下降得非常严重。</li>
+<li>JDK1.6之后，虚拟机做了优化，2种方式性能差不多。推荐优先使用<code>synchronized</code>方式。</li>
+</ul>
+<h2 id="非阻塞同步"><a href="#非阻塞同步" class="headerlink" title="非阻塞同步"></a>非阻塞同步</h2><p>互斥同步最主要的问题就是进行线程阻塞和唤醒所带来的性能问题，因此这种同步也称为阻塞同步（Blocking Synchronization）。</p>
+<p>按处理问题的方式来说：</p>
+<ul>
+<li>互斥同步是悲观并发策略：无论是否产生共享数据争用，都会做同步措施（加锁，用户态内核态转换等）。</li>
+<li>非阻塞同步是一种乐观并发策略：它基于冲突检测。通俗的说，就是先执行代码，若没有发生共享数据争用，就成功执行；若发生共享数据争用，就采取补偿措施（比如不断重试，直到成功），这种策略不会导致线程阻塞。</li>
+</ul>
+<p>CAS操作：<br>CAS指令需要有3个操作数，分别是内存位置（在Java中可以简单理解为变量的内存地址，用V表示）、旧的预期值（用A表示）和新值（用B表示）。CAS指令执行时，当且仅当V符合旧预期值A时，处理器用新值B更新V的值，否则它就不执行更新，但是无论是否更新了V的值，都会返回V的旧值，这个处理过程是个原子操作。</p>
+<p>ABA问题：<br>如果一个变量V初次读取的时候是A值，并且在准备赋值的时候检查到它仍然为A值，那我们就能说它的值没有被其他线程改变过了吗？如果在这段期间它的值曾经被改成了B，后来又被改回为A，那CAS操作就会误认为它从来没有被改变过。</p>
+<h2 id="无同步方案"><a href="#无同步方案" class="headerlink" title="无同步方案"></a>无同步方案</h2><p>如果一个方法本来就不涉及共享数据，那它就无须任何同步措施去保证正确性。</p>
+<ul>
+<li>可重入代码：这种代码也叫做纯代码（Pure Code），可以在代码执行的任何时刻中断它，转而去执行另外一段代码（包括递归调用它本身），而在控制权返回后，原来的程序不会出现任何错误。</li>
+<li>线程本地存储：一段代码中所需要的数据必须与其他代码共享，并且可以把共享数据的可见范围限制在同一个线程之内，这样，无须同步也能保证线程之间不出现数据争用的问题。<ul>
+<li>Java语言中，如果一个变量要被多线程访问，可以使用volatile关键字声明它为“易变的”；如果一个变量要被某个线程独享，Java中就没有类似C++中__declspec（thread） 这样的关键字，不过还是可以通过java.lang.ThreadLocal类来实现线程本地存储的功能。每一个线程的Thread对象中都有一个ThreadLocalMap对象，这个对象存储了一组以ThreadLocal.threadLocalHashCode为键，以本地线程变量为值的K-V值对，ThreadLocal对象就是当前线程的ThreadLocalMap的访问入口，每一个ThreadLocal对象都包含了一个独一无二的threadLocalHashCode值，使用这个值就可以在线程K-V值对中找回对应的本地线程变量。</li>
+</ul>
+</li>
+</ul>
+<h1 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h1><h2 id="适应性自旋（Adaptive-Spinning）"><a href="#适应性自旋（Adaptive-Spinning）" class="headerlink" title="适应性自旋（Adaptive Spinning）"></a>适应性自旋（Adaptive Spinning）</h2><p>线程阻塞的时候，让等待的线程不放弃cpu执行时间，而是执行一个自旋(一般是空循环)，这叫做自旋锁。</p>
+<p>自旋等待本身虽然避免了线程切换的开销，但它是要占用处理器时间的，因此，如果锁被占用的时间很短，自旋等待的效果就非常好，反之，如果锁被占用的时间很长，那么自旋的线程只会白白消耗处理器资源，带来性能上的浪费。</p>
+<p>因此，自旋等待的时间必须要有一定的限度。如果自旋超过了限定的次数仍然没有成功获得锁，就应当使用传统的方式去挂起线程了。自旋次数的默认值是10次，用户可以使用参数<code>-XX：PreBlockSpin</code>来更改。</p>
+<p>JDK1.6引入了自适应的自旋锁。自适应意味着自旋的时间不再固定了，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定。比如前一次自旋了3次就获得了一个锁，那么下一次虚拟机会允许他自旋更多次来获得这个锁。如果一个锁很少能通过自旋成功获得，那么之后再遇到这个情况就会省略自旋过程了。</p>
+<h2 id="锁消除（Lock-Elimination）"><a href="#锁消除（Lock-Elimination）" class="headerlink" title="锁消除（Lock Elimination）"></a>锁消除（Lock Elimination）</h2><p>虚拟机即时编译器在运行时，对一些代码上要求同步，但是被检测到不可能存在共享数据竞争的锁进行消除。一般根据逃逸分析的数据支持来作为判定依据。</p>
+<h2 id="锁粗化（Lock-Coarsening）"><a href="#锁粗化（Lock-Coarsening）" class="headerlink" title="锁粗化（Lock Coarsening）"></a>锁粗化（Lock Coarsening）</h2><p>原则上，我们在编写代码的时候，总是推荐将同步块的作用范围限制得尽量小——只在共享数据的实际作用域中才进行同步，这样是为了使需要同步的操作数量尽可能变小，如果存在锁竞争，那等待锁的线程也能尽快拿到锁。</p>
+<p>但如果一系列操作频繁对同一个对象加锁解锁，或者加锁操作再循环体内，会耗费性能，这时虚拟机会扩大加锁范围。</p>
+<h2 id="轻量级锁（Lightweight-Locking）"><a href="#轻量级锁（Lightweight-Locking）" class="headerlink" title="轻量级锁（Lightweight Locking）"></a>轻量级锁（Lightweight Locking）</h2><p>轻量级锁是JDK 1.6之中加入的新型锁机制。它的作用是在没有多线程竞争的前提下，减少传统的重量级锁使用操作系统互斥量产生的性能消耗。</p>
+<p>HotSpot虚拟机的对象头（Object Header）分为两部分信息，第一部分用于存储对象自身的运行时数据，这部分称<code>为Mark Word</code>。还有一部分存储指向方法区对象类型数据的指针。</p>
+<h3 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h3><p>在代码进入同步块的时候，如果此同步对象没有被锁定（锁标志位为“01”状态），虚拟机首先将在当前线程的栈帧中建立一个名为锁记录（Lock  Record）的空间，用于存储锁对象目前的Mark Word的拷贝（官方把这份拷贝加了一个Displaced前缀，即Displaced Mark Word）。然后，虚拟机将使用CAS操作尝试将对象的Mark Word更新为指向Lock Record的指针。如果这个更新动作成功，那么这个线程就拥有了该对象的锁，并且对象Mark Word的锁标志位（Mark Word的最后2bit）将转变为“00”，即表示此对象处于轻量级锁定状态。如果这个更新操作失败了，虚拟机首先会检查对象的Mark Word是否指向当前线程的栈帧，如果是说明当前线程已经拥有了这个对象的锁，那就可以直接进入同步块继续执行，否则说明这个锁对象已经被其他线程抢占了。如果有两条以上的线程争用同一个锁，那轻量级锁就不再有效，要膨胀为重量级锁，锁标志的状态值变为“10”，Mark Word中存储的就是指向重量级锁（互斥量）的指针，后面等待锁的线程也要进入阻塞状态。</p>
+<h3 id="解锁"><a href="#解锁" class="headerlink" title="解锁"></a>解锁</h3><p>解锁过程也是通过CAS操作来进行的。如果对象的Mark Word仍然指向着线程的锁记录，那就用CAS操作把对象当前的Mark Word和线程中复制的Displaced Mark Word替换回来，如果替换成功，整个同步过程就完成了。如果替换失败，说明有其他线程尝试过获取该锁，那就要在释放锁的同时，唤醒被挂起的线程。</p>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>没有锁竞争时，轻量级锁用CAS操作替代互斥量的开销，性能较优。有锁竞争时，除了互斥量开销，还有CAS操作开销，所以性能较差。但是，一般情况下，在整个同步周期内都是不存在竞争的”，这是一个经验数据。</p>
+<h2 id="偏向锁（Biased-Locking）"><a href="#偏向锁（Biased-Locking）" class="headerlink" title="偏向锁（Biased Locking）"></a>偏向锁（Biased Locking）</h2><p>偏向锁也是JDK1.6中引入的锁优化，它的目的是消除数据在无竞争情况下的同步原语，进一步提高程序的运行性能。如果说轻量级锁是在无竞争的情况下使用CAS操作去消除同步使用的互斥量，那偏向锁就是在无竞争的情况下把整个同步都消除掉，连CAS操作都不做了。</p>
+<p>当锁对象第一次被线程获取的时候，虚拟机将会把对象头中的标志位设为“01”，即偏向模式。同时使用CAS操作把获取到这个锁的线程的ID记录在对象的Mark Word之中，如果CAS操作成功，持有偏向锁的线程以后每次进入这个锁相关的同步块时，虚拟机都可以不再进行任何同步操作。当有另外一个线程去尝试获取这个锁时，偏向模式结束。</p>
+<p>偏向锁可以提高带有同步但无竞争的程序性能，但并不一定总是对程序运行有利。如果程序中大多数的锁总是被多个不同的线程访问，那偏向模式就是多余的。在具体问题具体分析的前提下，有时候使用参数<code>-XX：-UseBiasedLocking</code>来禁止偏向锁优化反而可以提升性能。</p>
 
       
     </div>
@@ -484,7 +528,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://peijie-sh.github.io/2018/06/15/使用Spring事件机制实现异步/" title="使用Spring事件机制实现异步">https://peijie-sh.github.io/2018/06/15/使用Spring事件机制实现异步/</a>
+      <a href="https://peijie-sh.github.io/2018/06/27/理解JVM（六）：线程安全和锁优化/" title="理解JVM（六）：线程安全和锁优化">https://peijie-sh.github.io/2018/06/27/理解JVM（六）：线程安全和锁优化/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -500,9 +544,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
           
-            <a href="/tags/Event/" rel="tag"># Event</a>
+            <a href="/tags/锁/" rel="tag"># 锁</a>
           
         </div>
       
@@ -515,8 +559,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/09/TCP的3次握手和4次挥手过程/" rel="next" title="TCP的3次握手和4次挥手过程">
-                <i class="fa fa-chevron-left"></i> TCP的3次握手和4次挥手过程
+              <a href="/2018/06/26/理解JVM（五）：Java内存模型与线程/" rel="next" title="理解JVM（五）：Java内存模型与线程">
+                <i class="fa fa-chevron-left"></i> 理解JVM（五）：Java内存模型与线程
               </a>
             
           </div>
@@ -524,6 +568,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/29/理解JVM（七）：垃圾回收器/" rel="prev" title="理解JVM（七）：垃圾回收器">
+                理解JVM（七）：垃圾回收器 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -597,7 +645,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -608,7 +656,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -619,7 +667,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -667,11 +715,11 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://www.jianshu.com/u/513b08b56afe" target="_blank" title="简书">
+                <a href="https://juejin.im/user/58a3ac1e5c497d0062adb845" target="_blank" title="掘金">
                   
                     <i class="fa fa-fw fa-globe"></i>
                   
-                  简书
+                  掘金
                 </a>
               </span>
             
@@ -698,6 +746,14 @@
                   <a href="http://blog.didispace.com/" title="程序猿DD" target="_blank">程序猿DD</a>
                 </li>
               
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ityouknow.com/" title="纯洁的微笑" target="_blank">纯洁的微笑</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.cnkirito.moe/" title="徐靖峰" target="_blank">徐靖峰</a>
+                </li>
+              
             </ul>
           </div>
         
@@ -717,7 +773,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#事件本身"><span class="nav-number">1.</span> <span class="nav-text">事件本身</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件监听"><span class="nav-number">2.</span> <span class="nav-text">事件监听</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件发布"><span class="nav-number">3.</span> <span class="nav-text">事件发布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试代码"><span class="nav-number">4.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">5.</span> <span class="nav-text">注意</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线程安全的实现方法"><span class="nav-number">1.</span> <span class="nav-text">线程安全的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#互斥同步"><span class="nav-number">1.1.</span> <span class="nav-text">互斥同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized关键字"><span class="nav-number">1.1.1.</span> <span class="nav-text">synchronized关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantLock重入锁"><span class="nav-number">1.1.2.</span> <span class="nav-text">ReentrantLock重入锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能比较"><span class="nav-number">1.1.3.</span> <span class="nav-text">性能比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非阻塞同步"><span class="nav-number">1.2.</span> <span class="nav-text">非阻塞同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无同步方案"><span class="nav-number">1.3.</span> <span class="nav-text">无同步方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁优化"><span class="nav-number">2.</span> <span class="nav-text">锁优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#适应性自旋（Adaptive-Spinning）"><span class="nav-number">2.1.</span> <span class="nav-text">适应性自旋（Adaptive Spinning）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁消除（Lock-Elimination）"><span class="nav-number">2.2.</span> <span class="nav-text">锁消除（Lock Elimination）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁粗化（Lock-Coarsening）"><span class="nav-number">2.3.</span> <span class="nav-text">锁粗化（Lock Coarsening）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#轻量级锁（Lightweight-Locking）"><span class="nav-number">2.4.</span> <span class="nav-text">轻量级锁（Lightweight Locking）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加锁"><span class="nav-number">2.4.1.</span> <span class="nav-text">加锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解锁"><span class="nav-number">2.4.2.</span> <span class="nav-text">解锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">2.4.3.</span> <span class="nav-text">性能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏向锁（Biased-Locking）"><span class="nav-number">2.5.</span> <span class="nav-text">偏向锁（Biased Locking）</span></a></li></ol></li></ol></div>
             
 
           </div>

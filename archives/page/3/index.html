@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JVM," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -89,18 +89,15 @@
 
 
 
-<meta name="description" content="在JVM中，内存主要被分为5类">
-<meta property="og:type" content="article">
-<meta property="og:title" content="谈谈Java中的堆与栈">
-<meta property="og:url" content="https://peijie-sh.github.io/2017/02/16/谈谈Java中的堆与栈/index.html">
+<meta name="description" content="不忘初心，方得始终">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lingpj's blog">
+<meta property="og:url" content="https://peijie-sh.github.io/archives/page/3/index.html">
 <meta property="og:site_name" content="Lingpj's blog">
-<meta property="og:description" content="在JVM中，内存主要被分为5类">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-8a05e9cb9a61a962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-04T12:49:08.011Z">
+<meta property="og:description" content="不忘初心，方得始终">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="谈谈Java中的堆与栈">
-<meta name="twitter:description" content="在JVM中，内存主要被分为5类">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4059338-8a05e9cb9a61a962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="Lingpj's blog">
+<meta name="twitter:description" content="不忘初心，方得始终">
 
 
 
@@ -128,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://peijie-sh.github.io/2017/02/16/谈谈Java中的堆与栈/"/>
+  <link rel="canonical" href="https://peijie-sh.github.io/archives/page/3/"/>
 
 
 
 
 
-  <title> 谈谈Java中的堆与栈 | Lingpj's blog </title>
+  <title> 归档 | Lingpj's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -178,7 +175,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -306,274 +303,180 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2017/02/16/谈谈Java中的堆与栈/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Joepis">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lingpj's blog">
+    <span class="archive-page-counter">
+      
+      
+       
+      
+      OK! 目前共计 44 篇日志。 继续努力。
     </span>
 
     
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                谈谈Java中的堆与栈
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-16T15:25:12+08:00">
-                2017-02-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/02/16/谈谈Java中的堆与栈/" class="leancloud_visitors" data-flag-title="谈谈Java中的堆与栈">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
 
       
       
-
       
-        <p><strong>在<code>JVM</code>中，内存主要被分为5类</strong><br><img src="http://upload-images.jianshu.io/upload_images/4059338-8a05e9cb9a61a962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JVM内存结构.jpg"></p>
-<a id="more"></a>
-<h1 id="堆Heap"><a href="#堆Heap" class="headerlink" title="堆Heap"></a>堆<code>Heap</code></h1><ul>
-<li>存放关键字<code>new</code>创建的对象和数组。</li>
-<li>堆内存被所有线程共享。</li>
-<li>这块内存区由<code>JVM</code>（Java虚拟机）自己管理。当使用new创建对象时，不必指定分配空间的大小，<code>JVM</code>会动态自动分配一块区域；在程序执行过程中，没有指向此对象的引用时，此对象就被标记为可被回收状态，将由<code>GC</code>（垃圾回收器）在一个不确定的时间自动回收，释放所占的内存空间。</li>
-</ul>
-<h1 id="虚拟机栈VM-Stack"><a href="#虚拟机栈VM-Stack" class="headerlink" title="虚拟机栈VM Stack"></a>虚拟机栈<code>VM Stack</code></h1><ul>
-<li>存放8种基本类型的数据和对象引用（不是对象）。</li>
-<li>每个线程有自己的单独的栈。</li>
-<li>先进后出，后进先出。</li>
-<li>因为主要存放基本类型数据变量，所以分配空间比堆快。当超出变量的作用域，将由编译器立即释放空间。</li>
-</ul>
-<h1 id="本地方法栈Native-Method-Stack"><a href="#本地方法栈Native-Method-Stack" class="headerlink" title="本地方法栈Native Method Stack"></a>本地方法栈<code>Native Method Stack</code></h1><p>程序调用本地方法的内存区域。</p>
-<h1 id="程序计数器-Program-Counter-Register"><a href="#程序计数器-Program-Counter-Register" class="headerlink" title="程序计数器 Program Counter Register"></a>程序计数器 <code>Program Counter Register</code></h1><p>一块较小的内存空间，可看作是当前线程所执行的字节码的 行号指示器。</p>
-<p>通过改变计数器的值来选取下一条需要执行的字节码指令。（分支、循环、跳转、异常处理、线程恢复等）基础功能都依赖与其完成。</p>
-<p>特点：</p>
-<ul>
-<li>线程私有：因为 Java 虚拟机的多线程是通过 线程轮流切换 并 分配处理器执行时间 来实现的，在某一时刻，只会执行一条线程。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器。</li>
-<li>无内存溢出：如果线程正在执行的是一个 Java 方法，这个计数器记录的是正在 执行的虚拟机字节码指令的地址；如果正在执行的是 Native 方法，这个计数器值则为空（Undefined）。此内存区域是唯一一个在 Java 虚拟机程序规范中没有规定任何 OutOfMemoryError 情况的区域。</li>
-</ul>
-<h1 id="方法区Method-Area"><a href="#方法区Method-Area" class="headerlink" title="方法区Method Area"></a>方法区<code>Method Area</code></h1><ul>
-<li>跟堆一样，被所有的线程共享。</li>
-<li>是一个内存逻辑区域，是<code>JVM</code>在装载类文件时，用于存储类型信息(类的描述信息)：<ul>
-<li>类的基本信息：<ul>
-<li>每个类的全限定名</li>
-<li>每个类的直接超类的全限定名(可约束类型转换)</li>
-<li>该类是类还是接口</li>
-<li>该类型的访问修饰符</li>
-<li>直接超接口的全限定名的有序列表</li>
-</ul>
-</li>
-<li>已装载类的详细信息：<ul>
-<li>运行时常量池：在方法区中，每个类型都对应一个常量池，存放该类型所用到的所有常量，常量池中存储了诸如文字字符串、final变量值、类名和方法名常量。它们以数组形式通过索引被访问，是外部调用与类联系及类型对象化的桥梁。（存的可能是个普通的字符串，然后经过常量池解析，则变成指向某个类的引用）</li>
-<li>字段信息：字段信息存放类中声明的每一个字段的信息，包括字段的名、类型、修饰符。<br>字段名称指的是类或接口的实例变量或类变量，字段的描述符是一个指示字段的类型的字符串，如private A a=null;则a为字段名，A为描述符，private为修饰符。</li>
-<li>方法信息：类中声明的每一个方法的信息，包括方法名、返回值类型、参数类型、修饰符、异常、方法的字节码。<br>(在编译的时候，就已经将方法的局部变量、操作数栈大小等确定并存放在字节码中，在装载的时候，随着类一起装入方法区。)</li>
-<li>静态成员变量：类中的静态成员变量和静态代码块。</li>
-<li>到类classloader的引用：到该类的类装载器的引用。</li>
-<li>到类class的引用：虚拟机为每一个被装载的类型创建一个class实例，用来代表这个被装载的类。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>具体可参考 <a href="http://www.jianshu.com/p/989c90f339b9" target="_blank" rel="external">传送门</a></p>
 
-      
-    </div>
-
-    <div>
       
         
-
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/uploads/wechat-pay.png" alt="Joepis WeChat Pay"/>
-          <p>微信打赏</p>
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
         </div>
       
       
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/uploads/alipay-pay.png" alt="Joepis Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
-  </div>
-
 
       
-    </div>
 
-    <div>
-      
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
         
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-      <strong>本文作者：</strong>
-      Joepis
-    </li>
-    <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="https://peijie-sh.github.io/2017/02/16/谈谈Java中的堆与栈/" title="谈谈Java中的堆与栈">https://peijie-sh.github.io/2017/02/16/谈谈Java中的堆与栈/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong>
-      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/JVM/" rel="tag"># JVM</a>
-          
-        </div>
-      
-
-      
+            <a class="post-title-link" href="/2016/10/17/使用JPress快速搭建系统/" itemprop="url">
+              
+                <span itemprop="name">使用JPress快速搭建系统</span>
+              
+            </a>
         
-      
+      </h2>
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/02/15/SpringMVC统一异常处理总结/" rel="next" title="SpringMVC统一异常处理总结">
-                <i class="fa fa-chevron-left"></i> SpringMVC统一异常处理总结
-              </a>
-            
-          </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-10-17T15:32:35+08:00"
+              content="2016-10-17" >
+          10-17
+        </time>
+      </div>
 
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/17/谈谈Java中的代理/" rel="prev" title="谈谈Java中的代理">
-                谈谈Java中的代理 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
+    
+
       
-    </div>
-  </div>
+      
+      
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2016/10/17/使用VMWare WorkStation安装Linux Mint/" itemprop="url">
+              
+                <span itemprop="name">使用VMWare WorkStation安装Linux Mint</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-10-17T13:32:35+08:00"
+              content="2016-10-17" >
+          10-17
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+    
+
+      
+      
+      
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2016/10/17/Maven报错Please ensure you are using JDK 1.4 or above and not a JRE解决方法/" itemprop="url">
+              
+                <span itemprop="name">Maven报错Please ensure you are using JDK 1.4 or above and not a JRE解决方法</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-10-17T13:32:35+08:00"
+              content="2016-10-17" >
+          10-17
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+    
+
+      
+      
+      
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2016/10/15/关于VBA Excel开发中连接MySQL数据库的问题/" itemprop="url">
+              
+                <span itemprop="name">关于VBA Excel开发中连接MySQL数据库的问题</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-10-15T10:31:35+08:00"
+              content="2016-10-15" >
+          10-15
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+    
+
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
+
 
 
           </div>
@@ -581,12 +484,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="uyan_frame"></div>
-    
-  </div>
-
 
         </div>
         
@@ -606,17 +503,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -631,7 +519,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -642,7 +530,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -653,7 +541,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -701,11 +589,11 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://www.jianshu.com/u/513b08b56afe" target="_blank" title="简书">
+                <a href="https://juejin.im/user/58a3ac1e5c497d0062adb845" target="_blank" title="掘金">
                   
                     <i class="fa fa-fw fa-globe"></i>
                   
-                  简书
+                  掘金
                 </a>
               </span>
             
@@ -732,6 +620,14 @@
                   <a href="http://blog.didispace.com/" title="程序猿DD" target="_blank">程序猿DD</a>
                 </li>
               
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ityouknow.com/" title="纯洁的微笑" target="_blank">纯洁的微笑</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.cnkirito.moe/" title="徐靖峰" target="_blank">徐靖峰</a>
+                </li>
+              
             </ul>
           </div>
         
@@ -741,22 +637,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#堆Heap"><span class="nav-number">1.</span> <span class="nav-text">堆Heap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机栈VM-Stack"><span class="nav-number">2.</span> <span class="nav-text">虚拟机栈VM Stack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地方法栈Native-Method-Stack"><span class="nav-number">3.</span> <span class="nav-text">本地方法栈Native Method Stack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序计数器-Program-Counter-Register"><span class="nav-number">4.</span> <span class="nav-text">程序计数器 Program Counter Register</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法区Method-Area"><span class="nav-number">5.</span> <span class="nav-text">方法区Method Area</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -889,9 +769,11 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   
@@ -924,10 +806,6 @@
   
     
 
-    
-      <!-- UY BEGIN -->
-      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2130764"></script>
-      <!-- UY END -->
     
   
 
