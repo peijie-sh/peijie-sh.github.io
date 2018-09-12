@@ -54,7 +54,7 @@
     <link href="https://peijie-sh.github.io/2018/06/29/%E7%90%86%E8%A7%A3JVM%EF%BC%88%E4%B8%83%EF%BC%89%EF%BC%9A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/"/>
     <id>https://peijie-sh.github.io/2018/06/29/理解JVM（七）：垃圾回收器/</id>
     <published>2018-06-29T03:35:12.000Z</published>
-    <updated>2018-09-10T02:55:15.634Z</updated>
+    <updated>2018-09-10T14:05:20.861Z</updated>
     
     <content type="html"><![CDATA[<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><h2 id="并行（Parallel）"><a href="#并行（Parallel）" class="headerlink" title="并行（Parallel）"></a>并行（Parallel）</h2><p>指多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。</p>
 <h2 id="并发（Concurrent）"><a href="#并发（Concurrent）" class="headerlink" title="并发（Concurrent）"></a>并发（Concurrent）</h2><p>指用户线程与垃圾收集线程同时执行（但不一定是并行的，可能会交替执行），用户程序在继续运行，而垃圾收集程序运行于另一个CPU上。</p>
@@ -107,17 +107,28 @@
 <li>既适合新生代，也适合老年代。</li>
 <li>空间整合：使用 标记-整理 算法，不产生碎片空间。</li>
 <li>整个Java堆被分为多个大小相同的的块（region）。新生代和老年代不再是物理隔离的，而是一部分region块组成的集合。</li>
+<li>默认把堆平均分成2048个region，最小1M，最大32M，必须是2的幂次方，可以通过<code>-XX:G1HeapRegionSize</code>参数指定。region分为4种：<ul>
+<li>E：eden区，新生代</li>
+<li>S：survivor区，新生代</li>
+<li>O：old区，老年代</li>
+<li>H：humongous区，用来放大对象。当新建对象大小超过region大小一半时，直接在新的一个或多个连续region中分配，并标记为H</li>
+</ul>
+</li>
 <li>可预测的停顿时间：估算每个region内的垃圾可回收的空间以及回收需要的时间（经验值），记录在一个优先列表中。收集时，优先回收价值最大的region，而不是在整个堆进行全区域回收。这样提高了回收效率，得名：Garbage-First。</li>
-<li><p>回收步骤：</p>
-<ul>
-<li>初始标记（Initial Marking）：只是标记一下GC Roots能直接关联到的对象，并且修改TAMS（Next Top at Mark Start）的值，让下一阶段用户程序并发运行时，能在正确可用的Region中创建新对象，这阶段需要停顿线程，但耗时很短。</li>
-<li>并发标记（Concurrent Marking）：进行可达性分析，找出存活对象，耗时长，但可与用户线程并发。</li>
-<li>最终标记（Final Marking）：修正并发标记阶段用户线程运行导致的变动记录。会<code>Stop The World</code>，但可以并行执行，时间不会很长。</li>
+<li>G1中有2种GC：<ul>
+<li>young GC：新生代eden区没有足够可用空间时触发。存活的对象移到survivor区或晋升old区。</li>
+<li>mixed GC：当old区对象很多时，老年代对象空间占堆总空间的比值达到阈值（<code>-XX:InitiatingHeapOccupancyPercent</code>默认45%）会触发，它除了回收年轻代，也回收 部分 老年代（回收价值高的部分region）。</li>
+</ul>
+</li>
+<li>mixed GC回收步骤：<ul>
+<li>初始标记（Initial Marking）：只是标记一下GC Roots能直接关联到的对象，并且修改TAMS（Next Top at Mark Start）的值，让下一阶段用户程序并发运行时，能在正确可用的Region中创建新对象。这阶段需要停顿线程（STW），但耗时很短，共用YGC的停顿，所以一般伴随着YGC发生。</li>
+<li>并发标记（Concurrent Marking）：进行可达性分析，找出存活对象，耗时长，但可与用户线程并发执行。</li>
+<li>最终标记（Final Marking）：修正并发标记阶段用户线程运行导致的变动记录。会STW，但可以并行执行，时间不会很长。</li>
 <li>筛选回收（Live Data Counting and Evacuation）：根据每个region的回收价值和回收成本排序，根据用户配置的GC停顿时间开始回收。</li>
 </ul>
 </li>
-<li><p>当内存很少的时候（存活对象占用大量空间），没有足够空间来复制对象，会导致回收失败。这时会保留被移动过的对象和没移动的对象，只调整引用。失败发生后，收集器认为存活对象被移动了，有足够空间让应用程序使用，于是用户线程继续工作，等待下一次触发GC。如果内存不够，就会触发Full GC。</p>
-</li>
+<li>当对象分配过快，mixed GC来不及回收，G1会退化，触发Full GC，它使用单线程的Serial收集器来回收，整个过程STW，要尽量避免这种情况。</li>
+<li>当内存很少的时候（存活对象占用大量空间），没有足够空间来复制对象，会导致回收失败。这时会保留被移动过的对象和没移动的对象，只调整引用。失败发生后，收集器认为存活对象被移动了，有足够空间让应用程序使用，于是用户线程继续工作，等待下一次触发GC。如果内存不够，就会触发Full GC。</li>
 </ul>
 <p><a href="https://docs.oracle.com/javase/10/gctuning/garbage-first-garbage-collector.htm#JSGCT-GUID-1CDEB6B6-9463-4998-815D-05E095BFBD0F" target="_blank" rel="external">参考G1的详细介绍</a></p>
 ]]></content>
@@ -752,6 +763,56 @@
   </entry>
   
   <entry>
+    <title>Java中的异常</title>
+    <link href="https://peijie-sh.github.io/2017/12/05/Java%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8/"/>
+    <id>https://peijie-sh.github.io/2017/12/05/Java中的异常/</id>
+    <published>2017-12-05T10:26:35.000Z</published>
+    <updated>2018-09-12T11:59:13.220Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Java异常分类"><a href="#Java异常分类" class="headerlink" title="Java异常分类"></a>Java异常分类</h1><p>所有异常的根类为java.lang.Throwable，Throwable下面又派生了两个子类：</p>
+<ul>
+<li>Error</li>
+<li>Exception</li>
+</ul>
+<h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><p>Error表示应用程序本身无法克服和恢复的一种严重问题，程序只有死的份了。例如，内存溢出和线程死锁等系统问题。</p>
+<h2 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h2><p>Exception表示程序还能够克服和恢复的问题，其中又分为2类：</p>
+<ul>
+<li>系统异常：是软件本身缺陷所导致的问题，也就是软件开发人员考虑不周所导致的问题，软件使用者无法克服和恢复这种问题，但在这种问题下还可以让软件系统继续运行或者让软件死掉。例如，数组下标越界（ArrayIndexOutOfBoundsException），空指针异常（NullPointerException）、类转换异常（ClassCastException）。<ul>
+<li>编译器不强制用try…catch处理或用throws声明，也称为<strong>unchecked</strong>异常。</li>
+</ul>
+</li>
+<li>普通异常：是运行环境的变化或异常所导致的问题，是用户能够克服的问题，例如，网络断线，硬盘空间不够，发生这样的异常后，程序不应该死掉。<ul>
+<li>编译器强制普通异常必须try…catch处理或用throws声明继续抛给上层调用方法处理，也称为<strong>checked</strong>异常。</li>
+</ul>
+</li>
+</ul>
+<h1 id="常见错误与异常"><a href="#常见错误与异常" class="headerlink" title="常见错误与异常"></a>常见错误与异常</h1><h2 id="Error："><a href="#Error：" class="headerlink" title="Error："></a>Error：</h2><ul>
+<li>OutOfMemoryError：内存溢出</li>
+<li>StackOverflowError：栈溢出</li>
+</ul>
+<h2 id="RuntimeException："><a href="#RuntimeException：" class="headerlink" title="RuntimeException："></a>RuntimeException：</h2><ul>
+<li>ClassCastException：类型转换异常</li>
+<li>IndexOutOfBoundsException：数组越界</li>
+<li>NullPointerException：空指针</li>
+<li>ArrayStoreException：数据存储异常，操作数组时类型不一致</li>
+<li>BufferOverflowException：缓存区溢出</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Java异常分类&quot;&gt;&lt;a href=&quot;#Java异常分类&quot; class=&quot;headerlink&quot; title=&quot;Java异常分类&quot;&gt;&lt;/a&gt;Java异常分类&lt;/h1&gt;&lt;p&gt;所有异常的根类为java.lang.Throwable，Throwable下面又派生了两个子
+    
+    </summary>
+    
+      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
+    
+    
+      <category term="Exception" scheme="https://peijie-sh.github.io/tags/Exception/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JDK8和JDK9双版本共存</title>
     <link href="https://peijie-sh.github.io/2017/09/30/JDK8%E5%92%8CJDK9%E5%8F%8C%E7%89%88%E6%9C%AC%E5%85%B1%E5%AD%98/"/>
     <id>https://peijie-sh.github.io/2017/09/30/JDK8和JDK9双版本共存/</id>
@@ -1201,9 +1262,9 @@
       <category term="日常记录" scheme="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
     
     
-      <category term="wkhtmltox" scheme="https://peijie-sh.github.io/tags/wkhtmltox/"/>
-    
       <category term="Linux" scheme="https://peijie-sh.github.io/tags/Linux/"/>
+    
+      <category term="wkhtmltox" scheme="https://peijie-sh.github.io/tags/wkhtmltox/"/>
     
   </entry>
   
@@ -1247,11 +1308,11 @@
       <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
     
     
+      <category term="Redis" scheme="https://peijie-sh.github.io/tags/Redis/"/>
+    
       <category term="SpringBoot" scheme="https://peijie-sh.github.io/tags/SpringBoot/"/>
     
       <category term="Cache" scheme="https://peijie-sh.github.io/tags/Cache/"/>
-    
-      <category term="Redis" scheme="https://peijie-sh.github.io/tags/Redis/"/>
     
   </entry>
   
@@ -1381,64 +1442,6 @@
     
     
       <category term="动态代理" scheme="https://peijie-sh.github.io/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>理解JVM（一）：JVM内存结构</title>
-    <link href="https://peijie-sh.github.io/2017/02/16/%E7%90%86%E8%A7%A3JVM%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AJVM%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84/"/>
-    <id>https://peijie-sh.github.io/2017/02/16/理解JVM（一）：JVM内存结构/</id>
-    <published>2017-02-16T07:25:12.000Z</published>
-    <updated>2018-08-20T12:21:16.248Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>在<code>JVM</code>中，内存主要被分为5类</strong><br><img src="http://upload-images.jianshu.io/upload_images/4059338-8a05e9cb9a61a962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JVM内存结构.jpg"></p>
-<a id="more"></a>
-<h2 id="堆Heap"><a href="#堆Heap" class="headerlink" title="堆Heap"></a>堆<code>Heap</code></h2><ul>
-<li>虚拟机内存管理中最大的一块内存空间。</li>
-<li>存放关键字<code>new</code>创建的对象实例和数组。</li>
-<li>堆内存被所有线程共享。</li>
-<li>这块内存区由<code>JVM</code>（Java虚拟机）自己管理。当使用new创建对象时，不必指定分配空间的大小，<code>JVM</code>会动态自动分配一块区域；在程序执行过程中，没有指向此对象的引用时，此对象就被标记为可被回收状态，将由<code>GC</code>（垃圾回收器）在一个不确定的时间自动回收，释放所占的内存空间。</li>
-<li>从内存回收的角度看，垃圾收集器大都基于分代收集算法，所以堆一般分为<code>新生代</code>和<code>老年代</code>，更细致可划分为：<code>Eden空间</code>，<code>From Survivor空间</code>，<code>To Survivor空间</code>。</li>
-</ul>
-<h2 id="虚拟机栈VM-Stack"><a href="#虚拟机栈VM-Stack" class="headerlink" title="虚拟机栈VM Stack"></a>虚拟机栈<code>VM Stack</code></h2><ul>
-<li>存放8种基本类型的数据和对象引用（不是对象）。</li>
-<li>每个线程有自己的单独的栈。</li>
-<li>先进后出，后进先出。</li>
-<li>因为主要存放基本类型数据变量，所以分配空间比堆快。当超出变量的作用域，将由编译器立即释放空间。</li>
-</ul>
-<h2 id="本地方法栈Native-Method-Stack"><a href="#本地方法栈Native-Method-Stack" class="headerlink" title="本地方法栈Native Method Stack"></a>本地方法栈<code>Native Method Stack</code></h2><ul>
-<li>与<code>虚拟机栈</code>类似，<code>虚拟机栈</code>为虚拟机调用Java方法服务，<code>本地方法栈</code>为虚拟机调用Native方法服务。</li>
-<li>在HotSpot虚拟机实现中，<code>虚拟机栈</code>和<code>本地方法栈</code>被合并为一个区域。</li>
-</ul>
-<h2 id="程序计数器-Program-Counter-Register"><a href="#程序计数器-Program-Counter-Register" class="headerlink" title="程序计数器 Program Counter Register"></a>程序计数器 <code>Program Counter Register</code></h2><p>一块较小的内存空间，可看作是当前线程所执行的字节码的 行号指示器。</p>
-<p>通过改变计数器的值来选取下一条需要执行的字节码指令。（分支、循环、跳转、异常处理、线程恢复等）基础功能都依赖与其完成。</p>
-<p>特点：</p>
-<ul>
-<li>线程私有：因为 Java 虚拟机的多线程是通过 线程轮流切换 并 分配处理器执行时间 来实现的，在某一时刻，只会执行一条线程。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器。</li>
-<li>无内存溢出：如果线程正在执行的是一个 Java 方法，这个计数器记录的是正在 执行的虚拟机字节码指令的地址；如果正在执行的是 Native 方法，这个计数器值则为空（Undefined）。此内存区域是唯一一个在 Java 虚拟机程序规范中没有规定任何 OutOfMemoryError 情况的区域。</li>
-</ul>
-<h2 id="方法区Method-Area"><a href="#方法区Method-Area" class="headerlink" title="方法区Method Area"></a>方法区<code>Method Area</code></h2><ul>
-<li>跟堆一样，被所有的线程共享。</li>
-<li>是一个内存逻辑区域，用于存储已被虚<br>拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</li>
-</ul>
-<h4 id="运行时常量池Runtime-Constant-Pool"><a href="#运行时常量池Runtime-Constant-Pool" class="headerlink" title="运行时常量池Runtime Constant Pool"></a>运行时常量池<code>Runtime Constant Pool</code></h4><ul>
-<li>方法区的一部分。</li>
-<li>Class文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项信息是常量池，用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。</li>
-</ul>
-<h1 id="直接内存Direct-Memory"><a href="#直接内存Direct-Memory" class="headerlink" title="直接内存Direct Memory"></a>直接内存<code>Direct Memory</code></h1><p>直接内存不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域。<br>但是这部分内存也被频繁地使用，而且也可能导致OutOfMemoryError异常出现。</p>
-<p>在JDK 1.4中新加入了NIO（New Input/Output）类，引入了一种基于通道（Channel）与缓<br>冲区（Buffer）的I/O方式，它可以使用Native函数库直接分配堆外内存，然后通过一个存储<br>在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。这样能在一些场景中显著<br>提高性能，因为避免了在Java堆和Native堆中来回复制数据。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;在&lt;code&gt;JVM&lt;/code&gt;中，内存主要被分为5类&lt;/strong&gt;&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-8a05e9cb9a61a962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;JVM内存结构.jpg&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
-    
-    
-      <category term="JVM" scheme="https://peijie-sh.github.io/tags/JVM/"/>
     
   </entry>
   

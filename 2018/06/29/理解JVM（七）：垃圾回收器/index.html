@@ -99,7 +99,7 @@
 <meta property="og:description" content="一些概念并行（Parallel）指多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。
 并发（Concurrent）指用户线程与垃圾收集线程同时执行（但不一定是并行的，可能会交替执行），用户程序在继续运行，而垃圾收集程序运行于另一个CPU上。
 吞吐量CPU用于运行用户代码的时间与CPU总消耗时间的比值，即吞吐量=运行用户代码时间/（运行用户代码时间+垃圾收集时间）。虚拟机总共运行了100分钟">
-<meta property="og:updated_time" content="2018-09-10T02:55:15.634Z">
+<meta property="og:updated_time" content="2018-09-10T14:05:20.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解JVM（七）：垃圾回收器">
 <meta name="twitter:description" content="一些概念并行（Parallel）指多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。
@@ -476,17 +476,28 @@
 <li>既适合新生代，也适合老年代。</li>
 <li>空间整合：使用 标记-整理 算法，不产生碎片空间。</li>
 <li>整个Java堆被分为多个大小相同的的块（region）。新生代和老年代不再是物理隔离的，而是一部分region块组成的集合。</li>
+<li>默认把堆平均分成2048个region，最小1M，最大32M，必须是2的幂次方，可以通过<code>-XX:G1HeapRegionSize</code>参数指定。region分为4种：<ul>
+<li>E：eden区，新生代</li>
+<li>S：survivor区，新生代</li>
+<li>O：old区，老年代</li>
+<li>H：humongous区，用来放大对象。当新建对象大小超过region大小一半时，直接在新的一个或多个连续region中分配，并标记为H</li>
+</ul>
+</li>
 <li>可预测的停顿时间：估算每个region内的垃圾可回收的空间以及回收需要的时间（经验值），记录在一个优先列表中。收集时，优先回收价值最大的region，而不是在整个堆进行全区域回收。这样提高了回收效率，得名：Garbage-First。</li>
-<li><p>回收步骤：</p>
-<ul>
-<li>初始标记（Initial Marking）：只是标记一下GC Roots能直接关联到的对象，并且修改TAMS（Next Top at Mark Start）的值，让下一阶段用户程序并发运行时，能在正确可用的Region中创建新对象，这阶段需要停顿线程，但耗时很短。</li>
-<li>并发标记（Concurrent Marking）：进行可达性分析，找出存活对象，耗时长，但可与用户线程并发。</li>
-<li>最终标记（Final Marking）：修正并发标记阶段用户线程运行导致的变动记录。会<code>Stop The World</code>，但可以并行执行，时间不会很长。</li>
+<li>G1中有2种GC：<ul>
+<li>young GC：新生代eden区没有足够可用空间时触发。存活的对象移到survivor区或晋升old区。</li>
+<li>mixed GC：当old区对象很多时，老年代对象空间占堆总空间的比值达到阈值（<code>-XX:InitiatingHeapOccupancyPercent</code>默认45%）会触发，它除了回收年轻代，也回收 部分 老年代（回收价值高的部分region）。</li>
+</ul>
+</li>
+<li>mixed GC回收步骤：<ul>
+<li>初始标记（Initial Marking）：只是标记一下GC Roots能直接关联到的对象，并且修改TAMS（Next Top at Mark Start）的值，让下一阶段用户程序并发运行时，能在正确可用的Region中创建新对象。这阶段需要停顿线程（STW），但耗时很短，共用YGC的停顿，所以一般伴随着YGC发生。</li>
+<li>并发标记（Concurrent Marking）：进行可达性分析，找出存活对象，耗时长，但可与用户线程并发执行。</li>
+<li>最终标记（Final Marking）：修正并发标记阶段用户线程运行导致的变动记录。会STW，但可以并行执行，时间不会很长。</li>
 <li>筛选回收（Live Data Counting and Evacuation）：根据每个region的回收价值和回收成本排序，根据用户配置的GC停顿时间开始回收。</li>
 </ul>
 </li>
-<li><p>当内存很少的时候（存活对象占用大量空间），没有足够空间来复制对象，会导致回收失败。这时会保留被移动过的对象和没移动的对象，只调整引用。失败发生后，收集器认为存活对象被移动了，有足够空间让应用程序使用，于是用户线程继续工作，等待下一次触发GC。如果内存不够，就会触发Full GC。</p>
-</li>
+<li>当对象分配过快，mixed GC来不及回收，G1会退化，触发Full GC，它使用单线程的Serial收集器来回收，整个过程STW，要尽量避免这种情况。</li>
+<li>当内存很少的时候（存活对象占用大量空间），没有足够空间来复制对象，会导致回收失败。这时会保留被移动过的对象和没移动的对象，只调整引用。失败发生后，收集器认为存活对象被移动了，有足够空间让应用程序使用，于是用户线程继续工作，等待下一次触发GC。如果内存不够，就会触发Full GC。</li>
 </ul>
 <p><a href="https://docs.oracle.com/javase/10/gctuning/garbage-first-garbage-collector.htm#JSGCT-GUID-1CDEB6B6-9463-4998-815D-05E095BFBD0F" target="_blank" rel="external">参考G1的详细介绍</a></p>
 
@@ -655,7 +666,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -677,7 +688,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
