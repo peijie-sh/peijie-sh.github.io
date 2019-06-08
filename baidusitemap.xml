@@ -4,6 +4,200 @@
 
     
   <url>
+    <loc>https://peijie-sh.github.io/2018/10/09/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%20---%20%E8%81%9A%E5%90%88%E5%92%8C%E7%BB%A7%E6%89%BF/</loc>
+    <lastmod>2019-06-08T06:46:16.991Z</lastmod>
+    <data>
+        <display>
+        <title>Maven学习笔记（4） --- 聚合和继承</title>
+        <pubTime>2018-10-09T03:18:27.000Z</pubTime>
+        
+        <tag>Maven</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="https://peijie-sh.github.io/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://peijie-sh.github.io/2018/06/26/%E7%90%86%E8%A7%A3JVM%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9AJava%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</loc>
+    <lastmod>2019-06-08T06:31:32.528Z</lastmod>
+    <data>
+        <display>
+        <title>理解JVM（五）：Java内存模型与线程</title>
+        <pubTime>2018-06-26T07:21:57.000Z</pubTime>
+        
+        <tag>JVM</tag>
+         
+        <tag>JMM</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="https://peijie-sh.github.io/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://peijie-sh.github.io/2016/10/19/%E4%BD%BF%E7%94%A8JPress%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2018-09-12T12:08:46.805Z</lastmod>
+    <data>
+        <display>
+        <title>使用JPress快速搭建系统</title>
+        <pubTime>2016-10-19T07:32:35.000Z</pubTime>
+        
+        <tag>JPress</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常记录" url="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://peijie-sh.github.io/2016/10/16/%E4%BD%BF%E7%94%A8VMWare%20WorkStation%E5%AE%89%E8%A3%85Linux%20Mint/</loc>
+    <lastmod>2018-09-12T12:08:23.348Z</lastmod>
+    <data>
+        <display>
+        <title>使用VMWare WorkStation安装Linux Mint</title>
+        <pubTime>2016-10-16T05:32:35.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>VMWare WorkStation</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常记录" url="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://peijie-sh.github.io/2016/11/22/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2018-09-12T12:07:28.844Z</lastmod>
+    <data>
+        <display>
+        <title>Docker安装与基础命令</title>
+        <pubTime>2016-11-22T07:28:37.000Z</pubTime>
+        
+        <tag>Docker</tag>
+         
+        <tag>Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常记录" url="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://peijie-sh.github.io/2016/11/03/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/</loc>
+    <lastmod>2018-09-12T12:06:39.550Z</lastmod>
+    <data>
+        <display>
+        <title>OkHttp的基本使用——替代Apache HttpClient</title>
+        <pubTime>2016-11-03T04:27:34.000Z</pubTime>
+        
+        <tag>OkHttp</tag>
+         
+        <tag>Http</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常记录" url="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://peijie-sh.github.io/2017/02/14/Spring%20Task%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2018-09-12T12:05:35.504Z</lastmod>
+    <data>
+        <display>
+        <title>Spring Task定时任务的配置和使用</title>
+        <pubTime>2017-02-14T03:33:12.000Z</pubTime>
+        
+        <tag>Spring</tag>
+         
+        <tag>SpringBoot</tag>
+         
+         
+           
+             
+              <breadCrumb title="Spring" url="https://peijie-sh.github.io/categories/Spring/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://peijie-sh.github.io/2017/03/21/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85redis-3.2.8%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4/</loc>
+    <lastmod>2018-09-12T12:04:16.846Z</lastmod>
+    <data>
+        <display>
+        <title>手动安装redis-3.2.8的详细步骤</title>
+        <pubTime>2017-03-21T02:40:27.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>Redis</tag>
+         
+         
+           
+             
+              <breadCrumb title="NoSQL" url="https://peijie-sh.github.io/categories/NoSQL/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://peijie-sh.github.io/2017/04/17/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/</loc>
+    <lastmod>2018-09-12T12:03:39.863Z</lastmod>
+    <data>
+        <display>
+        <title>Java8学习笔记之行为参数化</title>
+        <pubTime>2017-04-17T05:10:12.000Z</pubTime>
+        
+        <tag>Lambda表达式</tag>
+         
+        <tag>java8</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="https://peijie-sh.github.io/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://peijie-sh.github.io/2017/12/05/Java%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8/</loc>
     <lastmod>2018-09-12T11:59:13.220Z</lastmod>
     <data>
@@ -46,70 +240,6 @@
 
     
   <url>
-    <loc>https://peijie-sh.github.io/2017/03/30/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85redis-3.2.8%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4/</loc>
-    <lastmod>2018-09-10T08:14:18.242Z</lastmod>
-    <data>
-        <display>
-        <title>手动安装redis-3.2.8的详细步骤</title>
-        <pubTime>2017-03-30T02:40:27.000Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-        <tag>Redis</tag>
-         
-         
-           
-             
-              <breadCrumb title="NoSQL" url="https://peijie-sh.github.io/categories/NoSQL/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://peijie-sh.github.io/2016/10/17/%E4%BD%BF%E7%94%A8VMWare%20WorkStation%E5%AE%89%E8%A3%85Linux%20Mint/</loc>
-    <lastmod>2018-09-10T08:13:12.731Z</lastmod>
-    <data>
-        <display>
-        <title>使用VMWare WorkStation安装Linux Mint</title>
-        <pubTime>2016-10-17T05:32:35.000Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-        <tag>VMWare WorkStation</tag>
-         
-         
-           
-             
-              <breadCrumb title="日常记录" url="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://peijie-sh.github.io/2016/10/17/%E4%BD%BF%E7%94%A8JPress%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2018-09-10T08:13:05.995Z</lastmod>
-    <data>
-        <display>
-        <title>使用JPress快速搭建系统</title>
-        <pubTime>2016-10-17T07:32:35.000Z</pubTime>
-        
-        <tag>JPress</tag>
-         
-         
-           
-             
-              <breadCrumb title="日常记录" url="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://peijie-sh.github.io/2016/10/27/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2018-09-10T08:13:01.354Z</lastmod>
     <data>
@@ -144,50 +274,6 @@
         <tag>Maven</tag>
          
         <tag>Eclipse</tag>
-         
-         
-           
-             
-              <breadCrumb title="日常记录" url="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://peijie-sh.github.io/2016/10/26/OkHttp%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E2%80%94%E2%80%94%E6%9B%BF%E4%BB%A3Apache%20HttpClient/</loc>
-    <lastmod>2018-09-10T08:12:35.163Z</lastmod>
-    <data>
-        <display>
-        <title>OkHttp的基本使用——替代Apache HttpClient</title>
-        <pubTime>2016-10-26T04:27:34.000Z</pubTime>
-        
-        <tag>Http</tag>
-         
-        <tag>OkHttp</tag>
-         
-         
-           
-             
-              <breadCrumb title="日常记录" url="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://peijie-sh.github.io/2016/10/25/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2018-09-10T08:12:09.288Z</lastmod>
-    <data>
-        <display>
-        <title>Docker安装与基础命令</title>
-        <pubTime>2016-10-25T07:28:37.000Z</pubTime>
-        
-        <tag>Docker</tag>
-         
-        <tag>Linux</tag>
          
          
            
@@ -354,28 +440,6 @@
         <tag>JVM</tag>
          
         <tag>锁</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="https://peijie-sh.github.io/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://peijie-sh.github.io/2018/06/26/%E7%90%86%E8%A7%A3JVM%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9AJava%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2018-08-20T12:21:16.296Z</lastmod>
-    <data>
-        <display>
-        <title>理解JVM（五）：Java内存模型与线程</title>
-        <pubTime>2018-06-26T07:21:57.000Z</pubTime>
-        
-        <tag>JVM</tag>
-         
-        <tag>JMM</tag>
          
          
            
@@ -645,33 +709,11 @@
         <title>SpringBoot中使用Redis实现缓存</title>
         <pubTime>2017-03-30T09:11:13.000Z</pubTime>
         
-        <tag>Redis</tag>
-         
         <tag>SpringBoot</tag>
          
         <tag>Cache</tag>
          
-         
-           
-             
-              <breadCrumb title="Spring" url="https://peijie-sh.github.io/categories/Spring/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://peijie-sh.github.io/2017/02/15/Spring%20Task%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2018-04-14T12:45:39.727Z</lastmod>
-    <data>
-        <display>
-        <title>Spring Task定时任务的配置和使用</title>
-        <pubTime>2017-02-15T03:33:12.000Z</pubTime>
-        
-        <tag>Spring</tag>
-         
-        <tag>SpringBoot</tag>
+        <tag>Redis</tag>
          
          
            
@@ -724,28 +766,6 @@
 
     
   <url>
-    <loc>https://peijie-sh.github.io/2017/04/19/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/</loc>
-    <lastmod>2017-06-24T12:19:27.316Z</lastmod>
-    <data>
-        <display>
-        <title>Java8学习笔记之行为参数化</title>
-        <pubTime>2017-04-19T05:10:12.000Z</pubTime>
-        
-        <tag>Lambda表达式</tag>
-         
-        <tag>java8</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="https://peijie-sh.github.io/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://peijie-sh.github.io/2017/05/08/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%96%B0%E6%97%A5%E6%9C%9FAPI/</loc>
     <lastmod>2017-06-24T12:19:27.316Z</lastmod>
     <data>
@@ -768,16 +788,16 @@
 
     
   <url>
-    <loc>https://peijie-sh.github.io/2017/04/19/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <loc>https://peijie-sh.github.io/2017/04/26/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BStream%20API/</loc>
     <lastmod>2017-06-24T12:19:27.315Z</lastmod>
     <data>
         <display>
-        <title>Java8学习笔记之Lambda表达式</title>
-        <pubTime>2017-04-19T08:40:34.000Z</pubTime>
+        <title>Java8学习笔记之Stream API</title>
+        <pubTime>2017-04-26T03:28:37.000Z</pubTime>
         
-        <tag>Lambda表达式</tag>
-         
         <tag>java8</tag>
+         
+        <tag>Stream API</tag>
          
          
            
@@ -790,16 +810,16 @@
 
     
   <url>
-    <loc>https://peijie-sh.github.io/2017/04/26/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BStream%20API/</loc>
+    <loc>https://peijie-sh.github.io/2017/04/19/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
     <lastmod>2017-06-24T12:19:27.315Z</lastmod>
     <data>
         <display>
-        <title>Java8学习笔记之Stream API</title>
-        <pubTime>2017-04-26T03:28:37.000Z</pubTime>
+        <title>Java8学习笔记之Lambda表达式</title>
+        <pubTime>2017-04-19T08:40:34.000Z</pubTime>
         
-        <tag>java8</tag>
+        <tag>Lambda表达式</tag>
          
-        <tag>Stream API</tag>
+        <tag>java8</tag>
          
          
            

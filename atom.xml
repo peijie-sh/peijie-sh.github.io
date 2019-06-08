@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://peijie-sh.github.io/"/>
-  <updated>2018-09-10T08:10:48.866Z</updated>
+  <updated>2019-06-08T06:46:16.991Z</updated>
   <id>https://peijie-sh.github.io/</id>
   
   <author>
@@ -14,6 +14,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Maven学习笔记（4） --- 聚合和继承</title>
+    <link href="https://peijie-sh.github.io/2018/10/09/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89%20---%20%E8%81%9A%E5%90%88%E5%92%8C%E7%BB%A7%E6%89%BF/"/>
+    <id>https://peijie-sh.github.io/2018/10/09/Maven学习笔记（4） --- 聚合和继承/</id>
+    <published>2018-10-09T03:18:27.000Z</published>
+    <updated>2019-06-08T06:46:16.991Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近重新读了一下《Maven实战》，记录一下一直被我忽略的<code>聚合</code>和<code>继承</code>的关系。</p>
+<h1 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h1><p>首先，一个模块有一个pom（Project object Model）文件。当一个项目比较大的时候，按一定规则划分成不同的模块是一个比较好的方式。这时候管理一个项目，如果每个模块座位一个项目，那么打包编译的时候需要到每一个模块下去执行mvn命令，太麻烦了。于是，有个继承模块。</p>
+<p>继承模块是一个空模块，只有pom文件，没有src、resource之类的目录结构。在pom文件中，用<code>&lt;modules&gt;</code>和<code>&lt;module&gt;</code>标签指定要管理的子模块。另外，<code>&lt;packaging&gt;</code>标签必须指定为pom。</p>
+<ul>
+<li>e.g：<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">modules</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>account-model<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>account-service<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>account-task<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以上情况适用于聚合模块处于目录顶层，子模块是聚合模块的子目录的情况。如果子模块和聚合模块是平行的目录关系，那么应该根据实际路径来写。</p>
+<a id="more"></a>
+<ul>
+<li>e.g：<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">modules</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>../account-model<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>../account-service<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>../account-task<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这样，一个聚合模块就做好了，打包编译只需要在聚合模块下执行命令即可。</p>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><p>当多个子模块需要的依赖相同和重复时，就推荐使用继承来消除重复了。声明一个可被继承的父模块，也是要把<code>&lt;packaging&gt;</code>标签指定为pom。子模块中指定父模块的坐标</p>
+<ul>
+<li>e.g：<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>account-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>父模块中可以声明<code>&lt;dependencyManagement&gt;</code>，这个标签不会真的引入依赖，只是定义公用的坐标，子模块继承后仍然需要指定<code>&lt;groupId&gt;</code>和<code>&lt;artifactId&gt;</code>，可省略<code>&lt;version&gt;</code>标签。这么做看起来没节省多少工作，但是能有效管理依赖，避免项目出现不同版本的依赖问题。</p>
+<p>如果父模块和子模块是平行目录，那么子模块中需要指定父模块的地址。</p>
+<ul>
+<li>e.g：<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>account-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>../account-parent/pom.xml<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Maven默认是从上级目录解析父模块，所以如果子模块在父模块的下级目录，可省略<code>&lt;relativePath&gt;</code>。</p>
+<p><strong>一般推荐顶层目录中声明模块，它即是聚合模块，也是可被继承的父模块</strong></p>
+<h1 id="import依赖范围"><a href="#import依赖范围" class="headerlink" title="import依赖范围"></a>import依赖范围</h1><p>一直不知道import依赖范围的作用，这里记录一下。</p>
+<p>这个依赖范围，只在<code>&lt;dependencyManagement&gt;</code>元素下才有效。<br>它的作用是指向一个pom，将目标pom中的<code>&lt;dependencyManagement&gt;</code>配置导入并且合并到当前pom的<code>&lt;dependencyManagement&gt;</code>中。<br>也就是说，一个新模块的<code>&lt;dependencyManagement&gt;</code>中，有一堆配置在其他某个pom中的<code>&lt;dependencyManagement&gt;</code>里配置过了，此处就不必再复制粘贴一遍，可以直接使用import引入进来。</p>
+<ul>
+<li>e.g：有一个现成的a-parent模块配置了<code>&lt;dependencyManagement&gt;</code>，在b-parent模块中就不必拷贝大段配置了<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>a-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span>        </div><div class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近重新读了一下《Maven实战》，记录一下一直被我忽略的&lt;code&gt;聚合&lt;/code&gt;和&lt;code&gt;继承&lt;/code&gt;的关系。&lt;/p&gt;
+&lt;h1 id=&quot;聚合&quot;&gt;&lt;a href=&quot;#聚合&quot; class=&quot;headerlink&quot; title=&quot;聚合&quot;&gt;&lt;/a&gt;聚合&lt;/h1&gt;&lt;p&gt;首先，一个模块有一个pom（Project object Model）文件。当一个项目比较大的时候，按一定规则划分成不同的模块是一个比较好的方式。这时候管理一个项目，如果每个模块座位一个项目，那么打包编译的时候需要到每一个模块下去执行mvn命令，太麻烦了。于是，有个继承模块。&lt;/p&gt;
+&lt;p&gt;继承模块是一个空模块，只有pom文件，没有src、resource之类的目录结构。在pom文件中，用&lt;code&gt;&amp;lt;modules&amp;gt;&lt;/code&gt;和&lt;code&gt;&amp;lt;module&amp;gt;&lt;/code&gt;标签指定要管理的子模块。另外，&lt;code&gt;&amp;lt;packaging&amp;gt;&lt;/code&gt;标签必须指定为pom。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;e.g：&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;packaging&lt;/span&gt;&amp;gt;&lt;/span&gt;pom&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;packaging&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;modules&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;account-model&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;account-service&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;account-task&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;modules&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上情况适用于聚合模块处于目录顶层，子模块是聚合模块的子目录的情况。如果子模块和聚合模块是平行的目录关系，那么应该根据实际路径来写。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
+    
+    
+      <category term="Maven" scheme="https://peijie-sh.github.io/tags/Maven/"/>
+    
+  </entry>
   
   <entry>
     <title>JDK默认使用的垃圾回收器</title>
@@ -237,14 +299,14 @@
     <link href="https://peijie-sh.github.io/2018/06/26/%E7%90%86%E8%A7%A3JVM%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9AJava%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/"/>
     <id>https://peijie-sh.github.io/2018/06/26/理解JVM（五）：Java内存模型与线程/</id>
     <published>2018-06-26T07:21:57.000Z</published>
-    <updated>2018-08-20T12:21:16.296Z</updated>
+    <updated>2019-06-08T06:31:32.528Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h1><p>JMM(Java Memory Model)是JVM定义的内存模型，用来屏蔽各种硬件和操作系统的内存访问差异。</p>
 <ul>
 <li>主内存：所有的变量都存储在主内存（Main Memory，类比物理内存）中。</li>
 <li>工作内存：每条线程有自己的工作内存（Working Memory，类比处理器高速缓存），线程的工作内存中保存了被该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作（读取、赋值等）都必须在工作内存中进行，而不能直接读写主内存中的变量。不同的线程之间也无法直接访问对方工作内存中的变量，线程间变量值的传递均需要通过主内存来完成。</li>
 </ul>
-<p><img src="https://user-gold-cdn.xitu.io/2018/6/26/1643b32111adede2?w=1028&amp;h=411&amp;f=png&amp;s=131712" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4059338-88a94bfaf810e38c" alt=""></p>
 <a id="more"></a>
 <h2 id="内存间的交互操作"><a href="#内存间的交互操作" class="headerlink" title="内存间的交互操作"></a>内存间的交互操作</h2><ul>
 <li>lock（锁定）：作用于主内存的变量，它把一个变量标识为一条线程独占的状态。</li>
@@ -311,7 +373,7 @@
 </li>
 <li>结束(Terminated)：已终止</li>
 </ul>
-<p><img src="https://user-gold-cdn.xitu.io/2018/6/26/1643b31ce9d19418?w=862&amp;h=594&amp;f=png&amp;s=157536" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4059338-f295b711eb195acb" alt=""></p>
 ]]></content>
     
     <summary type="html">
@@ -321,7 +383,7 @@
 &lt;li&gt;主内存：所有的变量都存储在主内存（Main Memory，类比物理内存）中。&lt;/li&gt;
 &lt;li&gt;工作内存：每条线程有自己的工作内存（Working Memory，类比处理器高速缓存），线程的工作内存中保存了被该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作（读取、赋值等）都必须在工作内存中进行，而不能直接读写主内存中的变量。不同的线程之间也无法直接访问对方工作内存中的变量，线程间变量值的传递均需要通过主内存来完成。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2018/6/26/1643b32111adede2?w=1028&amp;amp;h=411&amp;amp;f=png&amp;amp;s=131712&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-88a94bfaf810e38c&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1176,10 +1238,10 @@
   
   <entry>
     <title>Java8学习笔记之行为参数化</title>
-    <link href="https://peijie-sh.github.io/2017/04/19/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/"/>
-    <id>https://peijie-sh.github.io/2017/04/19/Java8学习笔记之行为参数化/</id>
-    <published>2017-04-19T05:10:12.000Z</published>
-    <updated>2017-06-24T12:19:27.316Z</updated>
+    <link href="https://peijie-sh.github.io/2017/04/17/Java8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/"/>
+    <id>https://peijie-sh.github.io/2017/04/17/Java8学习笔记之行为参数化/</id>
+    <published>2017-04-17T05:10:12.000Z</published>
+    <updated>2018-09-12T12:03:39.863Z</updated>
     
     <content type="html"><![CDATA[<p>用一个例子说明<code>行为参数化</code>带来的变化 - 从苹果仓库中筛选苹果</p>
 <h1 id="版本1"><a href="#版本1" class="headerlink" title="版本1"></a>版本1</h1><p>从一个苹果集合中选出绿的苹果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Apple&gt; <span class="title">filterGreenApples</span><span class="params">(List&lt;Apple&gt; inventory)</span> </span>&#123;</div><div class="line">        List&lt;Apple&gt; result = <span class="keyword">new</span> ArrayList&lt;Apple&gt;();</div><div class="line">        <span class="keyword">for</span> (Apple apple : inventory) &#123;</div><div class="line">            <span class="keyword">if</span> (<span class="string">"green"</span>.equals(apple.getColor()) &#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
@@ -1308,20 +1370,20 @@
       <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
     
     
-      <category term="Redis" scheme="https://peijie-sh.github.io/tags/Redis/"/>
-    
       <category term="SpringBoot" scheme="https://peijie-sh.github.io/tags/SpringBoot/"/>
     
       <category term="Cache" scheme="https://peijie-sh.github.io/tags/Cache/"/>
+    
+      <category term="Redis" scheme="https://peijie-sh.github.io/tags/Redis/"/>
     
   </entry>
   
   <entry>
     <title>手动安装redis-3.2.8的详细步骤</title>
-    <link href="https://peijie-sh.github.io/2017/03/30/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85redis-3.2.8%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4/"/>
-    <id>https://peijie-sh.github.io/2017/03/30/手动安装redis-3.2.8的详细步骤/</id>
-    <published>2017-03-30T02:40:27.000Z</published>
-    <updated>2018-09-10T08:14:18.242Z</updated>
+    <link href="https://peijie-sh.github.io/2017/03/21/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85redis-3.2.8%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4/"/>
+    <id>https://peijie-sh.github.io/2017/03/21/手动安装redis-3.2.8的详细步骤/</id>
+    <published>2017-03-21T02:40:27.000Z</published>
+    <updated>2018-09-12T12:04:16.846Z</updated>
     
     <content type="html"><![CDATA[<p>CentOS6.7使用yum安装有时候没有比较新的版本，所以手动安装，下面记录一下步骤。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/4059338-13f399d148cd1ad3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis"></p>
@@ -1377,71 +1439,6 @@
       <category term="Linux" scheme="https://peijie-sh.github.io/tags/Linux/"/>
     
       <category term="Redis" scheme="https://peijie-sh.github.io/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>谈谈Java中的代理</title>
-    <link href="https://peijie-sh.github.io/2017/02/17/%E8%B0%88%E8%B0%88Java%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%90%86/"/>
-    <id>https://peijie-sh.github.io/2017/02/17/谈谈Java中的代理/</id>
-    <published>2017-02-17T07:36:35.000Z</published>
-    <updated>2017-03-04T12:49:08.011Z</updated>
-    
-    <content type="html"><![CDATA[<p>代理是Java常用的设计模式，代理类通过调用被代理类的相关方法，实现对相关方法增强。比如加入事务、日志、报警发邮件等操作。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4059338-83f70e36399f4ad0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="java.png"><br><a id="more"></a></p>
-<h1 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h1><p>静态代理，就是由程序员手动编写代理类或者用工具生成代理类的代码，再进行编译生成class文件，实现代理。比如简单工厂模式。</p>
-<p>用法：</p>
-<ul>
-<li>代理类和目标类都实现相同接口。</li>
-<li>代理类持有目标类的引用。</li>
-</ul>
-<p>缺点：<br>静态代理要为每个目标类创建一个代理类，当需要代理的对象太多，那么代理类也变得很多。代理类违背了可重复代理只写一次的原则。</p>
-<h1 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h1><p>为了解决静态代理的缺点，于是引入了动态代理。<br>它有一个好处，那就是不用写很多代理类，生成的代理类数量是固定的。<br>一般动态代理分为2种：</p>
-<h2 id="JDK动态代理"><a href="#JDK动态代理" class="headerlink" title="JDK动态代理"></a>JDK动态代理</h2><p>JDK动态代理是JDK自带的，不依赖第三方框架。<br>它的实现原理，就是利用Java的反射机制，创建一个实现接口的代理类。</p>
-<p>用法：</p>
-<ul>
-<li>被代理对象必须实现接口。</li>
-<li>代理对象由代理工厂自动生成。</li>
-</ul>
-<p>下面贴个例子</p>
-<p>接口类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Subject</span> </span>&#123;   </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>;   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>实现类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealSubject</span> <span class="keyword">implements</span> <span class="title">Subject</span> </span>&#123;   </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;   </div><div class="line">    System.out.println(<span class="string">"do 了 some thing ..."</span>);   </div><div class="line">  &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>代理工厂：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;  </div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;  </div><div class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;  </div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Object target;</div><div class="line"></div><div class="line">    <span class="comment">//绑定委托对象，并返回代理类</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">bind</span><span class="params">(Object target)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.target = target;</div><div class="line">        <span class="comment">//绑定该类实现的所有接口，取得代理类 </span></div><div class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(target.getClass().getClassLoader(),</div><div class="line">                target.getClass().getInterfaces(), <span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">	<span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy , Method method , Object[] args)</span><span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">        Object result = <span class="keyword">null</span>;</div><div class="line">        <span class="comment">//这里就可以进行所谓的AOP编程了</span></div><div class="line">        <span class="comment">//在调用具体函数方法前，执行功能处理</span></div><div class="line">        result = method.invoke(target, args);</div><div class="line">        <span class="comment">//在调用具体函数方法后，执行功能处理</span></div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>测试类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestProxy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</div><div class="line">           ProxyHandler proxy = <span class="keyword">new</span> ProxyHandler();</div><div class="line">           <span class="comment">//绑定该类实现的所有接口</span></div><div class="line">           Subject sub = (Subject) proxy.bind(<span class="keyword">new</span> RealSubject());</div><div class="line">           sub.doSomething();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="CGLIB代理"><a href="#CGLIB代理" class="headerlink" title="CGLIB代理"></a>CGLIB代理</h2><p>使用CGLIB代理需要引入CGLIB库，它使用字节码技术实现代理。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> net.sf.cglib.proxy.Enhancer;</div><div class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodInterceptor;</div><div class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodProxy;</div><div class="line">      </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CGLibProxy</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;    </div><div class="line">    </div><div class="line">    <span class="keyword">private</span> Object targetObject;<span class="comment">// CGLib需要代理的目标对象    </span></div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">createProxyObject</span><span class="params">(Object obj)</span> </span>&#123;    </div><div class="line">        <span class="keyword">this</span>.targetObject = obj;    </div><div class="line">        Enhancer enhancer = <span class="keyword">new</span> Enhancer();    </div><div class="line">        enhancer.setSuperclass(obj.getClass());    </div><div class="line">        enhancer.setCallback(<span class="keyword">this</span>);    </div><div class="line">        Object proxyObj = enhancer.create();    </div><div class="line">        <span class="keyword">return</span> proxyObj;<span class="comment">// 返回代理对象    </span></div><div class="line">    &#125;    </div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object proxy, Method method, Object[] args,    </span></span></div><div class="line">            MethodProxy methodProxy) <span class="keyword">throws</span> Throwable &#123;    </div><div class="line">        Object obj = <span class="keyword">null</span>;    </div><div class="line">        <span class="keyword">if</span> (<span class="string">"addUser"</span>.equals(method.getName())) &#123;<span class="comment">// 过滤方法    </span></div><div class="line">            checkPopedom();<span class="comment">// 检查权限    </span></div><div class="line">        &#125;    </div><div class="line">        obj = method.invoke(targetObject, args);    </div><div class="line">        <span class="keyword">return</span> obj;    </div><div class="line">    &#125;    </div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkPopedom</span><span class="params">()</span> </span>&#123;    </div><div class="line">        System.out.println(<span class="string">"检查权限  checkPopedom()!"</span>);    </div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    </div><div class="line">		Subject sub = (Subject) <span class="keyword">new</span> CGLibProxy().createProxyObject(<span class="keyword">new</span> RealSubject());</div><div class="line">		sub.doSomething();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="2种动态代理的区别"><a href="#2种动态代理的区别" class="headerlink" title="2种动态代理的区别"></a>2种动态代理的区别</h2><p>JDK动态代理是利用反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。<br>而CGLIB动态代理是利用asm开源包，加载代理对象类的class文件，修改其字节码生成子类来处理。</p>
-<p>在 Spring 中，</p>
-<ul>
-<li>如果目标对象实现了接口，默认情况下会采用JDK动态代理实现AOP </li>
-<li>如果目标对象实现了接口，可以强制使用CGLIB实现AOP </li>
-<li>如果目标对象没有实现了接口，必须采用CGLIB库，Spring会自动在JDK动态代理和CGLIB之间转换</li>
-</ul>
-<p>如何强制使用CGLIB实现AOP？</p>
-<ul>
-<li>添加CGLIB依赖</li>
-<li>在Spring配置文件中加入<code>&lt;aop:aspectj-autoproxy proxy-target-class=&quot;true&quot;/&gt;</code></li>
-<li>如果是SpringBoot，在配置文件设置<code>spring.aop.proxy-target-class=true</code></li>
-</ul>
-<p>JDK动态代理和CGLIB字节码生成的区别？</p>
-<ul>
-<li>JDK动态代理只能对实现了接口的类生成代理，而不能针对未实现接口的类</li>
-<li>CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法</li>
-<li>因为是继承，所以该类或方法最好不要声明成final</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;代理是Java常用的设计模式，代理类通过调用被代理类的相关方法，实现对相关方法增强。比如加入事务、日志、报警发邮件等操作。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/4059338-83f70e36399f4ad0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;java.png&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="https://peijie-sh.github.io/categories/Java/"/>
-    
-    
-      <category term="动态代理" scheme="https://peijie-sh.github.io/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"/>
     
   </entry>
   

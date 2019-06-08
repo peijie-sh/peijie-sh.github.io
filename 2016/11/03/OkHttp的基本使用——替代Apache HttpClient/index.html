@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,VMWare WorkStation," />
+  <meta name="keywords" content="OkHttp,Http," />
 
 
 
@@ -89,26 +89,40 @@
 
 
 
-<meta name="description" content="Mint是Linux的一个衍生版，基于Ubuntu，是一款开源的桌面版Linux系统，适合新手学习Linux。同时，也带有集成了媒体播放的功能，对于不玩游戏的人来说也是OK的。下面我们来安装这个系统。如果想要直接装在物理机上，可以在官网下载好iso镜像文件后，刻录在u盘中，与普通windows系统安装一样。PS：官网地址  https://www.linuxmint.com/download.ph">
+<meta name="description" content="http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。
+OkHttp 是一个很棒HTTP客户端:
+
+支持SPDY, 可以合并多个到同一个主机的请求
+使用连接池技术减少请求的延迟(如果SPDY是可用的话)
+使用GZIP压缩减少传输的数据量
+缓存响应避免重复的网络请求
+
+OkHttp可以替换Apache的HttpClientOk">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用VMWare WorkStation安装Linux Mint">
-<meta property="og:url" content="https://peijie-sh.github.io/2016/10/17/使用VMWare WorkStation安装Linux Mint/index.html">
+<meta property="og:title" content="OkHttp的基本使用——替代Apache HttpClient">
+<meta property="og:url" content="https://peijie-sh.github.io/2016/11/03/OkHttp的基本使用——替代Apache HttpClient/index.html">
 <meta property="og:site_name" content="Lingpj's blog">
-<meta property="og:description" content="Mint是Linux的一个衍生版，基于Ubuntu，是一款开源的桌面版Linux系统，适合新手学习Linux。同时，也带有集成了媒体播放的功能，对于不玩游戏的人来说也是OK的。下面我们来安装这个系统。如果想要直接装在物理机上，可以在官网下载好iso镜像文件后，刻录在u盘中，与普通windows系统安装一样。PS：官网地址  https://www.linuxmint.com/download.ph">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-d092b1d644878be7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-e93dc752f3b2832e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-5e4467a3e99a4f96?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-f5813b44bba87666?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-74352339555972a3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-4cfc8573561b4bfd?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-9978bda43a6ddbd5?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-4d50e1a6820cc18a?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4059338-5200620009dc186f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-09-10T08:13:12.731Z">
+<meta property="og:description" content="http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。
+OkHttp 是一个很棒HTTP客户端:
+
+支持SPDY, 可以合并多个到同一个主机的请求
+使用连接池技术减少请求的延迟(如果SPDY是可用的话)
+使用GZIP压缩减少传输的数据量
+缓存响应避免重复的网络请求
+
+OkHttp可以替换Apache的HttpClientOk">
+<meta property="og:updated_time" content="2018-09-12T12:06:39.550Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用VMWare WorkStation安装Linux Mint">
-<meta name="twitter:description" content="Mint是Linux的一个衍生版，基于Ubuntu，是一款开源的桌面版Linux系统，适合新手学习Linux。同时，也带有集成了媒体播放的功能，对于不玩游戏的人来说也是OK的。下面我们来安装这个系统。如果想要直接装在物理机上，可以在官网下载好iso镜像文件后，刻录在u盘中，与普通windows系统安装一样。PS：官网地址  https://www.linuxmint.com/download.ph">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4059338-d092b1d644878be7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="OkHttp的基本使用——替代Apache HttpClient">
+<meta name="twitter:description" content="http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。
+OkHttp 是一个很棒HTTP客户端:
+
+支持SPDY, 可以合并多个到同一个主机的请求
+使用连接池技术减少请求的延迟(如果SPDY是可用的话)
+使用GZIP压缩减少传输的数据量
+缓存响应避免重复的网络请求
+
+OkHttp可以替换Apache的HttpClientOk">
 
 
 
@@ -136,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="https://peijie-sh.github.io/2016/10/17/使用VMWare WorkStation安装Linux Mint/"/>
+  <link rel="canonical" href="https://peijie-sh.github.io/2016/11/03/OkHttp的基本使用——替代Apache HttpClient/"/>
 
 
 
 
 
-  <title> 使用VMWare WorkStation安装Linux Mint | Lingpj's blog </title>
+  <title> OkHttp的基本使用——替代Apache HttpClient | Lingpj's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -324,7 +338,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2016/10/17/使用VMWare WorkStation安装Linux Mint/">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2016/11/03/OkHttp的基本使用——替代Apache HttpClient/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Joepis">
@@ -345,7 +359,7 @@
             
             
               
-                使用VMWare WorkStation安装Linux Mint
+                OkHttp的基本使用——替代Apache HttpClient
               
             
           </h2>
@@ -360,8 +374,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-17T13:32:35+08:00">
-                2016-10-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-03T12:27:34+08:00">
+                2016-11-03
               </time>
             
 
@@ -400,7 +414,7 @@
 
           
           
-             <span id="/2016/10/17/使用VMWare WorkStation安装Linux Mint/" class="leancloud_visitors" data-flag-title="使用VMWare WorkStation安装Linux Mint">
+             <span id="/2016/11/03/OkHttp的基本使用——替代Apache HttpClient/" class="leancloud_visitors" data-flag-title="OkHttp的基本使用——替代Apache HttpClient">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -429,34 +443,18 @@
       
 
       
-        <p>Mint是Linux的一个衍生版，基于Ubuntu，是一款开源的桌面版Linux系统，适合新手学习Linux。同时，也带有集成了媒体播放的功能，对于不玩游戏的人来说也是OK的。<br>下面我们来安装这个系统。<br>如果想要直接装在物理机上，可以在官网下载好iso镜像文件后，刻录在u盘中，与普通windows系统安装一样。<br>PS：官网地址  <a href="https://www.linuxmint.com/download.php" target="_blank" rel="external">https://www.linuxmint.com/download.php</a><br>我这边选择安装在VMWare12虚拟机上。</p>
-<a id="more"></a>
-<ol>
-<li><p>打开VMWare，选择新建虚拟机<br><img src="http://upload-images.jianshu.io/upload_images/4059338-d092b1d644878be7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>选择典型安装，这边选择下载好的iso文件，会提示不识别系统版本，没关系，下一步<br><img src="http://upload-images.jianshu.io/upload_images/4059338-e93dc752f3b2832e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>确认系统版本，如图<br><img src="http://upload-images.jianshu.io/upload_images/4059338-5e4467a3e99a4f96?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>然后给系统起个名字，选择安装的位置，然后下一步</p>
-</li>
-<li><p>分配容量，20G够了，就默认选项，下一步，完成</p>
-</li>
-<li><p>此时，虚拟机配置好了，接下来开始安装，先点左边的开启虚拟机<br><img src="http://upload-images.jianshu.io/upload_images/4059338-f5813b44bba87666?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>此时进入到安装桌面，点击桌面的install开始安装<br><img src="http://upload-images.jianshu.io/upload_images/4059338-74352339555972a3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>稍等一会，等他加载完成，先选择语言，这个随意，拉到底，可以选简体中文<br><img src="http://upload-images.jianshu.io/upload_images/4059338-4cfc8573561b4bfd?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>安装类型，由于我装虚拟机，所以不能清除磁盘，选其他，如果直接装物理机，则默认安装即可<br><img src="http://upload-images.jianshu.io/upload_images/4059338-9978bda43a6ddbd5?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>然后点击新建分区，选中空闲分区，点击小+号，添加交换空间，分配1G<br><img src="http://upload-images.jianshu.io/upload_images/4059338-4d50e1a6820cc18a?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>继续分配剩下的，作为主分区，格式一般选ext4（个人习惯，xfs，btrf也可以），挂载点选  /<br><img src="http://upload-images.jianshu.io/upload_images/4059338-5200620009dc186f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>点击现在安装，设置地点，键盘布局，就默认好了，键盘习惯用英语（美国），然后设置个人用户名，密码，之后就开始安装系统了。<br>安装过程会比较久，其中下载语言包这部可以skip，节约时间，其他就不用操作，等着就好了。<br>说LinuxMint是开箱即用的系统，不无道理，系统装完后，flash、Java就已预装，虽然只是两个小程序，但这样的设计为用户节省了宝贵的时间。<br>同时，Mint也自带了图片查看器，音乐播放器，视频播放器，办公软件，邮箱系统等等。</p>
-</li>
-</ol>
+        <p>http是现在主流应用使用的网络请求方式, 用来交换数据和内容, 有效的使用HTTP可以使你的APP 变的更快和减少流量的使用。</p>
+<p>OkHttp 是一个很棒HTTP客户端:</p>
+<ul>
+<li>支持SPDY, 可以合并多个到同一个主机的请求</li>
+<li>使用连接池技术减少请求的延迟(如果SPDY是可用的话)</li>
+<li>使用GZIP压缩减少传输的数据量</li>
+<li>缓存响应避免重复的网络请求</li>
+</ul>
+<p>OkHttp可以替换Apache的HttpClient<br>OkHttp支持2.3和以上版本，对于java，需要jdk1.7 ，OkHttp需要依赖Okio包</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面上demo</p>
+<h2 id="使用get方式请求，获取响应"><a href="#使用get方式请求，获取响应" class="headerlink" title="使用get方式请求，获取响应"></a>使用get方式请求，获取响应</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetExample</span> </span>&#123;</div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    GetExample example = <span class="keyword">new</span> GetExample();</div><div class="line">    String response = example.run(<span class="string">"https://raw.github.com/square/okhttp/master/README.md"</span>);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="使用post向服务器发送请求"><a href="#使用post向服务器发送请求" class="headerlink" title="使用post向服务器发送请求"></a>使用post向服务器发送请求</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> okhttp3.MediaType;</div><div class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</div><div class="line"><span class="keyword">import</span> okhttp3.Request;</div><div class="line"><span class="keyword">import</span> okhttp3.RequestBody;</div><div class="line"><span class="keyword">import</span> okhttp3.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostExample</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON</div><div class="line">      = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</div><div class="line"></div><div class="line">  OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">post</span><span class="params">(String url, String json)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    RequestBody body = RequestBody.create(JSON, json);</div><div class="line">    Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .post(body)</div><div class="line">        .build();</div><div class="line">    <span class="keyword">try</span> (Response response = client.newCall(request).execute()) &#123;</div><div class="line">      <span class="keyword">return</span> response.body().string();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function">String <span class="title">bowlingJson</span><span class="params">(String player1, String player2)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"&#123;'winCondition':'HIGH_SCORE',"</span></div><div class="line">        + <span class="string">"'name':'Bowling',"</span></div><div class="line">        + <span class="string">"'round':4,"</span></div><div class="line">        + <span class="string">"'lastSaved':1367702411696,"</span></div><div class="line">        + <span class="string">"'dateStarted':1367702378785,"</span></div><div class="line">        + <span class="string">"'players':["</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player1 + <span class="string">"','history':[10,8,6,7,8],'color':-13388315,'total':39&#125;,"</span></div><div class="line">        + <span class="string">"&#123;'name':'"</span> + player2 + <span class="string">"','history':[6,10,5,10,10],'color':-48060,'total':41&#125;"</span></div><div class="line">        + <span class="string">"]&#125;"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    PostExample example = <span class="keyword">new</span> PostExample();</div><div class="line">    String json = example.bowlingJson(<span class="string">"Jesse"</span>, <span class="string">"Jake"</span>);</div><div class="line">    String response = example.post(<span class="string">"http://www.roundsapp.com/post"</span>, json);</div><div class="line">    System.out.println(response);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -506,7 +504,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://peijie-sh.github.io/2016/10/17/使用VMWare WorkStation安装Linux Mint/" title="使用VMWare WorkStation安装Linux Mint">https://peijie-sh.github.io/2016/10/17/使用VMWare WorkStation安装Linux Mint/</a>
+      <a href="https://peijie-sh.github.io/2016/11/03/OkHttp的基本使用——替代Apache HttpClient/" title="OkHttp的基本使用——替代Apache HttpClient">https://peijie-sh.github.io/2016/11/03/OkHttp的基本使用——替代Apache HttpClient/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -522,9 +520,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/OkHttp/" rel="tag"># OkHttp</a>
           
-            <a href="/tags/VMWare-WorkStation/" rel="tag"># VMWare WorkStation</a>
+            <a href="/tags/Http/" rel="tag"># Http</a>
           
         </div>
       
@@ -537,8 +535,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/15/关于VBA Excel开发中连接MySQL数据库的问题/" rel="next" title="关于VBA Excel开发中连接MySQL数据库的问题">
-                <i class="fa fa-chevron-left"></i> 关于VBA Excel开发中连接MySQL数据库的问题
+              <a href="/2016/10/27/使用Hexo搭建个人博客/" rel="next" title="使用Hexo搭建个人博客">
+                <i class="fa fa-chevron-left"></i> 使用Hexo搭建个人博客
               </a>
             
           </div>
@@ -547,8 +545,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/10/17/Maven报错Please ensure you are using JDK 1.4 or above and not a JRE解决方法/" rel="prev" title="Maven报错Please ensure you are using JDK 1.4 or above and not a JRE解决方法">
-                Maven报错Please ensure you are using JDK 1.4 or above and not a JRE解决方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/11/08/HTTP协议学习笔记/" rel="prev" title="HTTP协议学习笔记">
+                HTTP协议学习笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -575,8 +573,6 @@
           
   <div class="comments" id="comments">
     
-      <div id="uyan_frame"></div>
-    
   </div>
 
 
@@ -598,8 +594,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -614,7 +619,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -662,15 +667,6 @@
                     <i class="fa fa-fw fa-github"></i>
                   
                   GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/u/3198519853" target="_blank" title="微博">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  微博
                 </a>
               </span>
             
@@ -733,6 +729,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用get方式请求，获取响应"><span class="nav-number">2.</span> <span class="nav-text">使用get方式请求，获取响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用post向服务器发送请求"><span class="nav-number">3.</span> <span class="nav-text">使用post向服务器发送请求</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -749,7 +761,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -770,26 +782,6 @@
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
-    </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
         
       </div>
@@ -823,8 +815,6 @@
   
 
 
-  
-
 
 
 
@@ -846,9 +836,6 @@
 
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -896,14 +883,6 @@
 
 
 
-  
-    
-
-    
-      <!-- UY BEGIN -->
-      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2130764"></script>
-      <!-- UY END -->
-    
   
 
 
