@@ -1100,8 +1100,8 @@ Maven默认是从上级目录解析父模块，所以如果子模块在父模块
         <category>Spring</category>
       </categories>
       <tags>
-        <tag>Redis</tag>
         <tag>SpringBoot</tag>
+        <tag>Redis</tag>
         <tag>Cache</tag>
       </tags>
   </entry>
@@ -1824,7 +1824,7 @@ Maven默认是从上级目录解析父模块，所以如果子模块在父模块
   <entry>
     <title>使用Hexo搭建个人博客</title>
     <url>/2016/10/27/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>最近闲着没事，用<code>hexo</code>搭建了一个个人博客，部署在 <a href="https://peijie-sh.github.io/" target="_blank" rel="noopener">github</a> 和 <a href="https://peijie-sh.github.io/" target="_blank" rel="noopener">oschina</a>上，欢迎大家来我博客踩踩~ ^_^<br><img src="http://upload-images.jianshu.io/upload_images/4059338-127b161e567ad4d7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo.jpg"></p>
+    <content><![CDATA[<p>最近闲着没事，用<code>hexo</code>搭建了一个个人博客，部署在 <a href="https://peijie-sh.github.io/">github</a> 和 <a href="https://peijie-sh.github.io/">oschina</a>上，欢迎大家来我博客踩踩~ ^_^<br><img src="http://upload-images.jianshu.io/upload_images/4059338-127b161e567ad4d7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo.jpg"></p>
 <p>下面总结一下搭建过程：</p>
 <h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>hexo是一个简单地、轻量地、基于Node的一个静态博客框架，可以方便的生成静态网页托管在github和Heroku上<br>引用Hexo作者 @tommy351 的话：</p>
 <blockquote>

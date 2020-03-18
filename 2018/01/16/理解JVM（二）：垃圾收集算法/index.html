@@ -82,7 +82,7 @@
 <meta name="description" content="判断哪些对象需要被回收 引用计数算法： 给对象中添加一个引用计数器，每当有一个地方引用时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。但是JVM没有使用此方法，因为此方法无法解决2个对象相互循环引用的问题。   可达性分析算法： 这个算法的基本思路就是通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解JVM（二）：垃圾收集算法">
-<meta property="og:url" content="http://yoursite.com/2018/01/16/%E7%90%86%E8%A7%A3JVM%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:url" content="https://peijie-sh.github.io/2018/01/16/%E7%90%86%E8%A7%A3JVM%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="Lingpj&#39;s blog">
 <meta property="og:description" content="判断哪些对象需要被回收 引用计数算法： 给对象中添加一个引用计数器，每当有一个地方引用时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。但是JVM没有使用此方法，因为此方法无法解决2个对象相互循环引用的问题。   可达性分析算法： 这个算法的基本思路就是通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/20/1641be7dcdba5403?w=813&h=567&f=png&s=56126">
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/16/理解JVM（二）：垃圾收集算法/"/>
+  <link rel="canonical" href="https://peijie-sh.github.io/2018/01/16/理解JVM（二）：垃圾收集算法/"/>
 
 
 
@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/16/%E7%90%86%E8%A7%A3JVM%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://peijie-sh.github.io/2018/01/16/%E7%90%86%E8%A7%A3JVM%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Joepis">
