@@ -1100,8 +1100,8 @@ Maven默认是从上级目录解析父模块，所以如果子模块在父模块
         <category>Spring</category>
       </categories>
       <tags>
-        <tag>Redis</tag>
         <tag>SpringBoot</tag>
+        <tag>Redis</tag>
         <tag>Cache</tag>
       </tags>
   </entry>
