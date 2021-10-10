@@ -82,7 +82,7 @@
     <link href="https://peijie-sh.github.io/2018/09/09/JDK%E9%BB%98%E8%AE%A4%E4%BD%BF%E7%94%A8%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/"/>
     <id>https://peijie-sh.github.io/2018/09/09/JDK默认使用的垃圾回收器/</id>
     <published>2018-09-09T00:45:32.000Z</published>
-    <updated>2018-09-10T08:10:48.866Z</updated>
+    <updated>2019-06-08T07:19:58.857Z</updated>
     
     <content type="html"><![CDATA[<h1 id="查看方法"><a href="#查看方法" class="headerlink" title="查看方法"></a>查看方法</h1><blockquote>
 <p>java -XX:+PrintCommandLineFlags -version</p>
@@ -1324,9 +1324,9 @@
       <category term="日常记录" scheme="https://peijie-sh.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
     
     
-      <category term="Linux" scheme="https://peijie-sh.github.io/tags/Linux/"/>
-    
       <category term="wkhtmltox" scheme="https://peijie-sh.github.io/tags/wkhtmltox/"/>
+    
+      <category term="Linux" scheme="https://peijie-sh.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -1370,11 +1370,11 @@
       <category term="Spring" scheme="https://peijie-sh.github.io/categories/Spring/"/>
     
     
+      <category term="Redis" scheme="https://peijie-sh.github.io/tags/Redis/"/>
+    
       <category term="SpringBoot" scheme="https://peijie-sh.github.io/tags/SpringBoot/"/>
     
       <category term="Cache" scheme="https://peijie-sh.github.io/tags/Cache/"/>
-    
-      <category term="Redis" scheme="https://peijie-sh.github.io/tags/Redis/"/>
     
   </entry>
   
